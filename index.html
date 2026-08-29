@@ -5499,8 +5499,8 @@
             <div class="hero-media-window">
               <button class="hero-carousel-arrow is-prev" id="heroPrev" type="button" aria-label="上一组案例"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
               <div class="hero-media-track">
-                <div class="hero-media-item is-prev" data-index="0" data-label="人物特写·数字人口播?><img src="assets/cases/case-portrait.jpg" alt="数字人口播案例画面"></div>
-                <div class="hero-media-item is-active" data-index="1" data-label="商品质感·动态展示?><img src="assets/cases/case-product.jpg" alt="商品动态展示案例画面"></div>
+                <div class="hero-media-item is-prev" data-index="0" data-label="人物特写·数字人口播"><img src="assets/cases/case-portrait.jpg" alt="数字人口播案例画面"></div>
+                <div class="hero-media-item is-active" data-index="1" data-label="商品质感·动态展示"><img src="assets/cases/case-product.jpg" alt="商品动态展示案例画面"></div>
                 <div class="hero-media-item is-next" data-index="2" data-label="现场发声·活动预告"><img src="assets/cases/case-stage.jpg" alt="活动预告案例画面"></div>
               </div>
               <button class="hero-carousel-arrow is-next" id="heroNext" type="button" aria-label="下一组案例"><i data-lucide="chevron-right" aria-hidden="true"></i></button>
@@ -5756,11 +5756,11 @@
                 <span class="tag is-lime">4/6</span>
               </div>
               <div class="steps">
-                <div class="step is-done"><div class="step-index">1</div><div><strong>选择类型</strong><p class="muted">宸查€夊晢鍝佹帹骞裤€</p></div></div>
+                <div class="step is-done"><div class="step-index">1</div><div><strong>选择类型</strong><p class="muted">已选商品推广。</p></div></div>
                 <div class="step is-done"><div class="step-index">2</div><div><strong>上传素材</strong><p class="muted">商品图和卖点文案已保存。</p></div></div>
                 <div class="step is-done"><div class="step-index">3</div><div><strong>生成脚本</strong><p class="muted">AI 输出 3 版开场钩子。</p></div></div>
-                <div class="step is-done"><div class="step-index">4</div><div><strong>云端生成</strong><p class="muted">预计剩余 48 绉掋€</p></div></div>
-                <div class="step"><div class="step-index">5</div><div><strong>审片微调</strong><p class="muted">寰呯‘璁ゅ瓧骞曞拰封面銆</p></div></div>
+                <div class="step is-done"><div class="step-index">4</div><div><strong>云端生成</strong><p class="muted">预计剩余 48 秒。</p></div></div>
+                <div class="step"><div class="step-index">5</div><div><strong>审片微调</strong><p class="muted">待确认字幕和封面。</p></div></div>
                 <div class="step"><div class="step-index">6</div><div><strong>导出发布</strong><p class="muted">MP4、封面、标题一并生成。</p></div></div>
               </div>
             </aside>
@@ -5772,12 +5772,12 @@
           <div class="section-head" style="margin-top:0">
             <div>
               <h1 id="create-title" style="font-size:44px">新建创作</h1>
-              <p class="muted">鍏堥€夊唴瀹圭被鍨嬶紝鍐嶅～鍐欐渶灏戣緭鍏ラ」锛屽叾浠栫敱浜戠自动琛ラ綈銆</p>
+              <p class="muted">先选内容类型，再填写最少输入项，其余由云端自动补齐。</p>
             </div>
             <div class="hero-actions">
               <span class="generate-estimate" id="generateEstimate">预计 45 秒 · 6 积分</span>
               <button class="ghost-btn" id="saveDraft" type="button"><i data-lucide="save" aria-hidden="true"></i>保存草稿</button>
-              <button class="primary-btn" id="runGenerate" type="button"><i data-lucide="cloud-upload" aria-hidden="true"></i>中€閿敓鎴</button>
+              <button class="primary-btn" id="runGenerate" type="button"><i data-lucide="cloud-upload" aria-hidden="true"></i>一键生成</button>
             </div>
           </div>
 
@@ -5809,7 +5809,7 @@
                   </label>
           <label class="upload-tile" style="--upload-image:url('assets/cases/case-creator.jpg')">
                     <i data-lucide="file-plus" aria-hidden="true"></i>
-                    <strong>琛ュ厖鍙傝€冪礌鏉</strong>
+                    <strong>补充参考素材</strong>
                     <span>图片/视频</span>
                     <input class="sr-only" type="file">
                   </label>
@@ -5817,13 +5817,13 @@
 
                 <div class="field">
                   <label for="projectName">项目名称</label>
-                  <input id="projectName" value="夏季防晒卖点 15 秒种草?>
+                  <input id="projectName" value="夏季防晒卖点 15 秒种草">
                 </div>
 
                 <div class="field">
                   <label for="scriptInput" id="scriptLabel">卖点文案</label>
                   <div class="copy-editor">
-                    <textarea id="scriptInput">娓呯埥中嶉粡鑵伙紝鎴峰閫氬嫟閮借兘鐢ㄣ€傜獊鍑鸿偆鎰熴€佹垚鑶滈€熷害銆侀槻鏅掑満鏅拰闄愭椂浼樻儬銆</textarea>
+                    <textarea id="scriptInput">清爽不黏腻，户外通勤都能用。突出肤感、成膜速度、防晒场景和限时优惠。</textarea>
                     <button class="small-action ai-polish-btn" id="polishCopy" type="button" title="使用 DeepSeek 润色当前文案" aria-label="使用 DeepSeek 润色当前文案">
                       <i data-lucide="wand-sparkles" aria-hidden="true"></i><span>AI文案润色</span>
                     </button>
@@ -5873,7 +5873,7 @@
                 </div>
                 <div>
                   <h2 id="previewTitle" style="max-width:260px">夏季防晒卖点视频</h2>
-                  <p id="previewCopy" style="margin-top:10px;color:rgba(255,255,255,.72);line-height:1.6">娓呯埥中嶉粡鑵伙紝鎴峰閫氬嫟閮借兘鐢ㄣ€</p>
+                  <p id="previewCopy" style="margin-top:10px;color:rgba(255,255,255,.72);line-height:1.6">清爽不黏腻，户外通勤都能用。</p>
                 </div>
                 <div class="scene-stack">
                   <div class="scene-card"><span class="tag">镜头 01</span><strong>产品特写</strong></div>
@@ -5910,7 +5910,7 @@
           <div class="section-head" style="margin-top:0">
             <div>
               <h1 id="templates-title" style="font-size:44px">模板中心</h1>
-              <p class="muted">鎸夐鍙戠被鍨嬬粍缁囨ā鏉匡紝用户中嶇敤鍏堢悊瑙ｆā鍨嬭兘鍔涖€</p>
+              <p class="muted">按首发类型组织模板，用户可先理解模板能力。</p>
             </div>
             <div class="hero-actions">
               <button class="ghost-btn" type="button" data-template-browse><i data-lucide="panels-top-left" aria-hidden="true"></i>套用模板</button>
@@ -5933,7 +5933,7 @@
           <div class="template-grid">
             <article class="template-card" data-template-id="builtin-commerce-hook">
               <div class="template-art" data-label="新品种草" style="--a:#c8ff36;--b:#1768ff"></div>
-              <div class="template-info"><div class="template-title-row"><strong>3 秒钩字愬晢鍝佹ā鏉</strong><button class="template-favorite" type="button" aria-label="收藏模板" data-template-favorite><i data-lucide="star" aria-hidden="true"></i></button></div><span class="muted">商品推广 · 15s · 9:16</span><div class="template-meta"><span>素材：商品图 + 卖点文案</span><span>建议脚本：30–80 字 · 预计 45 秒 · 6 积分</span><span>适合：抖音 / 小红书 · 9:16 / 1:1</span></div><div class="template-foot"><span class="muted">最近使用 · 2 次</span><button class="small-action" data-template-use data-type-target="commerce" data-view-target="create" type="button">使用</button></div></div>
+              <div class="template-info"><div class="template-title-row"><strong>3 秒钩子商品模板</strong><button class="template-favorite" type="button" aria-label="收藏模板" data-template-favorite><i data-lucide="star" aria-hidden="true"></i></button></div><span class="muted">商品推广 · 15s · 9:16</span><div class="template-meta"><span>素材：商品图 + 卖点文案</span><span>建议脚本：30–80 字 · 预计 45 秒 · 6 积分</span><span>适合：抖音 / 小红书 · 9:16 / 1:1</span></div><div class="template-foot"><span class="muted">最近使用 · 2 次</span><button class="small-action" data-template-use data-type-target="commerce" data-view-target="create" type="button">使用</button></div></div>
             </article>
             <article class="template-card" data-template-id="builtin-talking-course">
               <div class="template-art" data-label="知识卡片" style="--a:#20c4df;--b:#7f6bff"></div>
@@ -5949,7 +5949,7 @@
             </article>
             <article class="template-card" data-template-id="builtin-podcast-visual">
               <div class="template-art" data-label="播客视觉化" style="--a:#28c36a;--b:#1768ff"></div>
-              <div class="template-info"><div class="template-title-row"><strong>文生播客视觉模板</strong><button class="template-favorite" type="button" aria-label="收藏模板" data-template-favorite><i data-lucide="star" aria-hidden="true"></i></button></div><span class="muted">文生播客 · 90s · 16:9</span><div class="template-meta"><span>素材：文案 + 画面素材（可选）</span><span>建议脚本：80–320 字 · 预计 2 分钟 · 10 积分</span><span>适合：小红书 / 视频号?/ B站 · 16:9 / 9:16</span></div><div class="template-foot"><span class="muted">最近使用 · 3 次</span><button class="small-action" data-template-use data-type-target="mix" data-view-target="create" type="button">使用</button></div></div>
+              <div class="template-info"><div class="template-title-row"><strong>文生播客视觉模板</strong><button class="template-favorite" type="button" aria-label="收藏模板" data-template-favorite><i data-lucide="star" aria-hidden="true"></i></button></div><span class="muted">文生播客 · 90s · 16:9</span><div class="template-meta"><span>素材：文案 + 画面素材（可选）</span><span>建议脚本：80–320 字 · 预计 2 分钟 · 10 积分</span><span>适合：小红书 / 视频号 / B站 · 16:9 / 9:16</span></div><div class="template-foot"><span class="muted">最近使用 · 3 次</span><button class="small-action" data-template-use data-type-target="mix" data-view-target="create" type="button">使用</button></div></div>
             </article>
             <article class="template-card" data-template-id="builtin-event-countdown">
               <div class="template-art" data-label="活动预热" style="--a:#ff8a3d;--b:#c8ff36"></div>
@@ -5985,7 +5985,7 @@
               <div class="field" style="grid-column:1 / -1"><label for="templateScript">默认脚本/剪辑要求</label><textarea id="templateScript" maxlength="12000" rows="7" placeholder="套用模板后会回填到创作页，可在生成前继续修改。"></textarea></div>
               <div class="field" style="grid-column:1 / -1"><label for="templateInputs">需要的素材（逗号分隔）</label><input id="templateInputs" maxlength="500" placeholder="例如：人像图片 / 参考音频 / 口播脚本"></div>
             </div>
-            <p class="model-key-note">套用机制：选择模板 鈫?自动切换创作类型 鈫?回填项目名、脚本、时长、画幅、平台和配音策略 鈫?低犵‘璁ょ礌鏉愬悗鍐嶇敓鎴愩€</p>
+            <p class="model-key-note">套用机制：选择模板 → 自动切换创作类型 → 回填项目名、脚本、时长、画幅、平台和配音策略 → 确认素材后再生成。</p>
           </section>
         </section>
 
@@ -5993,9 +5993,9 @@
           <div class="section-head" style="margin-top:0">
             <div>
               <h1 id="assets-title" style="font-size:44px">素材库</h1>
-              <p class="muted">鎸夊浘鐗囥€佽棰戙€侀煶棰戙€佽剼鏈€佸搧鐗屽寘管理绱犳潗锛屾柟渚垮鐢ㄣ€</p>
+              <p class="muted">按图片、视频、音频、脚本与品牌包管理素材，方便复用。</p>
             </div>
-            <div class="asset-toolbar"><span class="muted">鏀寔图片銆佽棰戙€侀煶棰戙€佽剼鏈笌鍝佺墝鍖</span><button class="primary-btn" type="button"><i data-lucide="upload-cloud" aria-hidden="true"></i>上传素材</button></div>
+            <div class="asset-toolbar"><span class="muted">支持图片、视频、音频、脚本与品牌包</span><button class="primary-btn" type="button"><i data-lucide="upload-cloud" aria-hidden="true"></i>上传素材</button></div>
           </div>
 
           <div class="filter-row">
@@ -6013,16 +6013,16 @@
           <div class="asset-batchbar" id="assetBatchBar" hidden><span><strong id="assetSelectedCount">0</strong> 个素材已选择</span><div class="hero-actions"><button class="small-action" type="button" data-asset-batch="tag">添加标签</button><button class="small-action" type="button" data-asset-batch="trash">移入回收站</button><button class="small-action" type="button" data-asset-batch="restore">恢复素材</button><button class="small-action" type="button" data-asset-batch="clear">取消选择</button></div></div>
 
           <div class="asset-grid"></div>
-          <div class="empty-state" id="assetEmptyState"><div><i data-lucide="folder-open" aria-hidden="true"></i><strong>暂无真实素材</strong><p class="muted" style="margin-top:6px">中婁紶鎴愬姛鍚庯紝杩欓噷鍙睍绀哄悗鍙扮礌鏉愬簱中殑鐪熷疄璁板綍鍜屼笂浼犺矾寰勩€</p></div></div>
+          <div class="empty-state" id="assetEmptyState"><div><i data-lucide="folder-open" aria-hidden="true"></i><strong>暂无真实素材</strong><p class="muted" style="margin-top:6px">上传成功后，这里只展示后端素材库中的真实记录和上传路径。</p></div></div>
         </section>
 
         <section class="view" id="view-brand" aria-labelledby="brand-title">
           <div class="section-head" style="margin-top:0">
             <div>
               <h1 id="brand-title" style="font-size:44px">品牌设定</h1>
-              <p class="muted">缁熶竴鐗囧ご銆佸瓧骞曘€佸瓧低撱€侀厤鑹插拰口播璇皵銆</p>
+              <p class="muted">统一片头、字幕、字体、配色和口播语气。</p>
             </div>
-            <button class="primary-btn" type="button" data-save-brand><i data-lucide="save" aria-hidden="true"></i>保存鍝佺墝鍖</button>
+            <button class="primary-btn" type="button" data-save-brand><i data-lucide="save" aria-hidden="true"></i>保存品牌包</button>
           </div>
 
           <div class="brand-layout">
@@ -6030,13 +6030,13 @@
               <div class="panel-head"><h2>视觉系统</h2><button class="small-action" type="button" data-brand-import>导入</button></div>
               <div class="swatch-grid">
                 <div class="swatch" style="--swatch:#c8ff36">主色<br>#C8FF36</div>
-                <div class="swatch" style="--swatch:#1768ff;--swatch-text:#fff">杈呭姪钃?br>#1768FF</div>
+                <div class="swatch" style="--swatch:#1768ff;--swatch-text:#fff">辅助蓝<br>#1768FF</div>
                 <div class="swatch" style="--swatch:#101113;--swatch-text:#fff">深色<br>#101113</div>
                 <div class="swatch" style="--swatch:#ffffff">白色<br>#FFFFFF</div>
                 <div class="swatch" style="--swatch:#ffd83d">强调<br>#FFD83D</div>
               </div>
               <div class="settings-grid" style="margin-top:18px">
-                <div class="field"><label for="fontSelect">标题字体</label><select id="fontSelect"><option>闃块噷宸村反鏅儬低</option><option>思源黑体</option><option>微软雅黑</option></select></div>
+                <div class="field"><label for="fontSelect">标题字体</label><select id="fontSelect"><option>阿里巴巴普惠体</option><option>思源黑体</option><option>微软雅黑</option></select></div>
                 <div class="field"><label for="captionStyle">字幕样式</label><select id="captionStyle"><option>粗体描边</option><option>极简底条</option><option>双语上下</option></select></div>
               </div>
             </section>
@@ -6044,7 +6044,7 @@
             <aside class="brand-preview">
               <div>
                 <span class="tag is-lime">品牌预览</span>
-                <h2 style="margin-top:18px">AI 自动生成锛屼繚鎸佷綘鐨勮处鍙烽鏍笺€</h2>
+                <h2 style="margin-top:18px">AI 自动生成，保持你的账号风格。</h2>
               </div>
               <div class="caption">3 秒讲清楚核心卖点</div>
             </aside>
@@ -6065,9 +6065,9 @@
           <div class="section-head" style="margin-top:0">
             <div>
               <h1 id="queue-title" style="font-size:44px">云端队列</h1>
-              <p class="muted">生成任务寮傛澶勭悊锛屽畬鎴愬悗鍥炲埌审片导出銆</p>
+              <p class="muted">生成任务异步处理，完成后回到审片导出。</p>
             </div>
-            <button class="ghost-btn" type="button" data-queue-filter-toggle><i data-lucide="list-filter" aria-hidden="true"></i>绛涢€変换鍔</button>
+            <button class="ghost-btn" type="button" data-queue-filter-toggle><i data-lucide="list-filter" aria-hidden="true"></i>筛选条件</button>
           </div>
 
           <div class="queue-filters" id="queueFilters" hidden>
@@ -6081,7 +6081,7 @@
 
           <div class="queue-grid">
             <section class="queue-list">
-              <div class="empty-state"><div><strong>正在读取真实云端任务</strong><p class="muted" style="margin-top:6px">杩欓噷鍙樉绀哄悗鍙拌繑鍥炵殑排队銆佺敓鎴愪腑鍜屽凡完成视频浠诲姟銆</p></div></div>
+              <div class="empty-state"><div><strong>正在读取真实云端任务</strong><p class="muted" style="margin-top:6px">这里仅显示后端返回的排队、生成中和已完成视频任务。</p></div></div>
             </section>
 
             <aside class="panel">
@@ -6099,7 +6099,7 @@
           <div class="section-head" style="margin-top:0">
             <div>
               <h1 id="review-title" style="font-size:44px">审片导出</h1>
-              <p class="muted">纭字幕銆侀暅澶淬€佸皝闈㈠拰鍙戝竷规格銆</p>
+              <p class="muted">确认字幕、镜头、封面和发布规格。</p>
             </div>
             <button class="primary-btn" type="button" data-export><i data-lucide="download" aria-hidden="true"></i>导出 MP4</button>
           </div>
@@ -6110,7 +6110,7 @@
                 <video id="reviewPreviewVideo" class="review-preview-video" controls playsinline preload="metadata" hidden></video>
                 <div class="phone-frame" data-version="v3">
                   <span class="tag is-lime" id="reviewPreviewType">商品推广 · V3</span>
-                  <div class="caption" id="reviewPreviewCaption">娓呯埥中嶉粡鑵伙紝鎴峰閫氬嫟閮借兘鐢</div>
+                  <div class="caption" id="reviewPreviewCaption">清爽不黏腻，户外通勤都能用</div>
                 </div>
               </div>
               <div class="edit-strip">
@@ -6133,16 +6133,16 @@
               </div>
 
               <div class="review-tool-panel">
-                <div class="panel-head"><div><h3>动效中庢枃字</h3><p class="muted" style="margin-top:4px">动效妯″潡鍜屾枃字楃紪杈戝垎开场锛涘睍开场动效鏃朵細淇濈暀鍙充晶鏂囧瓧宸ュ叿鏍忋€</p></div><span class="tag">Remotion</span></div>
+                <div class="panel-head"><div><h3>动效与文字</h3><p class="muted" style="margin-top:4px">动效模板和文字编辑分开；展开动效时会保留右侧文字工具栏。</p></div><span class="tag">Remotion</span></div>
                 <div class="review-tool-section" id="reviewMotionSection">
-                  <div class="panel-head"><div><h3 style="font-size:18px">动效匹配</h3><p class="muted" style="margin-top:4px">选择动效风格后，V3 浼氭寜当前椋庢牸生成銆</p></div><span class="tag">V3</span></div>
+                  <div class="panel-head"><div><h3 style="font-size:18px">动效匹配</h3><p class="muted" style="margin-top:4px">选择动效风格后，V3 会按当前风格生成。</p></div><span class="tag">V3</span></div>
                   <div class="review-tool-actions" style="grid-template-columns:1fr">
                     <button class="ghost-btn" type="button" data-motion-picker><i data-lucide="sparkles" aria-hidden="true"></i>动效选择</button>
                   </div>
                   <div class="field motion-picker" id="reviewMotionPicker" hidden>
                     <label for="reviewMotionStyle">动效风格</label>
                     <select id="reviewMotionStyle"></select>
-                    <small class="muted" id="reviewMotionNote">椋庢牸灏嗙敤浜?V3 动效版堢敓鎴愩€</small>
+                    <small class="muted" id="reviewMotionNote">风格将用于 V3 动效版生成。</small>
                     <div class="motion-preview-grid" id="reviewMotionPreviewGrid"></div>
                   </div>
                 </div>
@@ -6154,27 +6154,27 @@
               <div class="form-stack">
                 <div class="field"><label for="exportName">文件名</label><input id="exportName" value="夏季防晒霜_商品推广_9x16"></div>
                 <div class="field"><label for="exportFormat">规格</label><select id="exportFormat"><option>抖音 · MP4 · 1080p · 9:16</option><option>小红书 · MP4 · 1080p · 3:4</option><option>视频号 · MP4 · 1080p · 9:16</option><option>B站 · MP4 · 1080p · 16:9</option><option>自定义 · MP4 · 1080p · 1:1</option></select></div>
-                <div class="field"><label for="captionExport">字幕</label><select id="captionExport"><option>内嵌字幕</option><option>SRT 单独导出</option><option>中嶅鍑哄瓧骞</option></select></div>
+                <div class="field"><label for="captionExport">字幕</label><select id="captionExport"><option>内嵌字幕</option><option>SRT 单独导出</option><option>不导出字幕</option></select></div>
                 <div class="field"><label for="fpsSelect">帧率</label><select id="fpsSelect"><option>30 fps · 推荐</option><option>25 fps</option><option>60 fps · 运动画面</option></select></div>
-                <div class="field"><label for="audioMix">音频响度</label><select id="audioMix"><option>-14 LUFS · 平台推荐</option><option>-16 LUFS · 鏇存煍鍜</option><option>-12 LUFS · 更响亮</option></select></div>
+                                <div class="field"><label for="audioMix">音频响度</label><select id="audioMix"><option>-14 LUFS · 平台推荐</option><option>-16 LUFS · 更柔和</option><option>-12 LUFS · 更响亮</option></select></div>
                 <div class="review-copy-actions">
                   <button class="ghost-btn" type="button" data-generate-title><i data-lucide="text" aria-hidden="true"></i>生成标题文案</button>
                   <div class="review-title-pack" id="reviewTitlePack" hidden></div>
                 </div>
                 <div class="review-edit-panel" id="reviewTextToolbar">
-                  <div class="panel-head"><div><h3 style="font-size:18px">鏂囧瓧编辑宸ュ叿鏍</h3><p class="muted" style="margin-top:4px">这里的文字会同步到标题预览和 V3 动效标题銆</p></div><span class="tag">鍙慨鏀</span></div>
+                  <div class="panel-head"><div><h3 style="font-size:18px">文字编辑工具栏</h3><p class="muted" style="margin-top:4px">这里的文字会同步到标题预览和 V3 动效标题。</p></div><span class="tag">可修改</span></div>
                   <div class="review-edit-grid">
-                    <div class="field"><label for="reviewMotionTitle">动效标题</label><input id="reviewMotionTitle" data-review-text-field="motionTitle" value="AI 自动剪辑课程开场?></div>
+                    <div class="field"><label for="reviewMotionTitle">动效标题</label><input id="reviewMotionTitle" data-review-text-field="motionTitle" value="AI 自动剪辑课程开场"></div>
                     <div class="field"><label for="reviewMotionSubtitle">动效重点字幕</label><textarea id="reviewMotionSubtitle" data-review-text-field="motionSubtitle">自动分段、自动字幕、自动节奏卡点</textarea></div>
                     <div class="review-style-tools">
-                      <div class="panel-head"><div><h3 style="font-size:16px">字体 / 颜色 / 效果</h3><p class="muted" style="margin-top:4px">鎺у埗鏍囬棰勮鍜?V3 动效标题鐨勮瑙夋牱寮忋€</p></div></div>
+                      <div class="panel-head"><div><h3 style="font-size:16px">字体 / 颜色 / 效果</h3><p class="muted" style="margin-top:4px">控制标题预览和 V3 动效标题的视觉样式。</p></div></div>
                       <div class="review-style-grid">
-                        <div class="field"><label for="reviewTextFont">字体</label><select id="reviewTextFont" data-review-style-field="textFont"><option value="heavy">爆款粗黑</option><option value="song">宋体标题</option><option value="hand">鎵嬪啓鎰</option><option value="rounded">圆润综艺</option><option value="latin">英文粗体</option></select></div>
-                        <div class="field"><label for="reviewTextEffect">效果</label><select id="reviewTextEffect" data-review-style-field="textEffect"><option value="stroke-shadow">描边阴影</option><option value="glow">荧光发光</option><option value="sticker">贴纸底板</option><option value="clean">娓呯埥鏃犳弿杈</option></select></div>
-                        <div class="field"><label for="reviewTextPrimaryColor">中绘爣棰橀鑹</label><input id="reviewTextPrimaryColor" data-review-style-field="textPrimaryColor" type="color" value="#ffdc58"></div>
-                        <div class="field"><label for="reviewTextSecondaryColor">鍓爣棰橀鑹</label><input id="reviewTextSecondaryColor" data-review-style-field="textSecondaryColor" type="color" value="#ffffff"></div>
-                        <div class="field"><label for="reviewTextStrokeColor">描边 / 闃村奖鑹</label><input id="reviewTextStrokeColor" data-review-style-field="textStrokeColor" type="color" value="#111111"></div>
-                        <div class="field"><label for="reviewTextAccentColor">贴纸 / 强调鑹</label><input id="reviewTextAccentColor" data-review-style-field="textAccentColor" type="color" value="#2f85ff"></div>
+                        <div class="field"><label for="reviewTextFont">字体</label><select id="reviewTextFont" data-review-style-field="textFont"><option value="heavy">爆款粗黑</option><option value="song">宋体标题</option><option value="hand">手写感</option><option value="rounded">圆润综艺</option><option value="latin">英文粗体</option></select></div>
+                        <div class="field"><label for="reviewTextEffect">效果</label><select id="reviewTextEffect" data-review-style-field="textEffect"><option value="stroke-shadow">描边阴影</option><option value="glow">荧光发光</option><option value="sticker">贴纸底板</option><option value="clean">清爽无描边</option></select></div>
+                        <div class="field"><label for="reviewTextPrimaryColor">主标题颜色</label><input id="reviewTextPrimaryColor" data-review-style-field="textPrimaryColor" type="color" value="#ffdc58"></div>
+                        <div class="field"><label for="reviewTextSecondaryColor">副标题颜色</label><input id="reviewTextSecondaryColor" data-review-style-field="textSecondaryColor" type="color" value="#ffffff"></div>
+                        <div class="field"><label for="reviewTextStrokeColor">描边 / 阴影色</label><input id="reviewTextStrokeColor" data-review-style-field="textStrokeColor" type="color" value="#111111"></div>
+                        <div class="field"><label for="reviewTextAccentColor">贴纸 / 强调色</label><input id="reviewTextAccentColor" data-review-style-field="textAccentColor" type="color" value="#2f85ff"></div>
                       </div>
                     </div>
                   </div>
@@ -6189,7 +6189,7 @@
           <div class="section-head" style="margin-top:0">
             <div>
               <h1 id="library-title" style="font-size:44px">作品库</h1>
-              <p class="muted">鎵€鏈夊凡缁忕敓鎴愩€佷繚字樺拰鍙戝竷杩囩殑作品锛岄兘鍦ㄨ繖閲岀户缁敓闀裤€</p>
+              <p class="muted">所有已经生成、保存和发布过的作品，都会在这里继续生长。</p>
             </div>
             <div class="hero-actions"><button class="ghost-btn" data-library-open-latest-review type="button"><i data-lucide="monitor-play" aria-hidden="true"></i>审片导出</button><button class="primary-btn" type="button" data-publish-all><i data-lucide="send" aria-hidden="true"></i>一键发布冨叏閮</button></div>
           </div>
@@ -6212,7 +6212,7 @@
 
             <article class="library-card" data-library-status="published">
               <div class="library-art" style="--library-a:#20c4df;--library-b:#7f6bff"><strong>课程开场</strong><span>知识口播 · 16:9</span></div>
-              <div class="library-info"><div class="library-title-row"><strong>AI 自动剪辑课程开场</strong><span class="tag is-lime">已发布</span></div><span class="muted">今天 09:42 · V2 · 字幕宸茬‘璁</span><div class="platform-row"><span class="platform-status is-published">抖音已发布</span><span class="platform-status is-published">视频号已发布</span><span class="platform-status is-ready">B站待发布</span></div><div class="library-foot"><span class="muted">播放 1,284 · 收藏 86</span><div class="hero-actions"><button class="small-action" data-view-target="review" type="button">查看</button><button class="small-action" data-publish-work type="button">继续发布</button></div></div></div>
+              <div class="library-info"><div class="library-title-row"><strong>AI 自动剪辑课程开场</strong><span class="tag is-lime">已发布</span></div><span class="muted">今天 09:42 · V2 · 字幕已确认</span><div class="platform-row"><span class="platform-status is-published">抖音已发布</span><span class="platform-status is-published">视频号已发布</span><span class="platform-status is-ready">B站待发布</span></div><div class="library-foot"><span class="muted">播放 1,284 · 收藏 86</span><div class="hero-actions"><button class="small-action" data-view-target="review" type="button">查看</button><button class="small-action" data-publish-work type="button">继续发布</button></div></div></div>
             </article>
 
             <article class="library-card" data-library-status="ready">
@@ -6221,18 +6221,18 @@
             </article>
 
             <article class="library-card" data-library-status="draft">
-              <div class="library-art" style="--library-a:#7f6bff;--library-b:#ff5b5f"><strong>鍜栧暋棣嗗弽杞</strong><span>剧情短片 · 9:16</span></div>
-              <div class="library-info"><div class="library-title-row"><strong>鍜栧暋棣嗗弽杞墽鎯</strong><span class="tag">草稿</span></div><span class="muted">昨天 16:08 · 参考图寰呰ˉ鍏</span><div class="platform-row"><span class="platform-status">尚未发布</span><span class="platform-status">尚未发布</span></div><div class="library-foot"><span class="muted">鍙繑鍥炲垱低滅户缁畬鍠</span><div class="hero-actions"><button class="small-action" data-type-target="story" data-view-target="create" type="button">继续创作</button></div></div></div>
+              <div class="library-art" style="--library-a:#7f6bff;--library-b:#ff5b5f"><strong>咖啡馆反转</strong><span>剧情短片 · 9:16</span></div>
+              <div class="library-info"><div class="library-title-row"><strong>咖啡馆反转剧情</strong><span class="tag">草稿</span></div><span class="muted">可返回创作继续完成。</span><div class="hero-actions"><button class="small-action" data-type-target="story" data-view-target="create" type="button">继续创作</button></div></div></div>
             </article>
 
             <article class="library-card" data-library-status="published">
               <div class="library-art" style="--library-a:#ffd83d;--library-b:#20c4df"><strong>周末探店</strong><span>Vlog · 9:16</span></div>
-              <div class="library-info"><div class="library-title-row"><strong>周末探店 Vlog</strong><span class="tag is-lime">已发布</span></div><span class="muted">8 鏈?20 鏃 · V4 · 宸插鍑</span><div class="platform-row"><span class="platform-status is-published">小红书已发布</span><span class="platform-status is-published">抖音已发布</span><span class="platform-status is-ready">视频号待发布</span></div><div class="library-foot"><span class="muted">播放 3,920 · 收藏 214</span><div class="hero-actions"><button class="small-action" data-view-target="review" type="button">查看</button><button class="small-action" data-publish-work type="button">继续发布</button></div></div></div>
+              <div class="library-info"><div class="library-title-row"><strong>周末探店 Vlog</strong><span class="tag is-lime">已发布</span></div><span class="muted">8 月 20 日 · V4 · 已导出</span><div class="platform-row"><span class="platform-status is-published">小红书已发布</span><span class="platform-status is-published">抖音已发布</span><span class="platform-status is-ready">视频号待发布</span></div><div class="library-foot"><span class="muted">播放 3,920 · 收藏 214</span><div class="hero-actions"><button class="small-action" data-view-target="review" type="button">查看</button><button class="small-action" data-publish-work type="button">继续发布</button></div></div></div>
             </article>
 
             <article class="library-card" data-library-status="ready">
               <div class="library-art" style="--library-a:#28c36a;--library-b:#1768ff"><strong>一段想法的声音</strong><span>文生播客 · 16:9</span></div>
-              <div class="library-info"><div class="library-title-row"><strong>一段想法的声音旅程</strong><span class="tag is-lime">待发布</span></div><span class="muted">8 鏈?19 鏃 · V2 · 音频与画面已同步</span><div class="platform-row"><span class="platform-status is-ready">小红书待发布</span><span class="platform-status is-ready">B站待发布</span><span class="platform-status">视频号未连接</span></div><div class="library-foot"><span class="muted">适合：小红书 / B站</span><div class="hero-actions"><button class="small-action" data-view-target="review" type="button">审片</button><button class="small-action" data-publish-work type="button">一键发布</button></div></div></div>
+              <div class="library-info"><div class="library-title-row"><strong>一段想法的声音旅程</strong><span class="tag is-lime">待发布</span></div><span class="muted">8 月 19 日 · V2 · 音频与画面已同步</span><div class="platform-row"><span class="platform-status is-ready">小红书待发布</span><span class="platform-status is-ready">B站待发布</span><span class="platform-status">视频号未连接</span></div><div class="library-foot"><span class="muted">适合：小红书 / B站</span><div class="hero-actions"><button class="small-action" data-view-target="review" type="button">审片</button><button class="small-action" data-publish-work type="button">一键发布</button></div></div></div>
             </article>
           </div>
 
@@ -6305,14 +6305,14 @@
           <div class="section-head" style="margin-top:0">
             <div>
               <h1 id="model-config-title" style="font-size:44px">模型配置</h1>
-              <p class="muted">选择创作中控鍜屽叚绫诲伐低滄祦使用鐨勬帹鐞嗘柟寮忥細鎺ュ叆鑷繁鐨?API锛屾垨鐩存帴使用平台积分銆</p>
+              <p class="muted">选择创作中控和六类工作流使用的推理方式：接入自己的 API，或直接使用平台积分。</p>
             </div>
             <span class="tag is-lime" id="modelConfigConnectionState">安全托管</span>
           </div>
 
           <div class="model-access-grid" role="tablist" aria-label="模型调用方式">
             <button class="model-access-card is-active" type="button" data-model-mode="custom" role="tab" aria-selected="true">
-              <div class="model-access-top"><span class="model-access-icon"><i data-lucide="key-round" aria-hidden="true"></i></span><span class="tag">自定义夎皟鐢</span></div>
+              <div class="model-access-top"><span class="model-access-icon"><i data-lucide="key-round" aria-hidden="true"></i></span><span class="tag">自定义调用</span></div>
               <div><h2>使用自己的 API</h2><p>为 Codex 与 DeepSeek Harness 分别设置接口地址、模型和 API Key；密钥只会加密保存在云端。</p></div>
             </button>
             <button class="model-access-card" type="button" data-model-mode="platform" role="tab" aria-selected="false">
@@ -6323,8 +6323,8 @@
 
           <section class="model-config-panel" id="modelCustomConfig" aria-labelledby="custom-model-title">
             <div class="panel-head">
-              <div><h2 id="custom-model-title">自定义?API</h2><p class="muted" style="margin-top:6px">保存鍚庡彲鍗曠嫭测试连接锛涚暀绌?API Key 琛ㄧず淇濈暀宸蹭繚字樼殑瀵嗛挜銆</p></div>
-              <span class="tag">鎸夎处鎴烽殧绂</span>
+              <div><h2 id="custom-model-title">自定义 API</h2><p class="muted" style="margin-top:6px">保存后可单独测试连接；留空 API Key 表示保留已保存的密钥。</p></div>
+              <span class="tag">按账户隔离</span>
             </div>
 
             <div class="model-provider-grid">
@@ -6354,7 +6354,7 @@
 
             <div class="model-scope-grid" aria-label="模型调用范围">
               <div class="model-scope-item"><strong>中控创作台</strong><span>Codex 和 DeepSeek Harness 根据你的选择切换调用。</span></div>
-              <div class="model-scope-item"><strong>六类创作</strong><span>商品推广、知识口播、剧情短片、Vlog銆佹枃鐢熸挱瀹笌活动预告銆</span></div>
+              <div class="model-scope-item"><strong>六类创作</strong><span>商品推广、知识口播、剧情短片、Vlog、文生播客与活动预告。</span></div>
               <div class="model-scope-item"><strong>已接入工作流</strong><span>商品推广会优先使用当前账户的 DeepSeek 配置；未配置时回退平台算力。</span></div>
             </div>
           </section>
@@ -6411,17 +6411,17 @@
 
             <section class="panel">
               <div class="panel-head"><h2>桌面端</h2><span class="tag">Windows</span></div>
-              <div class="setting-row"><div><strong>本地缓存</strong><p class="muted">绱犳潗浠ｇ悊文件名鍜岄瑙堢紦字</p></div><button class="small-action" type="button" data-settings-action="cache-manager">管理</button></div>
-              <div class="setting-row"><div><strong>完成通知</strong><p class="muted">云端任务完成后系统通知</p></div><button class="theme-toggle" type="button" aria-label="閫氱煡开场鍏" data-setting-toggle="notifications" aria-pressed="true"><span></span></button></div>
+              <div class="setting-row"><div><strong>本地缓存</strong><p class="muted">素材代理文件名和预览缓存</p></div><button class="small-action" type="button" data-settings-action="cache-manager">管理</button></div>
+              <div class="setting-row"><div><strong>完成通知</strong><p class="muted">云端任务完成后系统通知</p></div><button class="theme-toggle" type="button" aria-label="通知开关" data-setting-toggle="notifications" aria-pressed="true"><span></span></button></div>
               <div class="setting-row"><div><strong>默认导出目录</strong><p class="muted">C:\Users\Videos\AI视频创作</p></div><button class="small-action" type="button" data-settings-action="change-export-dir">更改</button></div>
             </section>
 
             <section class="panel">
-              <div class="panel-head"><div><h2>瀹夊叏中庨殣绉</h2><p class="muted" style="margin-top:6px">设备授权銆佸鍑烘潈闄愪笌鏈湴鏁版嵁管理銆</p></div><span class="tag is-lime">宸蹭繚鎶</span></div>
+              <div class="panel-head"><div><h2>安全与隐私</h2><p class="muted" style="margin-top:6px">设备授权、导出权限与本地数据管理。</p></div><span class="tag is-lime">已保护</span></div>
               <div class="setting-row"><div><strong>当前设备授权</strong><p class="muted">加密优盘绑定 · 当前 Windows 设备</p></div><span class="tag is-lime">有效</span></div>
               <div class="setting-row"><div><strong>导出权限</strong><p class="muted">控制作品是否允许保存到本机</p></div><select class="select-line" data-setting-field="exportPermission"><option>允许导出</option><option>仅预览</option></select></div>
-              <div class="setting-row"><div><strong>清理本地缓存</strong><p class="muted">中嶄細删除浜戠项目中庣礌鏉</p></div><button class="small-action" type="button" data-security-action="clear-cache">清理缓存</button></div>
-              <div class="setting-row"><div><strong>查看运行日志</strong><p class="muted">鎺掓煡生成失败鎴栬澶囬棶棰</p></div><button class="small-action" type="button" data-security-action="logs">打开日志</button></div>
+              <div class="setting-row"><div><strong>清理本地缓存</strong><p class="muted">不会删除云端项目中的素材</p></div><button class="small-action" type="button" data-security-action="clear-cache">清理缓存</button></div>
+              <div class="setting-row"><div><strong>查看运行日志</strong><p class="muted">排查生成失败或设备问题</p></div><button class="small-action" type="button" data-security-action="logs">打开日志</button></div>
             </section>
           </div>
         </section>
@@ -6448,7 +6448,7 @@
       <h2 id="tourTitle" style="margin-top:14px">先选一种表达，再把想法交给云端。</h2>
       <p class="muted" id="tourCopy" style="margin-top:8px;line-height:1.7">从六类创作类型开始，系统会自动准备对应的输入项、素材建议与生成预览。</p>
       <div class="tour-progress" aria-label="引导进度"><span class="is-active"></span><span></span><span></span></div>
-      <div class="tour-actions"><button class="ghost-btn" type="button" data-tour-skip>稍后再看</button><button class="primary-btn" type="button" data-tour-next>下一步?i data-lucide="arrow-right" aria-hidden="true"></i></button></div>
+      <div class="tour-actions"><button class="ghost-btn" type="button" data-tour-skip>稍后再看</button><button class="primary-btn" type="button" data-tour-next>下一步<i data-lucide="arrow-right" aria-hidden="true"></i></button></div>
     </section>
   </div>
 
@@ -6471,14 +6471,14 @@
     <section class="recharge-card">
       <div class="recharge-card-head">
         <div>
-          <span class="tag is-lime">浜哄伐鏍搁獙鍏呭€</span>
-          <h2 id="rechargeQrTitle" style="margin-top:12px">寰俊鎵爜鍏呭€</h2>
-          <p class="muted" style="margin-top:7px;line-height:1.65">鏀粯完成鍚庯紝璇峰皢鏀粯鍑瘉鎻愪氦缁欏鏈嶆牳楠岋紱棰濆害灏嗗湪纭鍚庢洿鏂般€</p>
+          <span class="tag is-lime">人工核验充值</span>
+          <h2 id="rechargeQrTitle" style="margin-top:12px">微信扫码充值</h2>
+          <p class="muted" style="margin-top:7px;line-height:1.65">支付完成后，请将支付凭证提交给客服核验；额度将在确认后更新。</p>
         </div>
         <button class="icon-btn" type="button" data-recharge-close aria-label="关闭充值二维码"><i data-lucide="x" aria-hidden="true"></i></button>
       </div>
       <div class="recharge-qr-wrap">
-        <img src="assets/payment/ejianbao-manual-recharge.png" alt="e鍓疂寰俊鏀舵浜岀淮鐮?>
+        <img src="assets/payment/ejianbao-manual-recharge.png" alt="e剪宝微信收款二维码">
       </div>
       <div class="recharge-selected-plan" id="rechargeSelectedPlan">当前未选择创作包。扫码支付时请保留支付截图，便于客服校验到账。</div>
       <div class="tour-actions" style="margin-top:16px">
@@ -6912,7 +6912,7 @@
       document.getElementById("tourCopy").textContent = step.copy;
       document.querySelectorAll(".tour-progress span").forEach((bar, index) => bar.classList.toggle("is-active", index <= tourIndex));
       const next = document.querySelector("[data-tour-next]");
-      next.innerHTML = tourIndex === tourSteps.length - 1 ? "开始创作?i data-lucide=\"arrow-right\" aria-hidden=\"true\"></i>" : "下一步?i data-lucide=\"arrow-right\" aria-hidden=\"true\"></i>";
+      next.innerHTML = tourIndex === tourSteps.length - 1 ? "开始创作<i data-lucide=\"arrow-right\" aria-hidden=\"true\"></i>" : "下一步<i data-lucide=\"arrow-right\" aria-hidden=\"true\"></i>";
       refreshIcons();
     }
 
@@ -7117,7 +7117,7 @@
       window.ejiabaoRuntime?.modules?.settings?.update({ theme: data.theme, ...data.fields, notificationsEnabled: data.notificationsEnabled });
       await savePreference("settings", data);
       clearDirty("view-settings");
-      showToast("设置宸蹭繚字樺埌鍚庣銆");
+      showToast("设置已保存到后端。");
     }
 
     function templateKey(card) {
@@ -7189,7 +7189,7 @@
       grid.querySelectorAll(".template-card[data-custom-template]").forEach(card => card.remove());
       customTemplateRecords.forEach(record => {
         const colors = templateColor(record.workflowKey);
-        const requiredInputs = Array.isArray(record.requiredInputs) && record.requiredInputs.length ? record.requiredInputs.join(" + ") : "鎸夊垱低滅被鍨嬪噯澶囩礌鏉";
+                const requiredInputs = Array.isArray(record.requiredInputs) && record.requiredInputs.length ? record.requiredInputs.join(" + ") : "按创作类型准备素材";
         const duration = record.durationSeconds ? `${record.durationSeconds}s` : "自动";
         const ratio = record.aspectRatio || "自动适配";
         const card = document.createElement("article");
@@ -7200,9 +7200,9 @@
         card.innerHTML = `
           <div class="template-art" data-label="我的模板" style="--a:${colors[0]};--b:${colors[1]}"></div>
           <div class="template-info">
-            <div class="template-title-row"><strong>${escapeAssetText(record.name || "鏈懡鍚嶆ā鏉")}</strong><button class="template-favorite" type="button" aria-label="收藏模板" data-template-favorite><i data-lucide="star" aria-hidden="true"></i></button></div>
+            <div class="template-title-row"><strong>${escapeAssetText(record.name || "未命名模板")}</strong><button class="template-favorite" type="button" aria-label="收藏模板" data-template-favorite><i data-lucide="star" aria-hidden="true"></i></button></div>
             <span class="muted">${escapeAssetText(templateWorkflowLabel(record.workflowKey))} · ${escapeAssetText(duration)} · ${escapeAssetText(ratio)}</span>
-            <div class="template-meta"><span>绱犳潗锛${escapeAssetText(requiredInputs)}</span><span>${escapeAssetText(record.description || "自定义夋ā鏉")}</span><span>閫傚悎锛${escapeAssetText(record.platform || "自动适配")}</span></div>
+                        <div class="template-meta"><span>适合：${escapeAssetText(record.platform || "自动适配")}</span></div>
             <div class="template-foot"><span class="muted">我的模板</span><div class="hero-actions"><button class="small-action" data-template-use data-type-target="${escapeAssetText(record.workflowKey)}" data-view-target="create" type="button">套用</button><button class="small-action" data-template-edit type="button">编辑</button><button class="small-action" data-template-delete type="button">删除</button></div></div>
           </div>`;
         grid.append(card);
@@ -7431,7 +7431,7 @@
           <div><strong>${escapeAssetText(title)}</strong><p class="muted">${escapeAssetText(detail)}</p><div class="progress"><span style="--value:${progress}%"></span></div></div>
           <div class="queue-actions">${status === "COMPLETED" ? `<button class="tag is-lime queue-status-button" data-task-review="${escapeAssetText(task.id)}" type="button">${queueStatusLabel(status)}</button>` : `<span class="tag">${queueStatusLabel(status)}</span>`}${canCancel ? `<button class="small-action" data-cancel-task="${escapeAssetText(task.id)}" type="button">取消</button>` : canRetry ? `<button class="small-action" data-retry-task="${escapeAssetText(task.id)}" type="button">重试</button>` : status === "COMPLETED" ? `<button class="small-action" data-task-review="${escapeAssetText(task.id)}" type="button">审片</button>` : ""}</div>
         </article>`;
-      }).join("") : `<div class="empty-state"><div><strong>暂无真实在进行或已完成的视频任务</strong><p class="muted" style="margin-top:6px">确认生成鍚庯紝鐪熷疄排队銆佺敓鎴愪腑鍜屽凡完成浠诲姟浼氬嚭鐜板湪杩欓噷銆</p></div></div>`;
+      }).join("") : `<div class="empty-state"><div><strong>暂无真实在进行或已完成的视频任务</strong><p class="muted" style="margin-top:6px">确认生成后，真实排队、生成中和已完成任务会出现在这里。</p></div></div>`;
     }
 
     async function loadQueueTasks() {
@@ -7441,7 +7441,7 @@
         const response = await http.get("/v1/tasks?limit=50", { timeoutMs: 30000 });
         renderQueueTasks(Array.isArray(response.data?.tasks) ? response.data.tasks.filter(isRealQueueTask) : []);
       } catch (error) {
-        showToast(error?.message || "云端队列鏆傛椂鏃犳硶杩炴帴鍚庣銆" );
+        showToast(error?.message || "云端队列暂时无法连接后端。");
       }
     }
 
@@ -7493,7 +7493,7 @@
           </div>
           <button class="small-action" data-view-target="${record.target}" type="button">${record.target === "queue" ? "查看" : "打开"}</button>
         </article>`;
-      }).join("") : `<div class="empty-state"><div><strong>杩樻病鏈夌湡瀹為」鐩</strong><p class="muted" style="margin-top:6px">浠庘€滄柊寤哄垱低溾€濅繚字樿崏绋挎垨生成任务鍚庯紝杩欓噷浼氭樉绀烘渶杩戦」鐩€</p></div></div>`;
+      }).join("") : `<div class="empty-state"><div><strong>还没有真实项目</strong><p class="muted" style="margin-top:6px">从“新建创作”保存草稿或生成任务后，这里会显示最近项目。</p></div></div>`;
       refreshIcons();
     }
 
@@ -7507,18 +7507,18 @@
       const latest = tasks[0];
       const steps = latest ? [
         ["选择类型", workflowLabel(latest.workflowKey), true],
-        ["上传素材", "绱犳潗宸茶繘鍏ヤ簯绔褰", true],
+        ["上传素材", "素材已进入云端记录", true],
         ["生成任务", queueStatusLabel(latest.status), ["QUEUED", "PROCESSING", "COMPLETED"].includes(String(latest.status))],
         ["云端生成", `${Math.max(0, Math.min(100, Number(latest.progress || 0)))}%`, String(latest.status) === "COMPLETED"],
-        ["审片微调", latest.status === "COMPLETED" ? "鍙繘鍏ュ鐗" : "等待生成完成", String(latest.status) === "COMPLETED"],
-        ["导出发布", "发布平台寰呴厤缃", false]
+        ["审片微调", latest.status === "COMPLETED" ? "可进入审片" : "等待生成完成", String(latest.status) === "COMPLETED"],
+        ["导出发布", "发布平台待配置", false]
       ] : [
         ["选择类型", "等待创建第一个项目", false],
         ["上传素材", "暂无真实素材流程", false],
         ["生成脚本", "等待中控规划", false],
         ["云端生成", readyCount ? `${readyCount} 个工作流可调度` : "运行依赖未齐", readyCount > 0],
-        ["审片微调", "生成完成鍚庡惎鐢", false],
-        ["导出发布", "发布平台寰呴厤缃", false]
+        ["审片微调", "生成完成后启用", false],
+        ["导出发布", "发布平台待配置", false]
       ];
       const container = panel.querySelector(".steps");
       if (!container) return;
@@ -7605,7 +7605,7 @@
 
     function libraryPlatformLabel(platform) {
       const labels = { douyin: "抖音", xiaohongshu: "小红书", "wechat-video": "视频号", bilibili: "B站" };
-      return labels[String(platform || "").trim()] || String(platform || "").trim() || "骞冲彴寰呴厤缃";
+      return labels[String(platform || "").trim()] || String(platform || "").trim() || "平台待配置";
     }
 
     function libraryPlatformChips(record, status) {
@@ -7766,7 +7766,7 @@
         setModelProviderStatus(provider, config);
       });
       const badge = document.getElementById("modelConfigConnectionState");
-      if (badge) badge.textContent = available ? "安全托管" : "鍚庣寰呰繛鎺";
+      if (badge) badge.textContent = available ? "安全托管" : "后端待连接";
       const hasCustom = configs.some(item => item.accessMode === "CUSTOM");
       setModelAccessMode(hasCustom ? "custom" : "platform");
       refreshIcons();
@@ -7780,7 +7780,7 @@
         renderModelConfigs(result.configs || [], Boolean(result.available));
       } catch (error) {
         renderModelConfigs(service.defaults ? service.defaults() : [], false);
-        showToast(error?.message || "模型配置鏆傛椂鏃犳硶璇诲彇銆");
+        showToast(error?.message || "模型配置暂时无法读取。");
       }
     }
 
@@ -7802,7 +7802,7 @@
       const service = window.ejiabaoRuntime?.modules?.modelConfig;
       if (!service) throw new Error("模型配置服务正在启动，请稍后重试。");
       const payload = readModelProviderPayload(provider);
-      if (!payload?.baseUrl || !payload?.model) throw new Error("璇峰厛濉啓接口地址鍜屾ā鍨嬪悕绉般€");
+      if (!payload?.baseUrl || !payload?.model) throw new Error("请先填写接口地址和模型名称。");
       const config = await service.save(provider, payload);
       const next = modelConfigState.configs.filter(item => item.provider !== provider).concat(config);
       renderModelConfigs(next, true);
@@ -7828,7 +7828,7 @@
       await Promise.all(["codex", "deepseek-harness"].map(provider => service.save(provider, { accessMode: "PLATFORM" })));
       await loadModelConfigs();
       clearDirty("view-model-config");
-      showToast("宸插垏鎹负平台积分调用銆備腑鎺т笌已接入工作流灏嗕娇鐢ㄥ钩鍙版墭绠＄畻鍔涖€");
+      showToast("已切换为平台积分调用。中控与已接入工作流将使用平台托管算力。");
     }
 
     function renderUploadPreview(tile, asset, file, kind) {
@@ -7883,13 +7883,13 @@
     }
 
     function safeExportFilePart(value) {
-      return String(value || "鏈懡鍚嶈棰")
+      return String(value || "未命名视频")
         .trim()
         .replace(/[\\/:*?"<>|]+/g, "_")
         .replace(/\s+/g, "_")
         .replace(/_+/g, "_")
         .replace(/^_+|_+$/g, "")
-        .slice(0, 80) || "鏈懡鍚嶈棰";
+        .slice(0, 80) || "未命名视频";
     }
 
     function reviewAsRecord(value) {
@@ -7903,7 +7903,7 @@
     function reviewTaskTitle(task) {
       const input = reviewTaskInput(task);
       const result = reviewAsRecord(task?.result);
-      return String(task?.payload?.title || input.title || result.title || document.getElementById("reviewPreviewCaption")?.textContent || "鏈懡鍚嶈棰").trim();
+      return String(task?.payload?.title || input.title || result.title || document.getElementById("reviewPreviewCaption")?.textContent || "未命名视频").trim();
     }
 
     function reviewTaskAspect(task, typeKey) {
@@ -8115,7 +8115,7 @@
       const firstTitle = String(titles[0] || document.getElementById("view-review")?.dataset.reviewTitle || "").trim();
       panel.hidden = false;
       panel.innerHTML = `
-        <h3>鏍囬鏂囨棰勮中庝慨鏀</h3>
+        <h3>标题文案预览与修改</h3>
         <div class="review-title-list">${titles.map(title => `<button type="button" data-title-suggestion="${escapeAssetText(title)}">${escapeAssetText(title)}</button>`).join("")}</div>
         <div class="review-copy-preview">
           <div class="field"><label for="reviewGeneratedTitle">发布标题</label><input id="reviewGeneratedTitle" data-review-generated-field="title" value="${escapeAssetText(firstTitle)}"></div>
@@ -8179,12 +8179,12 @@
 
     function splitReviewTimelineText(text, duration, maxSegments = 5) {
       const cleaned = String(text || "").replace(/\s+/g, " ").trim();
-      const parts = (cleaned.match(/[^銆傦紒：?：]{4,42}[銆傦紒：?：]?/g) || [cleaned || "视频内容"]).slice(0, maxSegments);
+      const parts = (cleaned.match(/[^。！？：]{4,42}[。！？：]?/g) || [cleaned || "视频内容"]).slice(0, maxSegments);
       const segmentDuration = duration / Math.max(1, parts.length);
       return parts.map((part, index) => ({
         start: index * segmentDuration,
         end: index === parts.length - 1 ? duration : (index + 1) * segmentDuration,
-        label: part.replace(/[銆傦紒：?：]$/, "").slice(0, 12),
+        label: part.replace(/[。！？：]$/, "").slice(0, 12),
         detail: part
       }));
     }
@@ -8214,8 +8214,8 @@
           tone: "subtitle",
           segments: splitReviewTimelineText(reviewView?.dataset.reviewScript || values.motionSubtitle || values.motionTitle, duration, 5).map((segment, index) => ({
             ...segment,
-            label: activeVersion === "v1" && !v2Ready ? `寰呯敓鎴?${index + 1}` : segment.label,
-            detail: activeVersion === "v1" && !v2Ready ? "点击 V2 · 字幕版堝悗浼氭寜口播绋跨敓鎴愬唴宓屽瓧骞曘€" : segment.detail
+            label: activeVersion === "v1" && !v2Ready ? `待生成 ${index + 1}` : segment.label,
+            detail: activeVersion === "v1" && !v2Ready ? "点击 V2 · 字幕版后会按口播稿生成内嵌字幕。" : segment.detail
           }))
         },
         {
@@ -8223,9 +8223,9 @@
           name: "BGM",
           tone: "bgm",
           segments: [
-            { start: 0, end: Math.min(duration, duration * .18), label: "淡入", detail: "BGM 淡入锛岄伩鍏嶅帇杩囧紑鍦轰汉澹般€" },
-            { start: duration * .18, end: duration * .72, label: "中绘棆寰", detail: "中昏儗鏅煶涔愭寔缁壙鎵樺唴瀹硅妭濂忋€" },
-            { start: duration * .72, end: duration, label: "淡出", detail: "结尾 BGM 閫愭闄嶄綆锛屾柟渚垮鍑哄彂甯冦€" }
+            { start: 0, end: Math.min(duration, duration * .18), label: "淡入", detail: "BGM 淡入，避免压过开场人声。" },
+            { start: duration * .18, end: duration * .72, label: "中段转场", detail: "中段背景音乐持续承托内容节奏。" },
+            { start: duration * .72, end: duration, label: "淡出", detail: "结尾 BGM 逐步降低，方便导出发布。" }
           ]
         },
         {
@@ -8234,10 +8234,10 @@
           tone: "motion",
           segments: v3Ready || activeVersion === "v3"
             ? [
-              { start: 0, end: Math.min(duration, 4.5), label: motionStyle?.name || "鍏ㄨ嚜鍔", detail: `V3 动效锛${motionStyle?.description || "鎸夊唴瀹硅嚜鍔ㄥ尮閰嶅姩鏁"}` },
-              { start: Math.min(duration, 4.5), end: duration, label: "重点强化", detail: values.motionSubtitle || "动效重点字幕会在 V3 鐗堟湰中睍绀恒€" }
+              { start: 0, end: Math.min(duration, 4.5), label: motionStyle?.name || "全自动", detail: `V3 动效：${motionStyle?.description || "按内容自动匹配动效"}` },
+              { start: Math.min(duration, 4.5), end: duration, label: "重点强化", detail: values.motionSubtitle || "动效重点字幕会在 V3 版本中展示。" }
             ]
-            : [{ start: 0, end: duration, label: "寰呮坊鍔?V3", detail: "点击 V3 · 动效版堝悗浼氭寜当前动效风格生成銆", muted: true }]
+            : [{ start: 0, end: duration, label: "待添加 V3", detail: "点击 V3 · 动效版后会按当前动效风格生成。", muted: true }]
         }
       ];
       return tracks;
@@ -8284,7 +8284,7 @@
       const segment = track?.segments?.[Number(button.dataset.segmentIndex || 0)];
       document.querySelectorAll("[data-track-segment]").forEach(item => item.classList.toggle("is-active", item === button));
       if (inspector && track && segment) {
-        inspector.textContent = `${track.name}通道 · ${formatReviewTimelineTime(segment.start)}-${formatReviewTimelineTime(segment.end)}锛${segment.detail || segment.label}`;
+        inspector.textContent = `${track.name}通道 · ${formatReviewTimelineTime(segment.start)}-${formatReviewTimelineTime(segment.end)}：${segment.detail || segment.label}`;
       }
       const video = document.getElementById("reviewPreviewVideo");
       const start = Number(button.dataset.start || 0);
@@ -8352,8 +8352,8 @@
       const reviewView = document.getElementById("view-review");
       if (!reviewView?.classList.contains("is-active")) return null;
       const snapshot = currentReviewVersionSnapshot();
-      if (!snapshot.videoUrl) return { error: "当前审片椤佃繕娌℃湁鍙繚字樼殑视频锛岃鍏堜粠云端队列打开完成浠诲姟銆" };
-      const title = document.getElementById("exportName")?.value?.trim() || reviewView.dataset.reviewTitle || "鏈懡鍚嶆垚鐗";
+      if (!snapshot.videoUrl) return { error: "当前审片页还没有可保存的视频，请先从云端队列打开完成任务。" };
+      const title = document.getElementById("exportName")?.value?.trim() || reviewView.dataset.reviewTitle || "未命名成片";
       const typeKey = reviewView.dataset.typeKey || workflowTypeKey(reviewView.dataset.workflowKey);
       const typeName = reviewView.dataset.typeName || workflowLabel(reviewView.dataset.workflowKey);
       const platform = reviewSelectedPlatform();
@@ -8422,7 +8422,7 @@
           videoUrl = await resolveTaskVideoUrl(record.taskId, task, videoUrl, http);
         } catch (error) {
           if (!videoUrl) {
-            showToast(error?.message || "璇诲彇作品瀵瑰簲浠诲姟失败锛屾殏鏃舵棤娉曡繘鍏ュ鐗囥€");
+            showToast(error?.message || "读取作品对应任务失败，暂时无法进入审片。");
             return false;
           }
         }
@@ -8479,7 +8479,7 @@
       await loadLibraryRecords();
       const record = (window.ejiabaoLibraryRecords || []).find(item => ["ready", "published"].includes(normalizeLibraryStatus(item.status)) && (item.videoUrl || item.taskId));
       if (!record) {
-        showToast("作品库撻噷杩樻病鏈夊彲审片鐨勬垚鐗囷紝璇峰厛浠庡鐗囧鍑轰繚字樹竴个作品併€");
+        showToast("作品库里还没有可审片的成片，请先从审片导出保存一个作品。");
         return false;
       }
       return openLibraryRecordInReview(record);
@@ -8564,7 +8564,7 @@
 
       const voiceSelect = document.getElementById("voiceSelect");
       voiceSelect.innerHTML = typeKey === "mix"
-        ? ["女声 · 温柔叙事", "男声 · 清晰讲述", "中€ · 夜间电台", "上传我的声音"].map(option => `<option>${option}</option>`).join("")
+        ? ["女声 · 温柔叙事", "男声 · 清晰讲述", "中性 · 夜间电台", "上传我的声音"].map(option => `<option>${option}</option>`).join("")
         : ["自动匹配", "不添加配音?", "上传我的声音"].map(option => `<option>${option}</option>`).join("");
 
       refreshIcons();
@@ -8745,7 +8745,7 @@
         executeButton.type = "button";
         executeButton.className = "primary-btn";
         executeButton.dataset.consoleExecute = run.id;
-        executeButton.textContent = "纭骞舵墽琛";
+        executeButton.textContent = "确认并执行";
         actions.append(executeButton);
       } else {
         const inputButton = document.createElement("button");
@@ -8782,7 +8782,7 @@
     }
 
     function openRechargeQrModal(planName = "") {
-      showToast("寰俊鏀粯当前鏈惎鐢紝鍏呭€煎叆鍙ｄ笉浼氫吉閫犱簩缁寸爜锛涘惎鐢ㄦ敮浠樺弬鏁板悗鍐嶆帴鍏ョ湡瀹炰笅鍗曘€" );
+      showToast("微信支付当前未启用，充值入口不会伪造二维码；启用支付参数后再接入真实下单。");
       return;
       const modal = document.getElementById("rechargeQrModal");
       const plan = document.getElementById("rechargeSelectedPlan");
@@ -8803,7 +8803,7 @@
       if (!card) return;
       const publishing = window.ejiabaoRuntime?.modules?.publishing;
       if (!publishing?.configured) {
-        showToast("发布平台鎺堟潈灏氭湭閰嶇疆锛屽綋鍓嶄笉浼氫吉閫犲彂甯冩垚鍔熺姸鎬併€" );
+        showToast("发布平台授权尚未配置，当前不会伪造发布成功状态。");
         return false;
       }
       const workId = card.dataset.libraryId || "";
@@ -9049,7 +9049,7 @@
         }
         if (counter) counter.textContent = `${input?.value.length || text.length} 字`;
       } catch {
-        showToast("脚本文件名已选择锛屼絾鏆傛椂中嶈兘鐩存帴璇诲彇鍐呭锛屽彲鎵嬪姩绮樿创鏂囨銆");
+        showToast("脚本文件名已选择，但暂时不能直接读取内容，可手动粘贴文案。");
       }
     }
 
@@ -9087,13 +9087,13 @@
         assetRecords = Array.isArray(response.data?.assets) ? response.data.assets : [];
         renderAssetCards();
       } catch (error) {
-        showToast(error?.message || "素材库撴殏鏃舵棤娉曡繛鎺ュ悗绔€" );
+        showToast(error?.message || "素材库暂时无法连接后端。");
       }
     }
 
     async function patchAsset(id, body) {
       const http = assetHttp();
-      if (!http) throw new Error("鍚庣灏氭湭连接。" );
+      if (!http) throw new Error("后端尚未连接。");
       return http.patch(`/v1/assets/${encodeURIComponent(id)}`, body, { timeoutMs: 30000 });
     }
 
@@ -9192,7 +9192,7 @@
       const rechargeCopyButton = event.target.closest("[data-recharge-copy]");
       if (rechargeCopyButton) {
         closeRechargeQrModal();
-        showToast("宸茶褰曟敮浠樺畬鎴愭彁绀猴紝璇峰皢鏀粯鎴浘鎻愪氦缁欏鏈嶆牳楠屽埌璐︺€");
+        showToast("已记录支付完成提示，请将支付截图提交给客服核验到账。");
         return;
       }
 
@@ -9209,7 +9209,7 @@
         try {
           await saveModelProvider(modelSaveButton.dataset.modelSave);
         } catch (error) {
-          showToast(error?.message || "模型配置保存失败锛岃妫€鏌ュ～鍐欏唴瀹广€");
+          showToast(error?.message || "模型配置保存失败，请检查填写内容。");
         }
         return;
       }
@@ -9219,7 +9219,7 @@
         try {
           await testModelProvider(modelTestButton.dataset.modelTest);
         } catch (error) {
-          showToast(error?.message || "杩炴帴娴嬭瘯失败锛岃鍏堜繚字樺苟妫€鏌?API 配置。");
+          showToast(error?.message || "连接测试失败，请先保存并检查 API 配置。");
         }
         return;
       }
@@ -9267,7 +9267,7 @@
         document.getElementById("consoleAgent").textContent = name;
         document.getElementById("consoleSendLabel").textContent = deepseek ? "发送给 DeepSeek Harness" : "发送给 Codex";
         document.getElementById("consoleStatus").textContent = deepseek ? "当前通道：DeepSeek Harness · 分镜调度已连接" : "当前通道：Codex · 工作台已连接";
-        document.getElementById("consoleHeadlineAccent").textContent = deepseek ? "璁╂瘡中€甯ч兘鏈夋潵澶勩€" : "让 Codex 与画面一起工作。";
+        document.getElementById("consoleHeadlineAccent").textContent = deepseek ? "让每个片段都有来处。" : "让 Codex 与画面一起工作。";
         document.getElementById("consoleDescription").textContent = deepseek
           ? "DeepSeek Harness 擅长把灵感整理成脚本与分镜，再让声音、画面与节奏在云端协同发生。"
           : "用自然语言调度 Codex 或 DeepSeek Harness，先把目标拆成清晰步骤，再进入生成、审片与发布。";
@@ -9380,7 +9380,7 @@
               state: run.executable ? "等待确认执行" : "等待补充条件",
               estimate: orchestrationEstimate(run)
             });
-            showToast(run.executable ? "调度璁″垝已生成愶紝纭鍚庢墽琛屻€" : "调度璁″垝已生成愶紝璇峰厛琛ュ厖执行鏉′欢銆");
+            showToast(run.executable ? "调度计划已生成，请确认后执行。" : "调度计划已生成，请先补充执行条件。");
             return;
           }
           const result = creativeOrchestrator
@@ -9397,8 +9397,8 @@
             : (result.text || (result.plan ? "中控已完成视频任务规划，可继续确认后进入生成。" : "中控已返回结果，但没有可展示的文字内容。"));
           showToast(result.status === "unconfigured" ? `${modelName} 等待配置服务端通道。` : `${modelName} 已返回任务编排。`);
         } catch (error) {
-          assistantMessage.querySelector("span").textContent = `本次中控请求未完成：${error.message || "璇风◢鍚庨噸璇曘€"}`;
-          showToast("中帶璇锋眰失败锛岃绋嶅悗重试銆");
+          assistantMessage.querySelector("span").textContent = `本次中控请求未完成：${error.message || "请稍后重试。"}`;
+          showToast("中控请求失败，请稍后重试。");
         } finally {
           consoleSend.disabled = false;
           messages.scrollTop = messages.scrollHeight;
@@ -9423,7 +9423,7 @@
       const helpTopic = event.target.closest("[data-help-topic]");
       if (helpTopic) {
         const messages = {
-          start: "浠庢柊寤哄垱低滈€夋嫨类型锛岃ˉ鍏呯礌鏉愬拰鏂囨锛岀‘璁ら璁℃椂闀夸笌棰濆害鍚庡嵆鍙竴閿敓鎴愩€",
+          start: "从新建创作选择类型，补充素材和文案，确认预估时长与额度后即可一键生成。",
           credits: "每个类型会在生成前展示预计时长和消耗额度；失败任务不会扣除积分。",
           device: "加密优盘用于设备授权与离线配置；可在设置或首次登录流程中重新查看绑定状态。"
         };
@@ -9451,16 +9451,16 @@
               time: new Date().toISOString()
             }
           }, { timeoutMs: 30000 });
-          showToast("鍙嶉宸叉彁浜わ紝鎴戜細鍦ㄥ悗缁帓鏌ユ椂中€璧峰弬鑰冦€");
+          showToast("反馈已提交，我会在后续排查时参考。");
         } catch (error) {
-          showToast(error?.message || "鍙嶉鎻愪氦失败銆");
+          showToast(error?.message || "反馈提交失败。");
         }
         return;
       }
 
       const messageButton = event.target.closest(".top-actions [aria-label='消息']");
       if (messageButton) {
-        showToast("当前娌℃湁鏂扮殑绯荤粺消息銆傜敓鎴愬畬鎴愩€佸け璐ユ垨棰濆害鎻愰啋浼氭樉绀哄湪杩欓噷銆" );
+        showToast("当前没有新的系统消息。生成完成、失败或额度提醒会显示在这里。");
         return;
       }
 
@@ -9530,14 +9530,14 @@
         const results = await Promise.all(cards.map(publishLibraryCard));
         const count = results.filter(Boolean).length;
         if (count) showToast(`已提交 ${count} 个作品发布。`);
-        else if (!cards.length) showToast("当前娌℃湁待发布冧綔鍝併€");
+        else if (!cards.length) showToast("当前没有待发布作品。");
         return;
       }
 
       const publishWorkSafeButton = event.target.closest("[data-publish-work]");
       if (publishWorkSafeButton) {
         const submitted = await publishLibraryCard(publishWorkSafeButton.closest(".library-card"));
-        if (submitted) showToast("作品宸叉彁浜ゅ彂甯冦€");
+        if (submitted) showToast("作品已提交发布。");
         return;
       }
 
@@ -9545,7 +9545,7 @@
       if (publishAllButton) {
         const cards = Array.from(document.querySelectorAll("#view-library .library-card[data-library-status='ready']"));
         await Promise.all(cards.map(publishLibraryCard));
-        showToast(cards.length ? `已为 ${cards.length} 个作品佹彁浜ゅ骞冲彴鍙戝竷。` : "当前娌℃湁待发布冧綔鍝併€");
+        showToast(cards.length ? `已为 ${cards.length} 个作品提交多平台发布。` : "当前没有待发布作品。");
         return;
       }
 
@@ -9568,7 +9568,7 @@
         const typeKey = document.body.dataset.typeKey || "commerce";
         if (!["commerce", "vlog", "talking", "story", "mix", "event"].includes(typeKey)) {
           closeGenerateConfirm();
-          showToast("杩欎釜类型鐨勭敓鎴愭墽琛屽櫒灏氭湭瀹夎锛岀洰鍓嶄笉浼氬垱寤哄崰低嶄换鍔°€");
+          showToast("这个类型的生成执行器尚未安装，目前不会创建占位任务。");
           return;
         }
         const orchestration = window.ejiabaoRuntime?.modules?.orchestration;
@@ -9748,9 +9748,9 @@
           asset.trashed = false;
           assetSelectedIds.delete(id);
           renderAssetCards();
-          showToast("绱犳潗宸叉仮澶嶃€" );
+          showToast("素材已恢复。");
         } catch (error) {
-          showToast(error?.message || "恢复素材失败銆" );
+          showToast(error?.message || "恢复素材失败。");
         }
         return;
       }
@@ -9782,7 +9782,7 @@
           return;
         }
         if (!ids.length) {
-          showToast("璇峰厛选择绱犳潗銆" );
+          showToast("请先选择素材。");
           return;
         }
         try {
@@ -9801,9 +9801,9 @@
           }
           assetSelectedIds.clear();
           renderAssetCards();
-          showToast(action === "trash" ? "绱犳潗宸茬Щ鍏ュ洖鏀剁珯銆" : action === "restore" ? "绱犳潗宸叉仮澶嶃€" : "鏍囩宸蹭繚字樸€" );
+          showToast(action === "trash" ? "素材已移入回收站。" : action === "restore" ? "素材已恢复。" : "标签已保存。" );
         } catch (error) {
-          showToast(error?.message || "鎵归噺鎿嶄綔失败銆" );
+          showToast(error?.message || "批量操作失败。");
         }
         return;
       }
@@ -9880,7 +9880,7 @@
       if (authAction) {
         const action = authAction.dataset.authAction;
         if (action === "forgot" || action === "send-code") {
-          setAuthMessage("首发版本使用密码登录，验证码将在后续 OTA 鐗堟湰开场鏀俱€" );
+          setAuthMessage("首发版本使用密码登录，验证码将在后续 OTA 版本开放。");
         } else if (action === "dev-user") {
           fillDefaultAuthAccount(true);
           completeVirtualFrontendLogin("default");
@@ -9894,7 +9894,7 @@
           showToast("优盘用于保存设备授权与离线配置；需要桌面客户端提供设备指纹和公钥后才能调用后端绑定。" );
         } else if (action === "choose-path") {
           const path = document.getElementById("workspacePath");
-          const nextPath = window.prompt("请输入ラ粯璁ゅ伐低滅洰褰", path.value);
+          const nextPath = window.prompt("请输入默认工作目录", path.value);
           if (nextPath?.trim()) {
             path.value = nextPath.trim();
             showToast("默认工作目录已记录，桌面封装后会用于真实文件保存。" );
@@ -9919,7 +9919,7 @@
           showAuth(false);
         } else if (action === "logout") {
           if (!confirmLeaveIfNeeded()) return;
-          const shouldClearLocal = window.confirm("退出登录时，是否同时清理本机保存的头像、昵称和个人简介？\n\n确认：清理本机资料并退出\n取消锛氫粎退出登录");
+          const shouldClearLocal = window.confirm("退出登录时，是否同时清理本机保存的头像、昵称和个人简介？\n\n确认：清理本机资料并退出\n取消：仅退出登录");
           if (shouldClearLocal) clearProfileLocalData();
           window.ejiabaoRuntime?.session?.clear("logout");
           clearAllDirty();
@@ -9945,7 +9945,7 @@
       const openAssetsButton = event.target.closest("[data-open-assets]");
       if (openAssetsButton) {
         showView("assets");
-        showToast("素材库撳凡打开锛岄€夋嫨画面鍚庡彲杩斿洖文生播客銆" );
+        showToast("素材库已打开，选择画面后可返回文生播客。");
         return;
       }
 
@@ -9996,7 +9996,7 @@
         try {
           await saveTemplateEditor();
         } catch (error) {
-          showToast(error?.message || "妯℃澘保存失败锛岃妫€鏌ュ悗绔繛鎺ャ€");
+          showToast(error?.message || "模板保存失败，请检查后端连接。");
         }
         return;
       }
@@ -10006,7 +10006,7 @@
         try {
           await deleteCustomTemplate(templateRecordFromCard(templateDeleteButton.closest(".template-card")));
         } catch (error) {
-          showToast(error?.message || "妯℃澘删除失败銆");
+          showToast(error?.message || "模板删除失败。");
         }
         return;
       }
@@ -10026,7 +10026,7 @@
           await markTemplateUsed(card);
           await applyTemplateToCreate(record);
         } else {
-          showToast("妯℃澘鏁版嵁中嶅瓨鍦紝璇峰埛新模板夸腑蹇冨悗重试銆");
+          showToast("模板数据仍在保存中，请刷新模板中心后重试。");
         }
         return;
       }
@@ -10042,7 +10042,7 @@
         try {
           await saveBrandPreference();
         } catch (error) {
-          showToast(error?.message || "鍝佺墝鍖呮湰鍦板凡保存锛屼絾鍚庣鍚屾失败锛岃妫€鏌ュ悗绔繛鎺ャ€");
+          showToast(error?.message || "品牌包本地已保存，但后端同步失败，请检查后端连接。");
         }
         return;
       }
@@ -10059,9 +10059,9 @@
             const data = JSON.parse(await file.text());
             applyBrandPreference(data);
             await saveBrandPreference();
-            showToast("鍝佺墝鍖呭凡导入骞朵繚字樸€");
+            showToast("品牌包已导入并保存。");
           } catch {
-            showToast("鍝佺墝鍖呭鍏ュけ璐ワ紝璇烽€夋嫨有效鐨?JSON 文件。");
+            showToast("品牌包导入失败，请选择有效的 JSON 文件。");
           }
         }, { once: true });
         input.click();
@@ -10090,14 +10090,14 @@
         notificationToggle.setAttribute("aria-pressed", String(enabled));
         notificationToggle.classList.toggle("is-off", !enabled);
         markDirty("view-settings");
-        showToast(enabled ? "宸插紑鍚换鍔″畬鎴愰€氱煡銆" : "宸插叧闂换鍔″畬鎴愰€氱煡锛屾垨绯荤粺鏈巿浜堥€氱煡鏉冮檺銆");
+        showToast(enabled ? "已开启任务完成通知。" : "已关闭任务完成通知，或系统未授予通知权限。");
         return;
       }
 
       const settingsAction = event.target.closest("[data-settings-action]");
       if (settingsAction) {
         if (settingsAction.dataset.settingsAction === "cache-manager") {
-          showToast("缂撳瓨管理宸叉帴鍏ュ畨鍏ㄦ竻鐞嗗叆鍙ｏ紝鍙湪中嬫柟鈥滄竻鐞嗘湰鍦扮紦字樷€濇墽琛屻€");
+          showToast("缓存管理已接入安全清理入口，可在下方“清理本地缓存”执行。");
         } else if (settingsAction.dataset.settingsAction === "change-export-dir") {
           showToast("桌面目录选择需要封装客户端权限；当前先使用默认导出目录。");
         }
@@ -10157,10 +10157,10 @@
         const amountInput = document.getElementById("customRechargeAmount");
         const amount = Math.round(Number(amountInput?.value || 0));
         if (!Number.isFinite(amount) || amount < 1 || amount > 50000) {
-          showToast("请输入?1 鑷?50,000 鍏冧箣闂寸殑鍏呭€奸噾棰濄€");
+          showToast("请输入 1 至 50,000 元之间的充值金额。");
           return;
         }
-        openRechargeQrModal(`自定义夊厖鍊?楼${amount}`);
+        openRechargeQrModal(`自定义充值 · ${amount} 元`);
         return;
       }
 
@@ -10171,12 +10171,12 @@
             try {
               const keys = await window.caches.keys();
               await Promise.all(keys.filter(key => key.toLowerCase().includes("ejiabao")).map(key => window.caches.delete(key)));
-              showToast(keys.length ? "鏈湴棰勮缂撳瓨宸叉竻鐞嗭紝中嶄細褰卞搷浜戠项目銆" : "当前娌℃湁鍙竻鐞嗙殑鏈湴棰勮缂撳瓨銆");
+              showToast(keys.length ? "本地预览缓存已清理，不会影响云端项目。" : "当前没有可清理的本地预览缓存。");
             } catch {
-              showToast("娴忚鍣ㄧ紦字樻竻鐞嗗け璐ワ紝低嗕笉浼氬奖鍝嶄簯绔」鐩€");
+              showToast("浏览器缓存清理失败，但不会影响云端项目。");
             }
           } else {
-            showToast("当前鐜娌℃湁鍙竻鐞嗙殑娴忚鍣ㄧ紦字樸€");
+            showToast("当前环境没有可清理的浏览器缓存。");
           }
         } else {
           const http = queueHttp();
@@ -10186,16 +10186,16 @@
           }
           try {
             const response = await http.get("/v1/system/logs/recent", { timeoutMs: 30000 });
-            const blob = new Blob([response.data?.lines || "当前娌℃湁鏃ュ織銆"], { type: "text/plain;charset=utf-8" });
+            const blob = new Blob([response.data?.lines || "当前没有日志。"], { type: "text/plain;charset=utf-8" });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.href = url;
             link.download = `ejiabao-backend-log-${Date.now()}.txt`;
             link.click();
             URL.revokeObjectURL(url);
-            showToast("杩愯鏃ュ織宸插鍑恒€");
+            showToast("运行日志已导出。");
           } catch (error) {
-            showToast(error?.message || "璇诲彇杩愯鏃ュ織失败銆");
+            showToast(error?.message || "读取运行日志失败。");
           }
         }
         return;
@@ -10209,7 +10209,7 @@
         renderReviewMotionOptions(styles);
         const willOpen = picker?.hidden !== false;
         if (picker) picker.hidden = !willOpen;
-        showToast(picker?.hidden ? "宸叉敹璧峰姩鏁堥鏍奸€夋嫨銆" : "已加载?Remotion 动效风格銆");
+        showToast(picker?.hidden ? "已收起动效风格选择。" : "已加载 Remotion 动效风格。");
         return;
       }
 
@@ -10220,7 +10220,7 @@
         const reviewView = document.getElementById("view-review");
         if (reviewView) reviewView.dataset.motionStyle = select?.value || "auto";
         renderReviewMotionOptions(window.reviewMotionStyles || reviewMotionStyleFallbacks);
-        showToast("动效风格已切换，V3 生成鏃朵細使用杩欎釜椋庢牸銆");
+        showToast("动效风格已切换，V3 生成时会使用这个风格。");
         return;
       }
 
@@ -10233,7 +10233,7 @@
         if (document.getElementById("reviewGeneratedTitle")) document.getElementById("reviewGeneratedTitle").value = title;
         if (document.getElementById("reviewMotionTitle")) document.getElementById("reviewMotionTitle").value = title;
         updateReviewTextState(true);
-        showToast("宸插鐢ㄦ爣棰樺埌导出文件名嶃€");
+        showToast("已套用标题到导出文件名。");
         return;
       }
 
@@ -10263,8 +10263,8 @@
           const message = storedVersion
             ? `${version} 已有生成文件，但缺少可播放地址；这次只补全播放地址，不消耗积分。是否继续？`
             : versionKey === "v2"
-            ? `添加 V2 字幕版堜細鍦ㄥ師视频中婅嚜鍔ㄧ敓鎴愬唴宓屽瓧骞曪紝预计消耗${credits} 积分。是否继续？`
-            : `添加 V3 动效版堜細鍦ㄥ綋鍓?${sourceVersionKey.toUpperCase()} 鐗堟湰中婂彔鍔?Remotion 动效鈥${document.getElementById("reviewMotionStyle")?.selectedOptions?.[0]?.textContent?.split("·")[0]?.trim() || "鍏ㄨ嚜鍔"}鈥濓紝预计消耗${credits} 积分。是否继续？`;
+            ? `添加 V2 字幕版会在原视频中自动生成内嵌字幕，预计消耗${credits} 积分。是否继续？`
+            : `添加 V3 动效版会在当前 ${sourceVersionKey.toUpperCase()} 版本中叠加 Remotion 动效“${document.getElementById("reviewMotionStyle")?.selectedOptions?.[0]?.textContent?.split("·")[0]?.trim() || "全自动"}”，预计消耗${credits} 积分。是否继续？`;
           if (!window.confirm(message)) return;
           const http = queueHttp();
           if (!http) {
@@ -10340,11 +10340,11 @@
         try {
           const artifact = await http.get(`/v1/tasks/${encodeURIComponent(taskId)}/artifacts/video`, { timeoutMs: 30000 });
           const url = artifact.data?.downloadUrl || artifact.data?.artifact?.publicUrl;
-          if (!url) throw new Error("视频中嬭浇鍦板潃鏆備笉鍙敤銆");
+          if (!url) throw new Error("视频下载地址暂不可用。");
           window.open(url, "_blank", "noopener");
-          showToast("视频宸叉墦开场中嬭浇閾炬帴銆" );
+          showToast("视频已打开下载链接。");
         } catch (error) {
-          showToast(error?.message || "导出文件名璇诲彇失败銆" );
+          showToast(error?.message || "导出文件名读取失败。");
         }
         return;
       }
@@ -10364,7 +10364,7 @@
         }
         const original = titleButton.innerHTML;
         titleButton.disabled = true;
-        titleButton.innerHTML = '<i data-lucide="loader-circle" aria-hidden="true"></i>生成中€';
+        titleButton.innerHTML = '<i data-lucide="loader-circle" aria-hidden="true"></i>生成中…';
         refreshIcons();
         try {
           const reviewView = document.getElementById("view-review");
@@ -10432,7 +10432,7 @@
         library?.save(project);
         clearDirty(isReviewSave ? "view-review" : "view-create");
         if (document.getElementById("view-library")?.classList.contains("is-active")) await loadLibraryRecords();
-        showToast(isReviewSave ? "鎴愮墖宸蹭繚字樺埌作品库撱€" : "项目宸蹭繚字樺埌作品库撱€" );
+        showToast(isReviewSave ? "成片已保存到作品库。" : "项目已保存到作品库。" );
         return;
       }
 
@@ -10475,9 +10475,9 @@
           try {
             await http.delete(`/v1/tasks/${encodeURIComponent(taskId)}`, { timeoutMs: 30000 });
             await loadQueueTasks();
-            showToast("浠诲姟已取消堬紝棰濆害宸查噴鏀俱€" );
+            showToast("任务已取消，额度已释放。");
           } catch (error) {
-            showToast(error?.message || "取消浠诲姟失败銆" );
+            showToast(error?.message || "取消任务失败。");
           }
           return;
         }
@@ -10495,7 +10495,7 @@
           cancelButton.setAttribute("data-restore-task", "true");
           cancelButton.textContent = "恢复任务";
         }
-        showToast("浠诲姟已取消堬紝棰濆害鏈墸闄わ紱低犲彲浠ラ殢鏃舵仮澶嶃€?");
+        showToast("任务已取消，额度未扣除；仍可随时恢复。");
         return;
       }
 
@@ -10511,7 +10511,7 @@
           restoreTask.setAttribute("data-cancel-task", "true");
           restoreTask.textContent = "取消";
         }
-        showToast("浠诲姟宸叉仮澶嶅苟閲嶆柊鍔犲叆队列銆");
+        showToast("任务已恢复并重新加入队列。");
         return;
       }
 
@@ -10522,14 +10522,14 @@
         if (taskId && http) {
           try {
             retryButton.disabled = true;
-            retryButton.textContent = "重试中€";
+            retryButton.textContent = "重试中…";
             await http.post(`/v1/tasks/${encodeURIComponent(taskId)}/retry`, {}, { timeoutMs: 30000 });
             await loadQueueTasks();
-            showToast("宸叉牴鎹師濮嬭緭鍏ラ噸鏂版彁浜や换鍔°€");
+            showToast("已根据原始输入重新提交任务。");
           } catch (error) {
             retryButton.disabled = false;
             retryButton.textContent = "重试";
-            showToast(error?.message || "重试浠诲姟失败銆");
+            showToast(error?.message || "重试任务失败。");
           }
           return;
         }
@@ -10542,7 +10542,7 @@
           status.classList.add("is-lime");
         }
         retryButton.remove();
-        showToast("宸查噸鏂版彁浜や换鍔°€");
+        showToast("已重新提交任务。");
         return;
       }
 
@@ -10560,14 +10560,14 @@
               document.getElementById("view-review").dataset.videoUrl = videoUrl;
               const reviewMeta = syncReviewExportPanel(task, videoUrl);
               document.getElementById("reviewPreviewType").textContent = `${reviewMeta?.typeName || task.workflowKey} · 已完成`;
-              document.getElementById("reviewPreviewCaption").textContent = reviewMeta?.title || task.payload?.title || "已生成愯棰";
+              document.getElementById("reviewPreviewCaption").textContent = reviewMeta?.title || task.payload?.title || "已生成视频";
               renderReviewVideoPreview(videoUrl);
               showView("review");
             } else {
-              showToast("璇ヤ换鍔″凡完成锛屼絾视频浜х墿鏆傛湭杩斿洖銆" );
+              showToast("该任务已完成，但视频产物暂未返回。");
             }
           } catch (error) {
-            showToast(error?.message || "璇诲彇浠诲姟浜х墿失败銆" );
+            showToast(error?.message || "读取任务产物失败。");
           }
         }
         return;
@@ -10614,25 +10614,25 @@
       const password = document.getElementById("authPassword").value;
       const phoneMode = document.querySelector("[data-auth-tab='phone']").classList.contains("is-active");
       if (!account || !password) {
-        setAuthMessage("璇峰～鍐欑櫥褰曡处鍙峰拰密码銆" );
+        setAuthMessage("请填写登录账号和密码。");
         return;
       }
       if (phoneMode && !/^1\d{10}$/.test(account)) {
-        setAuthMessage("请输入正确的 11 低嶆墜鏈哄彿鐮併€" );
+        setAuthMessage("请输入正确的 11 位手机号码。");
         return;
       }
       if (!phoneMode && !/^\S+@\S+\.\S+$/.test(account)) {
-        setAuthMessage("请输入正确的邮箱地址銆" );
+        setAuthMessage("请输入正确的邮箱地址。");
         return;
       }
       if (password.length < 8) {
-        setAuthMessage("密码鑷冲皯闇€瑕?8 低嶃€" );
+        setAuthMessage("密码至少需要 8 位。");
         return;
       }
       try {
         await completeBackendLogin({ account, password, phoneMode, register: authMode === "register" });
       } catch (error) {
-        setAuthMessage(error?.message || "姝ｅ紡璐﹀彿鐧诲綍失败锛岃妫€鏌ュ悗绔繛鎺ユ垨璐﹀彿密码銆");
+        setAuthMessage(error?.message || "正式账号登录失败，请检查后端连接或账号密码。");
       }
     });
 
@@ -10660,7 +10660,7 @@
         }
       }
       clearDirty("view-create");
-      showToast("草稿宸蹭繚字樺埌最近项目€");
+      showToast("草稿已保存到最近项目。");
     });
 
     document.getElementById("sidebarToggle").addEventListener("click", event => {
