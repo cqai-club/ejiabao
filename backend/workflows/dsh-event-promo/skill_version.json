@@ -1,0 +1,9 @@
+{
+  "skill": "dsh-event-promo",
+  "version": "1.0.0",
+  "released_at": "2026-08-22",
+  "minimum_supported_version": "1.0.0",
+  "release_notes": [
+    "活动预告（快宣物料） 独立 Skill 包：从 dsh-shortvideo-pipeline 拆分，自包含 FFmpeg/TTS/LLM 运行时，无 Key 可离线出草稿。"
+  ]
+}

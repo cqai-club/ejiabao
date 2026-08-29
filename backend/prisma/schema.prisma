@@ -1,0 +1,343 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CREATOR
+  ADMIN
+  SUPPORT
+}
+
+enum ProjectStatus {
+  DRAFT
+  PLANNING
+  GENERATING
+  READY
+  FAILED
+  ARCHIVED
+}
+
+enum TaskStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum OrchestrationStatus {
+  PLANNED
+  BLOCKED
+  DISPATCHING
+  DISPATCHED
+  FAILED
+  CANCELLED
+  EXPIRED
+}
+
+enum LedgerKind {
+  CREDIT
+  RESERVE
+  RELEASE
+  DEBIT
+  REFUND
+  ADJUSTMENT
+}
+
+enum ConnectionStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+  ERROR
+}
+
+enum LicenseStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  REVOKED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  CLOSED
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id                  String               @id @default(cuid())
+  email               String?              @unique
+  phone               String?              @unique
+  passwordHash        String?
+  nickname            String               @default("个人创作者")
+  avatarUrl           String?
+  bio                 String?
+  role                UserRole             @default(CREATOR)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  sessions            AuthSession[]
+  quota               QuotaAccount?
+  quotaLedger         QuotaLedger[]
+  projects            Project[]
+  mediaAssets         MediaAsset[]
+  tasks               GenerationTask[]
+  platformConnections PlatformConnection[]
+  licenses            LicenseBinding[]
+  auditLogs           AuditLog[]
+  oauthStates         OAuthState[]
+  paymentOrders       PaymentOrder[]
+  providerConfigs     UserProviderConfig[]
+  orchestrationRuns   OrchestrationRun[]
+}
+
+model AuthSession {
+  id               String   @id @default(cuid())
+  userId           String
+  refreshTokenHash String   @unique
+  userAgent        String?
+  ipAddress        String?
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+}
+
+model QuotaAccount {
+  userId    String   @id
+  balance   Int      @default(0)
+  reserved  Int      @default(0)
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model QuotaLedger {
+  id             String     @id @default(cuid())
+  userId         String
+  taskId         String?
+  kind           LedgerKind
+  amount         Int
+  balanceAfter   Int
+  reason         String
+  idempotencyKey String     @unique
+  createdAt      DateTime   @default(now())
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task           GenerationTask? @relation(fields: [taskId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  userId      String
+  typeKey     String
+  title       String
+  status      ProjectStatus @default(DRAFT)
+  metadata    Json          @default("{}")
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasks       GenerationTask[]
+
+  @@index([userId, updatedAt])
+}
+
+model MediaAsset {
+  id          String   @id @default(cuid())
+  userId      String
+  projectId   String?
+  storageKey  String   @unique
+  mimeType    String
+  kind        String
+  sizeBytes   BigInt
+  checksum    String?
+  metadata    Json     @default("{}")
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model GenerationTask {
+  id                String       @id @default(cuid())
+  userId            String
+  projectId         String?
+  provider          String
+  workflowKey       String
+  status            TaskStatus    @default(QUEUED)
+  creditsReserved   Int          @default(0)
+  remoteTaskId      String?
+  progress          Int          @default(0)
+  payload           Json         @default("{}")
+  result            Json         @default("{}")
+  errorCode         String?
+  errorMessage      String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project           Project?     @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  quotaLedger       QuotaLedger[]
+  orchestrationRun  OrchestrationRun? @relation("OrchestrationTask")
+
+  @@index([userId, status, updatedAt])
+  @@index([remoteTaskId])
+}
+
+model OrchestrationRun {
+  id             String              @id @default(cuid())
+  userId         String
+  provider       String              @default("deepseek-harness")
+  instruction    String
+  typeKey        String?
+  workflowKey    String
+  status         OrchestrationStatus @default(PLANNED)
+  plan           Json
+  workflowInput  Json                @default("{}")
+  quote          Json                @default("{}")
+  blockers       Json                @default("[]")
+  taskId         String?             @unique
+  model          String?
+  responseId     String?
+  expiresAt      DateTime
+  approvedAt     DateTime?
+  dispatchedAt   DateTime?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task           GenerationTask?     @relation("OrchestrationTask", fields: [taskId], references: [id], onDelete: SetNull)
+
+  @@index([userId, status, updatedAt])
+}
+
+model PlatformConnection {
+  id                    String           @id @default(cuid())
+  userId                String
+  platform              String
+  externalUserId        String?
+  accessTokenCiphertext String
+  refreshTokenCiphertext String?
+  expiresAt             DateTime?
+  scopes                Json             @default("[]")
+  status                ConnectionStatus @default(ACTIVE)
+  metadata              Json             @default("{}")
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  user                  User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, platform])
+}
+
+model OAuthState {
+  id           String   @id @default(cuid())
+  state        String   @unique
+  userId       String
+  platform     String
+  redirectUri  String
+  codeVerifier String?
+  expiresAt    DateTime
+  consumedAt   DateTime?
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, platform, expiresAt])
+}
+
+model LicenseBinding {
+  id             String        @id @default(cuid())
+  userId         String
+  deviceId       String
+  usbFingerprint String?
+  publicKey      String?
+  licenseKeyId   String        @unique
+  signature      String
+  expiresAt      DateTime
+  status         LicenseStatus @default(PENDING)
+  metadata       Json          @default("{}")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  action     String
+  resource   String
+  resourceId String?
+  metadata   Json     @default("{}")
+  createdAt  DateTime @default(now())
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+}
+
+model PaymentOrder {
+  id                  String        @id @default(cuid())
+  userId              String
+  provider            String        @default("wechat-native")
+  packageKey          String
+  packageName         String
+  quotaAmount         Int
+  amountFen           Int
+  outTradeNo          String        @unique
+  transactionId       String?       @unique
+  status              PaymentStatus @default(PENDING)
+  codeUrl             String?
+  notifyId            String?       @unique
+  expiresAt           DateTime
+  paidAt              DateTime?
+  closedAt            DateTime?
+  metadata            Json          @default("{}")
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  user                User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status, createdAt])
+  @@index([outTradeNo, status])
+}
+
+// 后台可修改的模型服务配置。API Key 只保存 AES-256-GCM 密文，页面永不返回明文。
+model ProviderConfig {
+  provider          String   @id
+  baseUrl           String
+  model             String
+  reasoningEffort   String?
+  apiKeyCiphertext  String?
+  enabled           Boolean  @default(true)
+  updatedBy         String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([enabled, updatedAt])
+}
+
+// 用户自己的模型调用配置。API Key 仅保存 AES-256-GCM 密文；客户端永远不能读取明文。
+// accessMode 为 PLATFORM 时，调用会回退到平台统一配置并通过用户积分结算；
+// 为 CUSTOM 时，当前用户的中控与已接入工作流优先使用这里的配置。
+model UserProviderConfig {
+  id                String   @id @default(cuid())
+  userId            String
+  provider          String
+  accessMode        String   @default("PLATFORM")
+  baseUrl           String?
+  model             String?
+  reasoningEffort   String?
+  apiKeyCiphertext  String?
+  enabled           Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider])
+  @@index([userId, updatedAt])
+}

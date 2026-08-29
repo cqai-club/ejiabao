@@ -1,0 +1,4 @@
+interface:
+  display_name: "剧情短片（文案生成剧情）"
+  short_description: "故事梗概 → 分镜剧本 → 短片"
+  default_prompt: "使用 dsh-drama-short：把故事梗概扩写成分镜剧本，多角色配音，做成带对白字幕的剧情短片。"

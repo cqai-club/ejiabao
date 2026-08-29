@@ -1,0 +1,4 @@
+interface:
+  display_name: "文生播客（豆包双人）"
+  short_description: "话题 → 双人对话播客（视频+音频）"
+  default_prompt: "使用 dsh-podcast：把话题生成主持人+嘉宾双人对话稿，用豆包双人音色配音，做成波形动画+说话人字幕的播客。"

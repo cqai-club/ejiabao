@@ -1,0 +1,54 @@
+# Local secrets and runtime configuration
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Dependencies and build output
+node_modules/
+backend/node_modules/
+dist/
+backend/dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Local databases, uploads, generated workflow data and caches
+backend/runtime/
+backend/.local/
+backend/prisma/*.db
+backend/prisma/*.db-journal
+backend/workflows/**/scripts/__pycache__/
+__pycache__/
+.pytest_cache/
+
+# Logs and process files
+*.log
+*.out*
+*.err*
+*.out.log
+*.err.log
+*.pid
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Local previews, backups and generated diagnostics
+landing-check.png
+*.bak
+_*.js
+_*.txt
+
+# Imported archives and local handoff bundles
+*.zip
+*.tar
+*.tar.gz

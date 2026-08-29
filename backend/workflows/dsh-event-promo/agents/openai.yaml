@@ -1,0 +1,4 @@
+interface:
+  display_name: "活动预告（快宣物料）"
+  short_description: "活动信息 + 海报 → 倒计时/亮点/报名引导视频"
+  default_prompt: "使用 dsh-event-promo：把活动信息（标题/时间/地点/费用/亮点）和海报素材，做成「倒计时 + 亮点 + 报名引导」三段式预告视频。"

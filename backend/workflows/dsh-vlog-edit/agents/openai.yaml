@@ -1,0 +1,4 @@
+interface:
+  display_name: "VLOG（实拍精剪）"
+  short_description: "实拍素材 → 高光剪辑成片"
+  default_prompt: "使用 dsh-vlog-edit：扫描实拍素材，自动高光裁剪、拼接，保留原声，加字幕和配乐。"
