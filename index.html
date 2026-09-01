@@ -2523,7 +2523,11 @@
     }
 
     .upload-tile {
+      width: 100%;
+      max-width: 360px;
       min-height: 132px;
+      max-height: 220px;
+      aspect-ratio: 4 / 3;
       display: grid;
       place-items: center;
       gap: 8px;
@@ -2546,8 +2550,10 @@
       background:
         linear-gradient(180deg, rgba(7, 9, 28, .2), rgba(7, 9, 28, .9)),
         var(--upload-image, none);
-      background-size: cover;
-      background-position: center;
+      background-size: auto, contain;
+      background-repeat: repeat, no-repeat;
+      background-position: center, center;
+      background-color: var(--surface-2);
       opacity: .88;
       transition: transform .25s ease, opacity .25s ease;
     }
@@ -6978,7 +6984,85 @@
       refreshIcons();
     }
 
-    function showView(viewName) {
+    const routedViewNames = new Set([
+      "dashboard",
+      "create",
+      "templates",
+      "template-editor",
+      "assets",
+      "brand",
+      "queue",
+      "review",
+      "library",
+      "profile",
+      "model-config",
+      "settings"
+    ]);
+
+    function parseAppRoute() {
+      const hash = String(window.location.hash || "").replace(/^#\/?/, "");
+      if (!hash) return null;
+      const [pathPart, queryPart = ""] = hash.split("?");
+      const segments = pathPart.split("/").filter(Boolean).map(segment => {
+        try { return decodeURIComponent(segment); } catch { return segment; }
+      });
+      let viewName = segments[0] || "dashboard";
+      if (viewName === "home") viewName = "dashboard";
+      if (viewName === "templates" && segments[1] === "editor") viewName = "template-editor";
+      if (viewName === "settings" && segments[1] === "models") viewName = "model-config";
+      if (!routedViewNames.has(viewName)) return null;
+      const query = new URLSearchParams(queryPart);
+      const typeKey = viewName === "create" ? (segments[1] || query.get("type") || "") : "";
+      return {
+        viewName,
+        typeKey: Object.prototype.hasOwnProperty.call(typeData, typeKey) ? typeKey : ""
+      };
+    }
+
+    function appRouteForView(viewName) {
+      if (viewName === "template-editor") return "#/templates/editor";
+      if (viewName === "model-config") return "#/settings/models";
+      if (viewName === "create") {
+        const typeKey = document.body.dataset.typeKey;
+        return typeKey && Object.prototype.hasOwnProperty.call(typeData, typeKey)
+          ? `#/create/${encodeURIComponent(typeKey)}`
+          : "#/create";
+      }
+      return `#/${viewName}`;
+    }
+
+    function syncAppRoute(viewName, replace = false) {
+      const nextHash = appRouteForView(viewName);
+      if (window.location.hash === nextHash) return;
+      const method = replace ? "replaceState" : "pushState";
+      window.history[method]({}, "", nextHash);
+    }
+
+    function applyAppRoute() {
+      const route = parseAppRoute();
+      if (!route || body.classList.contains("auth-active") || body.classList.contains("onboarding-active")) return false;
+      if (body.classList.contains("landing-active")) {
+        const session = getSessionData();
+        if (!session || isSessionExpired(session)) return false;
+        body.classList.remove("landing-active");
+      }
+      if (!navigationBypassConfirm && !confirmLeaveIfNeeded()) {
+        const activeView = document.querySelector(".view.is-active")?.id?.replace(/^view-/, "");
+        if (activeView && routedViewNames.has(activeView)) syncAppRoute(activeView, true);
+        return false;
+      }
+      if (!navigationBypassConfirm) clearAllDirty();
+      navigationBypassConfirm = true;
+      try {
+        if (route.typeKey) setType(route.typeKey);
+        return showView(route.viewName, { syncRoute: false });
+      } finally {
+        navigationBypassConfirm = false;
+      }
+    }
+
+    function showView(viewName, options = {}) {
+      const { syncRoute = true, replaceRoute = false } = options;
       if (viewName === "intro") viewName = "dashboard";
       if (!navigationBypassConfirm && !confirmLeaveIfNeeded()) return false;
       if (!navigationBypassConfirm) clearAllDirty();
@@ -6996,6 +7080,7 @@
       if (viewName === "brand") void loadBrandPreference();
       if (viewName === "settings") void loadSettingsPreference();
       if (viewName === "review") renderReviewVideoPreview(document.getElementById("view-review")?.dataset.videoUrl || "");
+      if (syncRoute && routedViewNames.has(viewName)) syncAppRoute(viewName, replaceRoute);
       window.scrollTo({ top: 0, behavior: "smooth" });
       return true;
     }
@@ -10865,6 +10950,9 @@
     fillDefaultAuthAccount();
     loadProfile();
     restoreSession();
+    window.addEventListener("hashchange", applyAppRoute);
+    window.addEventListener("popstate", applyAppRoute);
+    window.setTimeout(applyAppRoute, 0);
     watchSessionExpiry();
     window.addEventListener("ejiabao:runtime-ready", () => {
       void loadDashboardData();
@@ -10891,6 +10979,9 @@
       loadProfile,
       clearDirty,
       setDirty,
+      parseAppRoute,
+      applyAppRoute,
+      appRouteForView,
       loadDashboardData,
       loadModelConfigs,
       renderProfileAvatar,
