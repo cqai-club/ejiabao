@@ -139,11 +139,11 @@ export function buildApp(config: AppConfig = loadConfig()) {
   });
 
   app.get("/", async (_request, reply) => {
-    const html = await readFile(join(frontendRoot, "index.html"), "utf8");
+    const html = await readFrontendIndex(frontendRoot);
     return reply.type("text/html; charset=utf-8").send(html);
   });
   app.get("/index.html", async (_request, reply) => {
-    const html = await readFile(join(frontendRoot, "index.html"), "utf8");
+    const html = await readFrontendIndex(frontendRoot);
     return reply.type("text/html; charset=utf-8").send(html);
   });
   app.get("/app/*", async (request, reply) => serveFrontendAsset(reply, frontendRoot, "app", String((request.params as any)["*"] || "")));
@@ -1091,21 +1091,57 @@ export function buildApp(config: AppConfig = loadConfig()) {
   }
 }
 
+async function readFrontendIndex(frontendRoot: string) {
+  const candidates = [
+    join(frontendRoot, "dist", "index.html"),
+    join(frontendRoot, "index.html")
+  ];
+  for (const filePath of candidates) {
+    if (await isRegularFile(filePath)) return readFile(filePath, "utf8");
+  }
+  throw new AppError("前端入口文件不存在。", "STATIC_FILE_NOT_FOUND", 404);
+}
+
 function serveFrontendAsset(reply: any, frontendRoot: string, baseFolder: "app" | "assets", assetPath: string) {
   return (async () => {
-    const normalized = assetPath.replace(/^\/+/, "");
-    const filePath = resolve(frontendRoot, baseFolder, normalized);
-    if (!isInsideRoot(frontendRoot, filePath)) throw new AppError("静态文件路径非法。", "STATIC_FILE_FORBIDDEN", 403);
-    let info;
-    try {
-      info = await stat(filePath);
-    } catch {
-      throw new AppError("静态文件不存在。", "STATIC_FILE_NOT_FOUND", 404);
+    const normalized = decodeFrontendAssetPath(assetPath);
+    const roots = baseFolder === "assets"
+      ? [join(frontendRoot, "dist", "assets"), join(frontendRoot, "assets")]
+      : [join(frontendRoot, "app")];
+    let filePath: string | null = null;
+    for (const root of roots) {
+      const candidate = resolve(root, normalized);
+      if (!isInsideRoot(root, candidate)) {
+        throw new AppError("静态文件路径非法。", "STATIC_FILE_FORBIDDEN", 403);
+      }
+      if (await isRegularFile(candidate)) {
+        filePath = candidate;
+        break;
+      }
     }
-    if (!info.isFile()) throw new AppError("静态文件不存在。", "STATIC_FILE_NOT_FOUND", 404);
+    if (!filePath) throw new AppError("静态文件不存在。", "STATIC_FILE_NOT_FOUND", 404);
     reply.type(contentTypeFor(filePath));
     return reply.send(createReadStream(filePath));
   })();
+}
+
+function decodeFrontendAssetPath(assetPath: string) {
+  const raw = String(assetPath || "").replace(/^\/+/, "");
+  if (raw.includes("\0")) throw new AppError("静态文件路径非法。", "STATIC_FILE_FORBIDDEN", 403);
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    throw new AppError("静态文件路径非法。", "STATIC_FILE_FORBIDDEN", 403);
+  }
+}
+
+async function isRegularFile(filePath: string) {
+  try {
+    return (await stat(filePath)).isFile();
+  } catch (error: any) {
+    if (error?.code === "ENOENT" || error?.code === "ENOTDIR") return false;
+    throw error;
+  }
 }
 
 function isInsideRoot(root: string, candidate: string) {

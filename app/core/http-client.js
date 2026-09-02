@@ -11,6 +11,12 @@ export function createHttpClient({ config, session, eventBus, fetchImpl = window
     const abortHandler = () => controller.abort();
     signal?.addEventListener("abort", abortHandler, { once: true });
     const currentSession = session.read();
+    const hasAuthenticatedSession = Boolean(
+      currentSession
+        && !currentSession.virtual
+        && !currentSession.user?.virtual
+        && (currentSession.accessToken || currentSession.refreshToken)
+    );
 
     try {
       const response = await fetchImpl(`${baseUrl}${path.startsWith("/") ? path : `/${path}`}`, {
@@ -26,11 +32,13 @@ export function createHttpClient({ config, session, eventBus, fetchImpl = window
       });
       const data = await parseResponse(response);
 
-      if (response.status === 401 && retry && currentSession?.refreshToken) {
+      if (response.status === 401 && retry && hasAuthenticatedSession && currentSession.refreshToken) {
         const refreshed = await refresh(currentSession.refreshToken);
         if (refreshed) return request(path, { method, body, headers, signal, timeoutMs, retry: false });
       }
-      if (response.status === 401) {
+      // An anonymous/virtual request can legitimately receive 401 from a
+      // protected endpoint. Do not turn that into a global logout event.
+      if (response.status === 401 && hasAuthenticatedSession) {
         session.clear("expired");
         eventBus.emit("auth:expired", { status: response.status, data });
       }
