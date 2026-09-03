@@ -71,6 +71,8 @@ jobs:
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
@@ -87,6 +89,9 @@ jobs:
               echo "!! .env 不存在，请先在服务器执行 scripts/setup-server.sh"
               exit 1
             fi
+
+            echo "==> Log in to GHCR with ephemeral GITHUB_TOKEN"
+            echo "$GITHUB_TOKEN" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             echo "==> Recreate api container with $IMAGE"
             DEPLOY_IMAGE="$IMAGE" docker compose -f docker-compose.prod.yml up -d --pull always --no-deps api
