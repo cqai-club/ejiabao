@@ -37,7 +37,7 @@ const LOCAL_DEVELOPMENT_EMAIL = "local-development-admin@ejiabao.local";
 
 export function buildApp(config: AppConfig = loadConfig()) {
   const app = Fastify({ logger: true, trustProxy: true, bodyLimit: 600 * 1024 * 1024 });
-  const frontendRoot = resolve(process.cwd(), "..");
+  const frontendRoot = config.FRONTEND_DIR ? resolve(config.FRONTEND_DIR) : resolve(process.cwd(), "..");
   app.register(cors, {
     origin: config.isProduction
       ? config.corsOrigin

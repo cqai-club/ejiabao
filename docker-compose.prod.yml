@@ -1,0 +1,49 @@
+# 生产部署（含前端）：在仓库根使用根 Dockerfile 构建完整镜像。
+# 用法：
+#   cd backend && cp .env.example .env  # 填好所有生产配置
+#   cd .. && docker compose -f docker-compose.prod.yml up -d --build
+services:
+  postgres:
+    image: postgres:16-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ejiabao}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-ejiabao}
+    volumes:
+      - ejiabao-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ejiabao} -d ${POSTGRES_DB:-ejiabao}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: backend/.env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-ejiabao}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-ejiabao}?schema=public
+      NODE_ENV: production
+      PRODUCT_PROMO_PYTHON_BIN: python3
+      DSH_FFMPEG: ffmpeg
+      WORKFLOW_DATA_DIR: /data/workflows
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${API_PORT:-8787}:8787"
+    volumes:
+      - ejiabao-workflow-data:/data/workflows
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/health/live').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  ejiabao-postgres:
+  ejiabao-workflow-data:

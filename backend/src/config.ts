@@ -10,6 +10,8 @@ const envBoolean = z.preprocess(value => {
 
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+  // 前端产物目录（含 dist/index.html）。云部署时通过环境变量指向仓库根，默认回退到本机 cwd 上级。
+  FRONTEND_DIR: z.string().optional().default(""),
   HOST: z.string().default("0.0.0.0"),
   PORT: z.coerce.number().int().positive().default(8787),
   DATABASE_URL: z.string().min(1),

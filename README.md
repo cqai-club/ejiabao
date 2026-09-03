@@ -54,6 +54,21 @@ npm run preview
 
 默认地址为 `http://127.0.0.1:4173/`；如果端口被占用，请使用终端输出的实际端口。
 
+### Docker 生产部署
+
+仓库根目录的 `Dockerfile` 会分阶段构建前端静态产物与后端服务，并把构建好的 `dist/` 放进运行镜像，由后端统一托管（无需单独部署静态站点）：
+
+```bash
+# 在仓库根目录构建
+docker build -t ejiabao:latest .
+
+# 用 backend/docker-compose.cloud.yml 启动（Postgres + API）
+cd backend
+docker compose -f docker-compose.cloud.yml up -d --build
+```
+
+镜像内后端通过环境变量 `FRONTEND_DIR=/app/frontend` 定位前端产物；本地开发不设置该变量时，自动回退到“后端进程工作目录的上级目录”下的 `dist/`。前端图标等静态资源已本地化构建，生产环境不依赖外网 CDN。
+
 ## 隐私与密钥
 
 - 实际配置只放在 `backend/.env`，不会提交到 Git。
