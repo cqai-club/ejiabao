@@ -69,6 +69,42 @@ docker compose -f docker-compose.cloud.yml up -d --build
 
 镜像内后端通过环境变量 `FRONTEND_DIR=/app/frontend` 定位前端产物；本地开发不设置该变量时，自动回退到“后端进程工作目录的上级目录”下的 `dist/`。前端图标等静态资源已本地化构建，生产环境不依赖外网 CDN。
 
+### GitHub Actions 自动部署
+
+仓库内置 `.github/workflows/deploy.yml`：push 到 `main` 后自动构建镜像 → 推送到 GHCR → SSH 到服务器拉取并重启 `api` 容器。
+
+**前置条件（首次）**
+
+1. 在服务器执行初始化脚本，生成 `.env` 并准备部署目录：
+
+   ```bash
+   bash scripts/setup-server.sh /opt/ejiabao
+   # 然后编辑 /opt/ejiabao/.env 填好所有生产密钥
+   ```
+
+2. 在 GitHub 仓库 `Settings → Secrets and variables → Actions` 配置以下 Secrets：
+
+   | Secret | 说明 |
+   |---|---|
+   | `DEPLOY_HOST` | 服务器 IP 或域名 |
+   | `DEPLOY_USER` | SSH 用户名 |
+   | `DEPLOY_SSH_KEY` | SSH 私钥（服务器公钥需加入 `authorized_keys`） |
+   | `DEPLOY_PORT` | SSH 端口，默认 22 |
+   | `DEPLOY_DIR` | 服务器部署目录（与初始化脚本一致，如 `/opt/ejiabao`） |
+
+3. 服务器需已安装 Docker 与 Compose v2，且该用户有 Docker 权限。
+
+**触发方式**
+
+- push 到 `main` 自动部署；
+- 也可以在 GitHub Actions 页面手动运行 `Deploy`，并指定要部署的镜像 tag（默认使用最新提交 SHA）。
+
+镜像 tag 为提交 SHA 前 12 位；同一提交再次触发会重新拉取该 tag。回滚时手动运行 workflow 并填写上一个成功的 SHA 即可。
+
+**密钥安全**
+
+- 所有生产密钥只存放在服务器 `.env`，CI 通过 `DEPLOY_DIR` 读取，不会写入 GitHub Secrets 或日志。
+- GitHub Secrets 只存放连接服务器所需的 `DEPLOY_*` 信息。
 ## 隐私与密钥
 
 - 实际配置只放在 `backend/.env`，不会提交到 Git。

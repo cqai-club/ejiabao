@@ -1,7 +1,7 @@
-# 生产部署（含前端）：在仓库根使用根 Dockerfile 构建完整镜像。
+# 生产部署：镜像由 GitHub Actions 构建并推送到 GHCR，服务器只拉取运行。
 # 用法：
-#   cd backend && cp .env.example .env  # 填好所有生产配置
-#   cd .. && docker compose -f docker-compose.prod.yml up -d --build
+#   在服务器部署目录准备好 .env（见 scripts/setup-server.sh）
+#   docker compose -f docker-compose.prod.yml up -d --pull always
 services:
   postgres:
     image: postgres:16-bookworm
@@ -19,13 +19,11 @@ services:
       retries: 10
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${DEPLOY_IMAGE:-ejiabao:latest}
     restart: unless-stopped
-    env_file: backend/.env
+    env_file: ./.env
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER:-ejiabao}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-ejiabao}?schema=public
+      # DATABASE_URL 直接来自服务器 .env（生产数据库连接串），不在 compose 拼接。
       NODE_ENV: production
       PRODUCT_PROMO_PYTHON_BIN: python3
       DSH_FFMPEG: ffmpeg
