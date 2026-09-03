@@ -6,6 +6,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY index.html vite.config.js tsconfig.json components.json ./
+# legacy workspace 页面脚本与兼容桥
+COPY app ./app
 COPY assets ./assets
 COPY src ./src
 RUN npm run build
