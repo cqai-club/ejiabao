@@ -78,7 +78,6 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
-          envs: GITHUB_TOKEN
           script: |
             set -e
             IMAGE="${{ env.IMAGE }}:${{ steps.tag.outputs.tag }}"
@@ -92,7 +91,7 @@ jobs:
             fi
 
             echo "==> Log in to GHCR with ephemeral GITHUB_TOKEN"
-            printf '%s' "$GITHUB_TOKEN" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             echo "==> Recreate api container with $IMAGE"
             DEPLOY_IMAGE="$IMAGE" docker compose -f docker-compose.prod.yml up -d --pull always --no-deps api
