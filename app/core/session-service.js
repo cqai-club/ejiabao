@@ -2,7 +2,7 @@
  * 会话生命周期服务。
  * 这里只处理登录态本身，不处理登录页 DOM；认证接口接入后只需替换 auth-service 的 provider。
  */
-export function createSessionService({ storage, eventBus, ttlMs = 24 * 60 * 60 * 1000, now = () => Date.now() }) {
+export function createSessionService({ storage, eventBus, ttlMs = 30 * 24 * 60 * 60 * 1000, now = () => Date.now() }) {
   const SESSION_KEY = "session";
 
   function read() {

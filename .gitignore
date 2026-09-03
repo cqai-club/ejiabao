@@ -5,6 +5,7 @@
 backend/.env
 backend/.env.*
 !backend/.env.example
+!backend/.env.production.example
 
 # Dependencies and build output
 node_modules/

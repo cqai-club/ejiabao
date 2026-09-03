@@ -22,7 +22,8 @@ import { createWorkflowRegistry } from "./modules/workflows/workflow-registry.js
 
 /**
  * 运行时入口。
- * 页面仍由 index.html 展示；这里负责组装业务模块并暴露稳定的 window.ejiabaoRuntime API。
+ * Vue 负责应用壳与已迁移页面；这里负责组装业务模块并暴露稳定的
+ * window.ejiabaoRuntime API，供 legacy workspace 逐步迁移期间继续使用。
  */
 async function bootstrap() {
   const eventBus = createEventBus();

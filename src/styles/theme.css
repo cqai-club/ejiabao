@@ -1,0 +1,370 @@
+/* Load Tailwind tokens/utilities without its global preflight. The legacy
+   shell owns the document-wide reset while the Vue island owns components. */
+@import "tailwindcss/theme.css";
+@import "tailwindcss/utilities.css";
+
+/* Keep shadcn-style aliases inside the Vue island. Defining `--muted` or
+   aliases on :root would overwrite the legacy app's theme variables. */
+#vue-migration-root {
+  --background: var(--bg, #f5f5f0);
+  --foreground: var(--text, #101113);
+  --card: var(--surface, #ffffff);
+  --card-foreground: var(--text, #101113);
+  --popover: var(--surface, #ffffff);
+  --popover-foreground: var(--text, #101113);
+  --primary: var(--lime, #c8ff36);
+  --primary-foreground: #101113;
+  --secondary: var(--surface-2, #eeeee7);
+  --secondary-foreground: var(--text, #101113);
+  --muted-foreground: #686a70;
+  --accent: var(--cyan, #20c4df);
+  --accent-foreground: var(--text, #101113);
+  --destructive: var(--red, #ff5b5f);
+  --destructive-foreground: #ffffff;
+  --border: var(--line, rgba(16, 17, 19, .12));
+  --input: var(--line, rgba(16, 17, 19, .12));
+  --ring: var(--cyan, #20c4df);
+  --radius: 8px;
+  color: var(--foreground);
+}
+
+body[data-theme="dark"] #vue-migration-root {
+  --muted-foreground: #aeb7d8;
+}
+
+/* `--muted` already belongs to the legacy shell and is used for navigation
+   text. Keep the shadcn alias inside Vue page content so AppLayout buttons do
+   not inherit the surface color as their foreground. */
+.ejiabao-page-shell {
+  --muted: var(--surface-2, #eeeee7);
+}
+
+/* Expose the aliases to Tailwind utilities without creating document-wide
+   legacy variables. `inline` keeps each utility tied to the Vue island's
+   inherited theme values, including the dark-mode overrides. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+/* Keep the legacy shell available for non-migrated routes while Vue owns the
+   three settings routes. */
+body.vue-migration-active #vue-migration-root {
+  display: block;
+}
+
+#legacy-migrated-views {
+  display: none !important;
+}
+
+body.vue-migration-active .workspace > .view,
+body.vue-migration-active #legacy-migrated-views > .view {
+  display: none !important;
+}
+
+body.vue-migration-active .workspace {
+  min-height: calc(100vh - var(--topbar, 72px));
+}
+
+.ejiabao-page-shell {
+  min-width: 0;
+}
+
+.ejiabao-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0 0 22px;
+}
+
+.ejiabao-page-header h1 {
+  margin: 0;
+  font-size: clamp(32px, 4vw, 44px);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.ejiabao-page-header p {
+  margin: 8px 0 0;
+  color: var(--muted-foreground);
+}
+
+.ejiabao-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.ejiabao-grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ejiabao-grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ejiabao-span-two {
+  grid-column: 1 / -1;
+}
+
+.ejiabao-card-copy {
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.ejiabao-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ejiabao-form-grid .wide {
+  grid-column: 1 / -1;
+}
+
+.ejiabao-field {
+  display: grid;
+  gap: 7px;
+}
+
+.ejiabao-field label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ejiabao-field input,
+.ejiabao-field textarea,
+.ejiabao-field select {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid var(--line, rgba(16, 17, 19, .12));
+  border-radius: 7px;
+  background: var(--surface-2, #eeeee7);
+  color: var(--text);
+  padding: 9px 11px;
+  outline: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.ejiabao-field textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+.ejiabao-field input:focus,
+.ejiabao-field textarea:focus,
+.ejiabao-field select:focus {
+  border-color: var(--cyan, #20c4df);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyan, #20c4df) 18%, transparent);
+}
+
+.ejiabao-muted {
+  color: var(--muted-foreground);
+}
+
+.ejiabao-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.ejiabao-setting-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.ejiabao-setting-row:first-child {
+  padding-top: 0;
+}
+
+.ejiabao-setting-row p {
+  margin: 5px 0 0;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.ejiabao-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ejiabao-stat {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--card) 82%, var(--accent) 18%);
+}
+
+.ejiabao-stat strong {
+  font-size: 22px;
+}
+
+.ejiabao-access-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.ejiabao-access-card {
+  text-align: left;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.ejiabao-access-card:hover,
+.ejiabao-access-card.is-active {
+  border-color: var(--cyan, #20c4df);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--cyan, #20c4df) 12%, transparent);
+  transform: translateY(-1px);
+}
+
+.ejiabao-access-card h2 {
+  margin: 12px 0 6px;
+  font-size: 18px;
+}
+
+.ejiabao-provider-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ejiabao-provider-head,
+.ejiabao-card-head,
+.ejiabao-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ejiabao-actions {
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.ejiabao-actions > div {
+  display: flex;
+  gap: 8px;
+}
+
+.ejiabao-balance {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 20px 0 12px;
+}
+
+.ejiabao-balance strong {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.ejiabao-progress {
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-3, #e1e1d8);
+}
+
+.ejiabao-progress span {
+  display: block;
+  width: var(--progress, 54%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--lime, #c8ff36), var(--cyan, #20c4df));
+}
+
+.ejiabao-quota-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.ejiabao-recharge-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.ejiabao-recharge-grid button {
+  display: grid;
+  gap: 3px;
+  min-height: 66px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface-2, #eeeee7);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.ejiabao-recharge-grid button:hover,
+.ejiabao-recharge-grid button.is-selected {
+  border-color: var(--lime, #c8ff36);
+  background: color-mix(in srgb, var(--surface-2, #eeeee7) 80%, var(--lime, #c8ff36) 20%);
+}
+
+@media (max-width: 900px) {
+  .ejiabao-grid.two,
+  .ejiabao-provider-grid,
+  .ejiabao-access-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ejiabao-recharge-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ejiabao-page-header,
+  .ejiabao-card-head,
+  .ejiabao-provider-head,
+  .ejiabao-setting-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ejiabao-form-grid,
+  .ejiabao-stat-grid,
+  .ejiabao-recharge-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ejiabao-form-grid .wide,
+  .ejiabao-span-two {
+    grid-column: auto;
+  }
+}

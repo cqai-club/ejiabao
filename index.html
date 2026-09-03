@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI 视频创作工作台</title>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="lucide.min.js"></script>
   <style>
     :root {
       color-scheme: light;
@@ -1584,8 +1584,8 @@
 
     .primary-btn {
       background: var(--lime);
-      color: #101113;
-      font-weight: 700;
+      color: #fff;
+      font-weight: 400;
     }
 
     .ghost-btn {
@@ -1604,6 +1604,9 @@
     .workspace {
       min-width: 0;
       padding: 22px 24px 40px;
+      width: 100%;
+      max-width: 1400px;
+      margin-inline: auto;
     }
 
     .view {
@@ -5391,56 +5394,7 @@
   </style>
 </head>
 <body data-theme="dark" class="auth-active">
-  <section class="auth-page" id="authPage" aria-labelledby="auth-title">
-    <div class="auth-shell">
-      <div class="auth-copy">
-        <a class="auth-brand" href="#" aria-label="品牌标识"><img src="assets/ejiabao-logo-new.jpg" alt="品牌标识"></a>
-        <div>
-          <span class="landing-overline"><i data-lucide="shield-check" aria-hidden="true"></i>PERSONAL CREATOR CLOUD / 01</span>
-          <h1 id="auth-title">先把账号交给你，<br><em>再把想法交给云端。</em></h1>
-          <p>登录后，你的项目、素材、品牌设定和生成记录都会被安全保存。换一台 Windows 设备，也能从中间停下的地方继续。</p>
-        </div>
-        <div class="auth-proof-grid">
-          <div class="auth-proof"><strong>云端同步</strong><span>项目与素材状态持续保存</span></div>
-          <div class="auth-proof"><strong>设备授权</strong><span>加密优盘绑定后才可使用</span></div>
-          <div class="auth-proof"><strong>随时续写</strong><span>从草稿到成片都能接着做</span></div>
-        </div>
-      </div>
-
-      <section class="auth-card" aria-label="登录表单">
-        <div class="auth-card-head">
-          <div><span class="tag is-lime">欢迎回来</span><h2 style="margin-top:12px">登录创作空间</h2><p class="muted" style="margin-top:6px">选择一种方式继续</p></div>
-          <button class="landing-button" id="authThemeToggle" type="button" aria-label="切换深浅主题"><i data-lucide="moon" aria-hidden="true"></i></button>
-        </div>
-
-        <div class="auth-tabs" role="tablist" aria-label="登录方式">
-          <button class="auth-tab is-active" type="button" data-auth-tab="email" role="tab" aria-selected="true">邮箱登录</button>
-          <button class="auth-tab" type="button" data-auth-tab="phone" role="tab" aria-selected="false">手机号登录</button>
-        </div>
-
-        <div class="auth-message" id="authMessage" role="status" aria-live="polite"></div>
-
-        <form class="auth-form" id="authForm">
-          <div class="auth-field"><label for="authAccount" id="authAccountLabel">邮箱地址</label><input id="authAccount" type="email" value="dev@ejiabao.local" placeholder="name@example.com" autocomplete="username" required></div>
-          <div class="auth-register-fields" id="authRegisterFields">
-            <div class="auth-field"><label for="authNickname">创作者昵称</label><input id="authNickname" type="text" value="开发体验用户" placeholder="给自己一个名字" autocomplete="nickname"></div>
-          </div>
-          <div class="auth-field"><label for="authPassword">密码</label><input id="authPassword" type="password" value="dev123456" placeholder="请输入密码" autocomplete="current-password" required></div>
-          <div class="auth-row"><label class="auth-check"><input type="checkbox" checked> 记住此设备</label><span class="muted">开发阶段虚拟登录</span></div>
-          <button class="auth-submit" id="authSubmit" type="submit"><i data-lucide="arrow-right" aria-hidden="true"></i>登录并继续</button>
-        </form>
-
-        <div class="auth-divider">开发授权</div>
-        <div class="auth-dev-actions">
-          <button class="wechat-login" type="button" data-auth-action="dev-user"><i data-lucide="user-check" aria-hidden="true"></i>默认账号登录</button>
-          <button class="wechat-login" type="button" data-auth-action="wechat"><i data-lucide="message-circle" aria-hidden="true"></i>微信授权登录</button>
-        </div>
-        <div class="auth-mode-row"><span id="authModeHint">还没有账号？</span><button class="auth-link" type="button" id="authModeToggle">创建账号</button></div>
-        <p class="auth-footnote">当前为开发阶段，默认账号与微信授权都会创建本地虚拟前端用户。</p>
-      </section>
-    </div>
-  </section>
-
+  <div id="vue-migration-root"></div>
   <section class="onboarding-page" id="onboardingPage" aria-labelledby="onboarding-title">
     <div class="onboarding-shell">
       <header class="onboarding-nav">
@@ -5473,151 +5427,7 @@
     </div>
   </section>
 
-  <section class="landing-page" id="landingPage" aria-labelledby="landing-title">
-    <div class="landing-shell">
-      <header class="landing-nav">
-        <a class="landing-brand" href="#top" aria-label="返回首页"><img src="assets/ejiabao-logo-new.jpg" alt="品牌标识"></a>
-        <nav class="landing-nav-links" aria-label="首页导航">
-          <a href="#capabilities">能力</a>
-          <a href="#cases">案例</a>
-          <a href="#process">流程</a>
-          <a href="#scenes">场景</a>
-        </nav>
-        <div class="landing-actions">
-          <button class="landing-button" id="landingThemeToggle" type="button" aria-label="切换深浅主题"><i data-lucide="moon" aria-hidden="true"></i></button>
-          <button class="landing-button" type="button" data-auth-action="back-login"><i data-lucide="log-in" aria-hidden="true"></i>返回登录页</button>
-          <button class="landing-button is-primary" data-enter-app type="button"><i data-lucide="arrow-up-right" aria-hidden="true"></i>进入工作台</button>
-        </div>
-      </header>
-
-      <main id="top">
-        <section class="landing-hero">
-          <div class="landing-hero-copy">
-            <span class="landing-overline"><i data-lucide="sparkles" aria-hidden="true"></i>AI VIDEO CREATION / 01</span>
-            <h1 id="landing-title">让想法拥有<br><em>自己的镜头语言。</em></h1>
-            <p>从一句话、一张图或一段实拍开始。让云端理解你的意图，生成有节奏、有情感、也有你个人判断的短视频。</p>
-            <div class="landing-hero-actions">
-              <button class="landing-button is-primary" data-enter-app type="button"><i data-lucide="play" aria-hidden="true"></i>开始创作</button>
-              <a class="landing-button" href="#cases"><i data-lucide="arrow-down" aria-hidden="true"></i>浏览案例</a>
-            </div>
-          </div>
-          <div class="landing-hero-art">
-            <div class="hero-media-window">
-              <button class="hero-carousel-arrow is-prev" id="heroPrev" type="button" aria-label="上一组案例"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
-              <div class="hero-media-track">
-                <div class="hero-media-item is-prev" data-index="0" data-label="人物特写·数字人口播"><img src="assets/cases/case-portrait.jpg" alt="数字人口播案例画面"></div>
-                <div class="hero-media-item is-active" data-index="1" data-label="商品质感·动态展示"><img src="assets/cases/case-product.jpg" alt="商品动态展示案例画面"></div>
-                <div class="hero-media-item is-next" data-index="2" data-label="现场发声·活动预告"><img src="assets/cases/case-stage.jpg" alt="活动预告案例画面"></div>
-              </div>
-              <button class="hero-carousel-arrow is-next" id="heroNext" type="button" aria-label="下一组案例"><i data-lucide="chevron-right" aria-hidden="true"></i></button>
-            </div>
-          </div>
-        </section>
-
-        <section class="landing-section" id="capabilities">
-          <div class="landing-section-head"><div><h2>创作不是堆工具，<br>而是找到合适的下一步。</h2></div><p>六类入口，一套连续的创作体验。你可以从最熟悉的素材开始，也可以从一个还没有形状的念头开始。</p></div>
-          <div class="landing-type-strip">
-            <button class="landing-type-card" style="--type-color:#a46bff;--type-image:url('assets/cases/case-product.jpg')" data-enter-app data-app-type="commerce" type="button"><span class="type-symbol"><i data-lucide="shopping-bag" aria-hidden="true"></i></span><span><strong>商品推广</strong><span>让静态商品拥有镜头与节奏</span></span></button>
-            <button class="landing-type-card" style="--type-color:#45e7ff;--type-image:url('assets/cases/case-portrait.jpg')" data-enter-app data-app-type="talking" type="button"><span class="type-symbol"><i data-lucide="user-round" aria-hidden="true"></i></span><span><strong>知识口播</strong><span>把复杂内容讲成清晰故事</span></span></button>
-            <button class="landing-type-card" style="--type-color:#ffcf5a;--type-image:url('assets/cases/case-city.jpg')" data-enter-app data-app-type="story" type="button"><span class="type-symbol"><i data-lucide="film" aria-hidden="true"></i></span><span><strong>剧情短片</strong><span>从设定开始构建一个世界</span></span></button>
-            <button class="landing-type-card" style="--type-color:#22d6a8;--type-image:url('assets/cases/case-food.jpg')" data-enter-app data-app-type="vlog" type="button"><span class="type-symbol"><i data-lucide="camera" aria-hidden="true"></i></span><span><strong>Vlog</strong><span>把真实片段剪成完整故事</span></span></button>
-            <button class="landing-type-card" style="--type-color:#8feaff;--type-image:url('assets/cases/case-creator.jpg')" data-enter-app data-app-type="mix" type="button"><span class="type-symbol"><i data-lucide="mic-2" aria-hidden="true"></i></span><span><strong>文生播客</strong><span>一段文案，生成有画面的声音故事</span></span></button>
-            <button class="landing-type-card" style="--type-color:#ff8a5c;--type-image:url('assets/cases/case-stage.jpg')" data-enter-app data-app-type="event" type="button"><span class="type-symbol"><i data-lucide="megaphone" aria-hidden="true"></i></span><span><strong>活动预告</strong><span>让重要的时刻提前发生</span></span></button>
-          </div>
-        </section>
-
-        <section class="landing-section" id="cases">
-          <div class="landing-section-head"><div><h2>一些已经发生的画面</h2></div><p>从商品、人物到城市与现场，每一类素材都可以成为下一支片子的起点。</p></div>
-          <div class="case-wall">
-            <article class="case-card"><img src="assets/cases/case-portrait.jpg" alt="人物影像案例"><div class="case-meta"><strong>人物特写</strong><span>知识口播 · 数字人口播</span></div></article>
-            <article class="case-card"><img src="assets/cases/case-product.jpg" alt="商品展示案例"><div class="case-meta"><strong>商品质感</strong><span>商品推广 · 动态展示</span></div></article>
-            <article class="case-card"><img src="assets/cases/case-food.jpg" alt="美食内容案例"><div class="case-meta"><strong>日常风味</strong><span>Vlog · 实拍精剪</span></div></article>
-            <article class="case-card"><img src="assets/cases/case-city.jpg" alt="城市影像案例"><div class="case-meta"><strong>城市街巷</strong><span>剧情短片 · 文生视频</span></div></article>
-            <article class="case-card"><img src="assets/cases/case-stage.jpg" alt="活动现场案例"><div class="case-meta"><strong>现场发声</strong><span>活动预告 · 快宣物料</span></div></article>
-            <article class="case-card"><img src="assets/cases/case-creator.jpg" alt="播客视觉案例"><div class="case-meta"><strong>声音与画面</strong><span>文生播客 · 音频可视化</span></div></article>
-          </div>
-        </section>
-
-        <section class="landing-section" id="process">
-          <div class="landing-section-head"><div><h2>从灵感到成片，<br>每一步都清晰。</h2></div><p>你不需要先理解模型，只需要知道自己想表达什么。其余的工作，交给一条看得见的创作·径。</p></div>
-          <div class="landing-process">
-            <div class="landing-process-step"><small>01 / SELECT</small><strong>选一种表达</strong><p>确定你想做的内容类型。</p></div>
-            <div class="landing-process-step"><small>02 / FEED</small><strong>交付手边素材</strong><p>图片、脚本、视频或一句话描述。</p></div>
-            <div class="landing-process-step"><small>03 / GENERATE</small><strong>云端展开画面</strong><p>镜头、声音与节奏自动成形。</p></div>
-            <div class="landing-process-step"><small>04 / REFINE</small><strong>留下你的版本</strong><p>审片、调整，导出并发布。</p></div>
-          </div>
-        </section>
-
-        <section class="landing-section" id="scenes">
-          <div class="landing-footer-cta"><div><h2>让每个想法，都有一条通向画面的·。</h2><p>现在进入工作台，开始你的下一支片子。</p></div><button class="landing-button is-primary" data-enter-app type="button"><i data-lucide="arrow-right" aria-hidden="true"></i>进入工作台</button></div>
-          <div class="landing-note"><span>AI VIDEO CREATION SPACE</span><span>Windows Desktop · Cloud Processing</span></div>
-        </section>
-      </main>
-    </div>
-  </section>
-
-  <div class="app">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="brand" aria-label="品牌标识" data-go-landing role="button" tabindex="0">
-          <img src="assets/ejiabao-logo-new.jpg" alt="品牌标识">
-        </div>
-        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="收起侧栏" aria-pressed="false"><i data-lucide="panel-left-close" aria-hidden="true"></i></button>
-      </div>
-
-      <nav class="nav" aria-label="主导航">
-        <button class="is-active" data-view-target="dashboard" type="button"><i data-lucide="layout-dashboard" aria-hidden="true"></i>工作台</button>
-        <button data-view-target="create" type="button"><i data-lucide="clapperboard" aria-hidden="true"></i>新建创作</button>
-        <button data-view-target="templates" type="button"><i data-lucide="panels-top-left" aria-hidden="true"></i>模板中心</button>
-        <button data-view-target="assets" type="button"><i data-lucide="folder-open" aria-hidden="true"></i>素材库</button>
-        <button data-view-target="brand" type="button"><i data-lucide="palette" aria-hidden="true"></i>品牌设定</button>
-        <button data-view-target="queue" type="button"><i data-lucide="cloud-cog" aria-hidden="true"></i>云端队列</button>
-        <button data-view-target="review" type="button"><i data-lucide="monitor-play" aria-hidden="true"></i>审片导出</button>
-        <button data-view-target="library" type="button"><i data-lucide="library-big" aria-hidden="true"></i>作品库</button>
-        <button data-view-target="settings" type="button"><i data-lucide="settings" aria-hidden="true"></i>设置</button>
-      </nav>
-
-      <div class="side-group" aria-label="视频类型">
-        <div class="side-title"><span class="side-title-mark"><i data-lucide="sparkles" aria-hidden="true"></i></span><span>新建创作类型</span></div>
-        <button class="type-link is-active" style="--type-color: var(--lime)" data-type-target="commerce" data-view-target="create" type="button"><span>商品推广</span><span>图转视频</span></button>
-        <button class="type-link" style="--type-color: var(--cyan)" data-type-target="talking" data-view-target="create" type="button"><span>知识口播</span><span>数字人</span></button>
-        <button class="type-link" style="--type-color: var(--purple)" data-type-target="story" data-view-target="create" type="button"><span>剧情短片</span><span>文生视频</span></button>
-        <button class="type-link" style="--type-color: var(--yellow)" data-type-target="vlog" data-view-target="create" type="button"><span>Vlog</span><span>实拍精剪</span></button>
-        <button class="type-link" style="--type-color: var(--green)" data-type-target="mix" data-view-target="create" type="button"><span>文生播客</span><span>声音可视化</span></button>
-        <button class="type-link" style="--type-color: var(--orange)" data-type-target="event" data-view-target="create" type="button"><span>活动预告</span><span>快宣物料</span></button>
-      </div>
-
-      <div class="account-box">
-        <div class="account-row">
-          <button class="account-profile-trigger" data-view-target="profile" type="button" aria-label="打开个人主页">
-            <div class="avatar" id="sidebarAvatar">创</div>
-            <div class="account-copy" style="min-width:0">
-              <strong id="sidebarProfileName" style="display:block">个人创作者</strong>
-              <span class="muted" style="font-size:12px">云端算力：68 分钟</span>
-            </div>
-          </button>
-          <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅主题"><span></span></button>
-        </div>
-      </div>
-    </aside>
-
-    <main class="main">
-      <header class="topbar">
-        <label class="search">
-          <i data-lucide="search" aria-hidden="true"></i>
-          <input id="globalSearch" type="search" placeholder="搜索项目、模板、素材">
-        </label>
-        <div class="top-actions">
-          <button class="ghost-btn" data-go-landing type="button"><i data-lucide="home" aria-hidden="true"></i>产品首页</button>
-          <button class="ghost-btn" data-auth-action="logout" type="button"><i data-lucide="log-out" aria-hidden="true"></i>退出登录</button>
-          <button class="icon-btn" type="button" aria-label="消息"><i data-lucide="bell" aria-hidden="true"></i></button>
-          <button class="icon-btn" type="button" aria-label="帮助与反馈" data-help-toggle><i data-lucide="circle-help" aria-hidden="true"></i></button>
-          <button class="ghost-btn" data-view-target="queue" type="button"><i data-lucide="activity" aria-hidden="true"></i><span id="queueCountLabel">队列</span></button>
-          <button class="primary-btn" data-view-target="create" type="button"><i data-lucide="sparkles" aria-hidden="true"></i>新建视频</button>
-        </div>
-      </header>
-
-      <div class="workspace">
+  <div id="legacy-workspace-source" hidden>
         <section class="view intro-view" id="view-intro" aria-labelledby="intro-title" hidden>
           <div class="intro-hero">
             <div class="intro-copy">
@@ -6228,7 +6038,7 @@
 
             <article class="library-card" data-library-status="draft">
               <div class="library-art" style="--library-a:#7f6bff;--library-b:#ff5b5f"><strong>咖啡馆反转</strong><span>剧情短片 · 9:16</span></div>
-              <div class="library-info"><div class="library-title-row"><strong>咖啡馆反转剧情</strong><span class="tag">草稿</span></div><span class="muted">可返回创作继续完成。</span><div class="hero-actions"><button class="small-action" data-type-target="story" data-view-target="create" type="button">继续创作</button></div></div></div>
+              <div class="library-info"><div class="library-title-row"><strong>咖啡馆反转剧情</strong><span class="tag">草稿</span></div><span class="muted">可返回创作继续完成。</span><div class="hero-actions"><button class="small-action" data-type-target="story" data-view-target="create" type="button">继续创作</button></div></div>
             </article>
 
             <article class="library-card" data-library-status="published">
@@ -6432,8 +6242,10 @@
           </div>
         </section>
       </div>
-    </main>
-  </div>
+      <!-- Legacy compatibility views live outside the workspace. Vue owns the
+           migrated routes; these nodes remain as a hidden migration cache so
+           the old event/data bridge can be retired independently. -->
+      <div id="legacy-migrated-views" class="legacy-migrated-views" aria-hidden="true" hidden></div>
 
   <div class="help-panel" id="helpPanel" hidden>
     <div class="help-panel-head">
@@ -6645,24 +6457,39 @@
     };
     const body = document.body;
     const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 天会话有效期（本地虚拟会话兜底）
+    const legacyMigrationViewIds = ["view-profile", "view-model-config", "view-settings"];
+    const legacyMigrationHost = document.getElementById("legacy-migrated-views");
+    if (legacyMigrationHost) {
+      legacyMigrationViewIds.forEach(viewId => {
+        const view = document.getElementById(viewId);
+        if (view && view.closest("#legacy-workspace-source, #legacy-workspace-slot")) legacyMigrationHost.append(view);
+      });
+    }
     const savedTheme = localStorage.getItem("ejiabao-theme");
     if (savedTheme) body.dataset.theme = savedTheme;
     const savedSidebar = localStorage.getItem("ejiabao-sidebar-collapsed");
     if (savedSidebar === "true") body.classList.add("sidebar-collapsed");
 
     function getSessionData() {
+      const runtimeSession = window.ejiabaoRuntime?.session?.read?.();
       const raw = localStorage.getItem("ejiabao-session");
-      if (!raw) return null;
+      let legacySession = null;
       try {
-        return JSON.parse(raw);
+        legacySession = raw ? JSON.parse(raw) : null;
       } catch {
         localStorage.removeItem("ejiabao-session");
-        return null;
+        legacySession = null;
       }
+      if (!runtimeSession) return legacySession;
+      const merged = { ...legacySession, ...runtimeSession };
+      if (runtimeSession.deviceAuthorized === undefined && legacySession?.deviceAuthorized !== undefined) merged.deviceAuthorized = legacySession.deviceAuthorized;
+      if (runtimeSession.mode === undefined && legacySession?.mode !== undefined) merged.mode = legacySession.mode;
+      return merged;
     }
 
     function saveSessionData(session) {
       localStorage.setItem("ejiabao-session", JSON.stringify(session));
+      window.ejiabaoRuntime?.session?.save?.(session);
     }
 
     function isSessionExpired(session) {
@@ -6765,6 +6592,7 @@
     }
 
     function expireSession(message = "登录已过期，请重新登录。") {
+      window.ejiabaoRuntime?.session?.clear?.("expired");
       localStorage.removeItem("ejiabao-session");
       showAuth(true);
       setAuthMessage(message);
@@ -6775,6 +6603,7 @@
       body.classList.add("auth-active");
       if (clearSession) {
         localStorage.removeItem("ejiabao-session");
+        window.ejiabaoRuntime?.session?.clear?.("logout");
       }
       clearAllDirty();
       setAuthMessage("");
@@ -6839,19 +6668,22 @@
       };
       window.ejiabaoRuntime?.session?.start({ user, remember, authMethod: user.identifierKind, virtual: true });
       if (!localStorage.getItem("ejiabao-profile-name")) localStorage.setItem("ejiabao-profile-name", user.name);
-      localStorage.setItem("ejiabao-session", JSON.stringify({
+      const session = {
         mode: method === "wechat" ? "wechat-dev" : "frontend-dev",
         deviceAuthorized: localStorage.getItem("ejiabao-device-authorized") === "true",
         updatedAt: now,
         virtual: true,
-        user
-      }));
+        user,
+        accessToken: window.ejiabaoRuntime?.session?.read?.()?.accessToken,
+        refreshToken: window.ejiabaoRuntime?.session?.read?.()?.refreshToken
+      };
+      localStorage.setItem("ejiabao-session", JSON.stringify(session));
       setAuthMessage(message || (method === "wechat" ? "微信开发授权已完成，正在检查设备授权。" : "默认开发账号已登录，正在检查设备授权。"), true);
       window.setTimeout(showOnboarding, 420);
     }
 
     async function completeBackendLogin({ account, password, phoneMode, register }) {
-      const http = queueHttp();
+      const http = queueHttp({ authenticated: false });
       if (!http) throw new Error("后端 API 尚未连接，暂时无法使用正式账号登录。");
       const remember = document.querySelector(".auth-check input")?.checked ?? true;
       const nickname = document.getElementById("authNickname")?.value?.trim() || "个人创作者";
@@ -6879,7 +6711,9 @@
         deviceAuthorized: localStorage.getItem("ejiabao-device-authorized") === "true",
         updatedAt: new Date().toISOString(),
         virtual: false,
-        user
+        user,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken
       }));
       setAuthMessage(register ? "账号已创建，正在检查设备授权。" : "登录成功，正在检查设备授权。", true);
       window.setTimeout(showOnboarding, 420);
@@ -6942,6 +6776,16 @@
         expireSession();
         return;
       }
+      const isVirtualSession = Boolean(session.virtual || session.user?.virtual || session.mode === "demo");
+      if (!isVirtualSession && !session.accessToken && !session.refreshToken) {
+        expireSession();
+        return;
+      }
+      const route = parseAppRoute();
+      if (route && vueOwnedViewNames.has(route.viewName)) {
+        body.classList.remove("auth-active", "onboarding-active", "landing-active");
+        return;
+      }
       if (session.mode === "demo" || session.deviceAuthorized) goLanding();
       else showOnboarding();
     }
@@ -6998,6 +6842,7 @@
       "model-config",
       "settings"
     ]);
+    const vueOwnedViewNames = new Set(["profile", "model-config", "settings"]);
 
     function parseAppRoute() {
       const hash = String(window.location.hash || "").replace(/^#\/?/, "");
@@ -7034,13 +6879,20 @@
     function syncAppRoute(viewName, replace = false) {
       const nextHash = appRouteForView(viewName);
       if (window.location.hash === nextHash) return;
-      const method = replace ? "replaceState" : "pushState";
-      window.history[method]({}, "", nextHash);
+      if (replace) {
+        const oldUrl = window.location.href;
+        window.history.replaceState(window.history.state, "", nextHash);
+        window.dispatchEvent(new HashChangeEvent("hashchange", { oldURL: oldUrl, newURL: window.location.href }));
+        return;
+      }
+      // Keep the legacy hash contract; the Vue router bridge mirrors it into
+      // router.push() so both navigation layers observe the same route.
+      window.location.hash = nextHash.slice(1);
     }
 
     function applyAppRoute() {
       const route = parseAppRoute();
-      if (!route || body.classList.contains("auth-active") || body.classList.contains("onboarding-active")) return false;
+      if (!route || vueOwnedViewNames.has(route.viewName) || body.classList.contains("auth-active") || body.classList.contains("onboarding-active")) return false;
       if (body.classList.contains("landing-active")) {
         const session = getSessionData();
         if (!session || isSessionExpired(session)) return false;
@@ -7064,6 +6916,10 @@
     function showView(viewName, options = {}) {
       const { syncRoute = true, replaceRoute = false } = options;
       if (viewName === "intro") viewName = "dashboard";
+      if (vueOwnedViewNames.has(viewName)) {
+        if (syncRoute) syncAppRoute(viewName, replaceRoute);
+        return true;
+      }
       if (!navigationBypassConfirm && !confirmLeaveIfNeeded()) return false;
       if (!navigationBypassConfirm) clearAllDirty();
       document.querySelectorAll(".view").forEach(view => {
@@ -7085,8 +6941,54 @@
       return true;
     }
 
-    function queueHttp() {
+    function hasApiSession(session = getSessionData()) {
+      return Boolean(
+        session
+          && !session.virtual
+          && !session.user?.virtual
+          && (session.accessToken || session.refreshToken)
+          && !isSessionExpired(session)
+      );
+    }
+
+    function queueHttp({ authenticated = true } = {}) {
+      if (authenticated && !hasApiSession()) return null;
       return window.ejiabaoRuntime?.http || null;
+    }
+
+    /** 云端工作流与队列操作必须使用可调用后端的正式会话。 */
+    function requireApiSession(message = "请先登录正式账号后再使用云端工作流。") {
+      if (!touchSession()) return false;
+      if (hasApiSession()) return true;
+      showToast(message);
+      return false;
+    }
+
+    function hydrateRuntimeSession() {
+      const runtime = window.ejiabaoRuntime;
+      if (!runtime?.session?.read) return null;
+      const current = runtime.session.read();
+      const raw = localStorage.getItem("ejiabao-session");
+      let legacy = null;
+      try { legacy = raw ? JSON.parse(raw) : null; } catch { legacy = null; }
+      if (!legacy) return current || null;
+      const currentVirtual = Boolean(current?.virtual || current?.user?.virtual);
+      const legacyVirtual = Boolean(legacy?.virtual || legacy?.user?.virtual);
+      const currentHasToken = Boolean(current?.accessToken || current?.refreshToken);
+      const legacyHasToken = Boolean(legacy?.accessToken || legacy?.refreshToken);
+      const currentFormal = Boolean(current && !currentVirtual && currentHasToken && !isSessionExpired(current));
+      const legacyFormal = Boolean(!legacyVirtual && legacyHasToken && !isSessionExpired(legacy));
+      if (legacyFormal && !currentFormal) {
+        return runtime.session.start?.({
+          ...current,
+          ...legacy,
+          virtual: false,
+          user: { ...(current?.user || {}), ...(legacy.user || {}), virtual: false }
+        }) || legacy;
+      }
+      if (current) return current;
+      if (legacyVirtual || legacyHasToken) return runtime.session.start?.(legacy) || legacy;
+      return null;
     }
 
     function preferenceKey(scope) {
@@ -7531,7 +7433,7 @@
     }
 
     async function loadDashboardData() {
-      const http = window.ejiabaoRuntime?.http;
+      const http = hasApiSession() ? window.ejiabaoRuntime?.http : null;
       if (!http) return;
       try {
         const [projectsResponse, tasksResponse, workflowsResponse] = await Promise.all([
@@ -7670,7 +7572,7 @@
 
     async function loadLibraryRecords() {
       const library = window.ejiabaoRuntime?.modules?.library;
-      const http = window.ejiabaoRuntime?.http;
+      const http = hasApiSession() ? window.ejiabaoRuntime?.http : null;
       const localRecords = library?.list?.() || [];
       let records = mergeLibraryRecords(localRecords, []);
       if (http) {
@@ -7770,12 +7672,16 @@
       const name = localStorage.getItem("ejiabao-profile-name") || "个人创作者";
       const bio = localStorage.getItem("ejiabao-profile-bio") || "把灵感交给云端，也把最后的判断留在自己手里。";
       const avatar = localStorage.getItem("ejiabao-profile-avatar") || "";
-      document.getElementById("profileName").value = name;
-      document.getElementById("profileDisplayName").textContent = name;
-      document.getElementById("profileBio").value = bio;
-      document.getElementById("sidebarProfileName").textContent = name;
+      const profileNameInput = document.getElementById("profileName");
+      if (profileNameInput) profileNameInput.value = name;
+      const profileDisplayName = document.getElementById("profileDisplayName");
+      if (profileDisplayName) profileDisplayName.textContent = name;
+      const profileBio = document.getElementById("profileBio");
+      if (profileBio) profileBio.value = bio;
+      const sidebarProfileName = document.getElementById("sidebarProfileName");
+      if (sidebarProfileName) sidebarProfileName.textContent = name;
       renderProfileAvatar(avatar);
-      const http = window.ejiabaoRuntime?.http;
+      const http = hasApiSession() ? window.ejiabaoRuntime?.http : null;
       if (http) {
         try {
           const response = await http.get("/v1/me", { timeoutMs: 30000 });
@@ -7787,10 +7693,14 @@
           const remoteBio = (rawRemoteBio && !isDirtyCJK(rawRemoteBio)) ? rawRemoteBio : bio;
           const rawRemoteAvatar = String(user.avatarUrl || "");
           const remoteAvatar = rawRemoteAvatar || avatar || "";
-          document.getElementById("profileName").value = remoteName;
-          document.getElementById("profileDisplayName").textContent = remoteName;
-          document.getElementById("profileBio").value = remoteBio;
-          document.getElementById("sidebarProfileName").textContent = remoteName;
+          const remoteProfileNameInput = document.getElementById("profileName");
+          if (remoteProfileNameInput) remoteProfileNameInput.value = remoteName;
+          const remoteProfileDisplayName = document.getElementById("profileDisplayName");
+          if (remoteProfileDisplayName) remoteProfileDisplayName.textContent = remoteName;
+          const remoteProfileBio = document.getElementById("profileBio");
+          if (remoteProfileBio) remoteProfileBio.value = remoteBio;
+          const remoteSidebarProfileName = document.getElementById("sidebarProfileName");
+          if (remoteSidebarProfileName) remoteSidebarProfileName.textContent = remoteName;
           localStorage.setItem("ejiabao-profile-name", remoteName);
           localStorage.setItem("ejiabao-profile-bio", remoteBio);
           if (remoteAvatar) localStorage.setItem("ejiabao-profile-avatar", remoteAvatar);
@@ -7860,6 +7770,10 @@
     async function loadModelConfigs() {
       const service = window.ejiabaoRuntime?.modules?.modelConfig;
       if (!service) return;
+      if (!hasApiSession()) {
+        renderModelConfigs(service.defaults ? service.defaults() : [], false);
+        return;
+      }
       try {
         const result = await service.list();
         renderModelConfigs(result.configs || [], Boolean(result.available));
@@ -8661,6 +8575,7 @@
       return {
         async post(path, body) {
           const session = getSessionData();
+          if (!hasApiSession(session)) throw new Error("请先登录正式账号后再使用文案润色。");
           const response = await fetch(`${baseUrl}${path.startsWith("/") ? path : `/${path}`}`, {
             method: "POST",
             headers: {
@@ -8671,10 +8586,10 @@
             body: JSON.stringify(body || {})
           });
           const data = await response.json().catch(() => ({}));
-          if (response.status === 401) {
-            expireSession(data?.error?.message || "登录已过期，请重新登录。");
-            throw new Error(data?.error?.message || "登录已过期，请重新登录。");
-          }
+           if (response.status === 401 && hasApiSession(session)) {
+             expireSession(data?.error?.message || "登录已过期，请重新登录。");
+           }
+           if (response.status === 401) throw new Error(data?.error?.message || "请先登录。");
           if (!response.ok) {
             throw new Error(data?.error?.message || data?.message || `请求失败（${response.status}）`);
           }
@@ -8693,9 +8608,9 @@
         input.focus();
         return;
       }
-      const http = window.ejiabaoRuntime?.http || createDirectDeepSeekClient();
+      const http = queueHttp() || (hasApiSession() ? createDirectDeepSeekClient() : null);
       if (!http) {
-        showToast("DeepSeek 服务正在连接，请稍后重试。");
+        showToast(hasApiSession() ? "DeepSeek 服务正在连接，请稍后重试。" : "请先登录正式账号后再使用文案润色。");
         return;
       }
 
@@ -8846,7 +8761,7 @@
     }
 
     async function refreshHarnessStatus() {
-      if (!document.querySelector("[data-console-model='deepseek'].is-active")) return;
+      if (!hasApiSession() || !document.querySelector("[data-console-model='deepseek'].is-active")) return;
       const service = window.ejiabaoRuntime?.modules?.orchestration;
       if (!service) return;
       try {
@@ -8886,6 +8801,11 @@
 
     async function publishLibraryCard(card) {
       if (!card) return;
+      const http = queueHttp();
+      if (!http) {
+        showToast(hasApiSession() ? "后端未连接，暂时无法发布作品。" : "请先登录正式账号后再发布作品。");
+        return false;
+      }
       const publishing = window.ejiabaoRuntime?.modules?.publishing;
       if (!publishing?.configured) {
         showToast("发布平台授权尚未配置，当前不会伪造发布成功状态。");
@@ -8909,8 +8829,7 @@
         platforms
       };
       window.ejiabaoRuntime?.modules?.library?.save(updated);
-      const http = window.ejiabaoRuntime?.http;
-      if (http && updated.id) {
+      if (updated.id) {
         try {
           await http.patch(`/v1/projects/${encodeURIComponent(updated.id)}`, { status: "READY", metadata: updated }, { timeoutMs: 30000 });
         } catch (error) {
@@ -8954,7 +8873,7 @@
     const assetSelectedIds = new Set();
 
     function assetHttp() {
-      return window.ejiabaoRuntime?.http || null;
+      return hasApiSession() ? window.ejiabaoRuntime?.http || null : null;
     }
 
     function escapeAssetText(value) {
@@ -9187,6 +9106,7 @@
     }
 
     async function uploadAssetFiles(files) {
+      if (!requireApiSession("请先登录正式账号后再上传素材。")) return;
       const media = window.ejiabaoRuntime?.modules?.media;
       if (!media?.upload) { showToast("素材上传服务正在启动，请稍后重试。" ); return; }
       for (const file of files) {
@@ -9366,6 +9286,7 @@
 
       const consoleExecute = event.target.closest("[data-console-execute]");
       if (consoleExecute) {
+        if (!requireApiSession("请先登录正式账号后再执行云端工作流。")) return;
         const orchestration = window.ejiabaoRuntime?.modules?.orchestration;
         if (!orchestration) {
           showToast("调度服务正在启动，请稍后重试。");
@@ -9412,6 +9333,7 @@
 
       const consoleSend = event.target.closest("[data-console-send]");
       if (consoleSend) {
+        if (!requireApiSession("请先登录正式账号后再使用中控工作流。")) return;
         const input = document.getElementById("consoleInput");
         const text = input.value.trim();
         if (!text) {
@@ -9650,6 +9572,7 @@
 
       const confirmSubmit = event.target.closest("[data-confirm-submit]");
       if (confirmSubmit) {
+        if (!requireApiSession("请先登录正式账号后再生成云端视频。")) return;
         const typeKey = document.body.dataset.typeKey || "commerce";
         if (!["commerce", "vlog", "talking", "story", "mix", "event"].includes(typeKey)) {
           closeGenerateConfirm();
@@ -9810,6 +9733,7 @@
         const id = card?.dataset.assetId;
         const asset = assetRecords.find(item => item.id === id);
         if (!asset) return;
+        if (!requireApiSession("请先登录正式账号后再修改云端素材。")) return;
         const favorite = !Boolean(asset.favorite);
         try {
           await patchAsset(id, { favorite });
@@ -9828,6 +9752,7 @@
         const id = card?.dataset.assetId;
         const asset = assetRecords.find(item => item.id === id);
         if (!asset) return;
+        if (!requireApiSession("请先登录正式账号后再恢复云端素材。")) return;
         try {
           await patchAsset(id, { trashed: false });
           asset.trashed = false;
@@ -9845,8 +9770,11 @@
         const card = assetDeleteOne.closest(".asset-card");
         const id = card?.dataset.assetId;
         if (!id) return;
+        if (!requireApiSession("请先登录正式账号后再删除云端素材。")) return;
         try {
-          await assetHttp().delete("/v1/assets/" + encodeURIComponent(id), { timeoutMs: 30000 });
+          const http = assetHttp();
+          if (!http) throw new Error("后端尚未连接。");
+          await http.delete("/v1/assets/" + encodeURIComponent(id), { timeoutMs: 30000 });
           assetRecords = assetRecords.filter(item => item.id !== id);
           assetSelectedIds.delete(id);
           renderAssetCards();
@@ -9870,6 +9798,7 @@
           showToast("请先选择素材。");
           return;
         }
+        if (!requireApiSession("请先登录正式账号后再批量操作云端素材。")) return;
         try {
           if (action === "trash" || action === "restore") {
             await Promise.all(ids.map(id => patchAsset(id, { trashed: action === "trash" })));
@@ -9995,9 +9924,11 @@
           document.getElementById("stepPath").classList.add("is-lime");
           localStorage.setItem("ejiabao-device-authorized", "development-bypass");
           const existingSession = JSON.parse(localStorage.getItem("ejiabao-session") || "{}");
-          localStorage.setItem("ejiabao-session", JSON.stringify({ ...existingSession, deviceAuthorized: "development-bypass", updatedAt: new Date().toISOString() }));
+          const nextSession = { ...existingSession, deviceAuthorized: "development-bypass", updatedAt: new Date().toISOString() };
+          localStorage.setItem("ejiabao-session", JSON.stringify(nextSession));
+          window.ejiabaoRuntime?.session?.save?.({ ...window.ejiabaoRuntime?.session?.read?.(), deviceAuthorized: "development-bypass" });
           showToast("已用开发模式进入；正式版仍需插 USB 设备绑定。" );
-          window.setTimeout(goLanding, 520);
+          window.setTimeout(restoreSession, 520);
         } else if (action === "back-login") {
           if (!confirmLeaveIfNeeded()) return;
           clearAllDirty();
@@ -10208,7 +10139,7 @@
         localStorage.setItem("ejiabao-profile-name", name);
         localStorage.setItem("ejiabao-profile-bio", bio);
         window.ejiabaoRuntime?.modules?.profile?.update({ name, bio });
-        const http = window.ejiabaoRuntime?.http;
+        const http = queueHttp();
         if (http) {
           try {
             const avatar = localStorage.getItem("ejiabao-profile-avatar") || "";
@@ -10219,7 +10150,7 @@
           }
         }
         clearDirty("view-profile");
-        showToast("个人资料已保存。" );
+        showToast(http ? "个人资料已保存。" : hasApiSession() ? "个人资料已保存到本机，但后端尚未连接。" : "个人资料已保存到本机；登录正式账号后可同步云端。" );
         return;
       }
 
@@ -10345,6 +10276,7 @@
             showToast("请先从云端队列选择一个已完成任务，再添加版本。");
             return;
           }
+          if (!requireApiSession("请先登录正式账号后再生成审片版本。")) return;
           const message = storedVersion
             ? `${version} 已有生成文件，但缺少可播放地址；这次只补全播放地址，不消耗积分。是否继续？`
             : versionKey === "v2"
@@ -10417,8 +10349,12 @@
       const exportCloudButton = event.target.closest("[data-export]");
       if (exportCloudButton) {
         const taskId = document.getElementById("view-review")?.dataset.taskId || "";
-        const http = window.ejiabaoRuntime?.http;
-        if (!taskId || !http) {
+        const http = queueHttp();
+        if (!http) {
+          showToast(hasApiSession() ? "后端未连接，暂时无法导出真实视频。" : "请先登录正式账号后再导出云端视频。" );
+          return;
+        }
+        if (!taskId) {
           showToast("请先从云端队列选择一个已完成任务，再导出真实视频。" );
           return;
         }
@@ -10442,6 +10378,7 @@
 
       const titleButton = event.target.closest("[data-generate-title]");
       if (titleButton) {
+        if (!requireApiSession("请先登录正式账号后再生成标题文案。")) return;
         const http = queueHttp();
         if (!http) {
           showToast("后端未连接，暂时无法生成标题文案。");
@@ -10489,7 +10426,8 @@
       const saveLibraryCloudButton = event.target.closest("[data-save-library]");
       if (saveLibraryCloudButton) {
         const library = window.ejiabaoRuntime?.modules?.library;
-        const http = window.ejiabaoRuntime?.http;
+        const http = queueHttp();
+        const authenticated = hasApiSession();
         const reviewProject = buildReviewLibraryProject();
         const isReviewSave = Boolean(reviewProject);
         const project = reviewProject || {
@@ -10517,7 +10455,7 @@
         library?.save(project);
         clearDirty(isReviewSave ? "view-review" : "view-create");
         if (document.getElementById("view-library")?.classList.contains("is-active")) await loadLibraryRecords();
-        showToast(isReviewSave ? "成片已保存到作品库。" : "项目已保存到作品库。" );
+        showToast(http ? (isReviewSave ? "成片已保存到作品库。" : "项目已保存到作品库。") : authenticated ? "项目已保存到本机，但后端尚未连接。" : (isReviewSave ? "成片已保存到本机；登录正式账号后可同步云端。" : "项目已保存到本机；登录正式账号后可同步云端。") );
         return;
       }
 
@@ -10555,6 +10493,7 @@
       if (cancelButton) {
         const item = cancelButton.closest(".queue-item");
         const taskId = cancelButton.dataset.cancelTask || item?.dataset.taskId;
+        if (taskId && !requireApiSession("请先登录正式账号后再操作云端队列。")) return;
         const http = queueHttp();
         if (taskId && http) {
           try {
@@ -10603,6 +10542,7 @@
       const retryButton = event.target.closest("[data-retry-task]");
       if (retryButton) {
         const taskId = retryButton.dataset.retryTask || retryButton.closest(".queue-item")?.dataset.taskId;
+        if (taskId && !requireApiSession("请先登录正式账号后再重试云端任务。")) return;
         const http = queueHttp();
         if (taskId && http) {
           try {
@@ -10634,6 +10574,7 @@
       const taskReview = event.target.closest("[data-task-review]");
       if (taskReview) {
         const taskId = taskReview.dataset.taskReview;
+        if (taskId && !requireApiSession("请先登录正式账号后再查看云端产物。")) return;
         const http = queueHttp();
         if (http && taskId) {
           try {
@@ -10689,39 +10630,8 @@
       }
     });
 
-    document.getElementById("themeToggle").addEventListener("click", toggleTheme);
-    document.getElementById("landingThemeToggle").addEventListener("click", toggleTheme);
-    document.getElementById("authThemeToggle").addEventListener("click", toggleTheme);
-
-    document.getElementById("authForm").addEventListener("submit", async event => {
-      event.preventDefault();
-      const account = document.getElementById("authAccount").value.trim();
-      const password = document.getElementById("authPassword").value;
-      const phoneMode = document.querySelector("[data-auth-tab='phone']").classList.contains("is-active");
-      if (!account || !password) {
-        setAuthMessage("请填写登录账号和密码。");
-        return;
-      }
-      if (phoneMode && !/^1\d{10}$/.test(account)) {
-        setAuthMessage("请输入正确的 11 位手机号码。");
-        return;
-      }
-      if (!phoneMode && !/^\S+@\S+\.\S+$/.test(account)) {
-        setAuthMessage("请输入正确的邮箱地址。");
-        return;
-      }
-      if (password.length < 8) {
-        setAuthMessage("密码至少需要 8 位。");
-        return;
-      }
-      try {
-        await completeBackendLogin({ account, password, phoneMode, register: authMode === "register" });
-      } catch (error) {
-        setAuthMessage(error?.message || "正式账号登录失败，请检查后端连接或账号密码。");
-      }
-    });
-
     document.getElementById("runGenerate").addEventListener("click", () => {
+      if (!requireApiSession("请先登录正式账号后再生成云端视频。")) return;
       openGenerateConfirm();
     });
 
@@ -10747,23 +10657,6 @@
       clearDirty("view-create");
       showToast("草稿已保存到最近项目。");
     });
-
-    document.getElementById("sidebarToggle").addEventListener("click", event => {
-      body.classList.toggle("sidebar-collapsed");
-      const collapsed = body.classList.contains("sidebar-collapsed");
-      localStorage.setItem("ejiabao-sidebar-collapsed", String(collapsed));
-      event.currentTarget.setAttribute("aria-pressed", String(collapsed));
-      event.currentTarget.setAttribute("aria-label", collapsed ? "展开侧栏" : "收起侧栏");
-      event.currentTarget.innerHTML = `<i data-lucide="${collapsed ? "panel-left-open" : "panel-left-close"}" aria-hidden="true"></i>`;
-      refreshIcons();
-    });
-
-    if (body.classList.contains("sidebar-collapsed")) {
-      const toggle = document.getElementById("sidebarToggle");
-      toggle.setAttribute("aria-pressed", "true");
-      toggle.setAttribute("aria-label", "展开侧栏");
-      toggle.innerHTML = '<i data-lucide="panel-left-open" aria-hidden="true"></i>';
-    }
 
     document.getElementById("playerToggle")?.addEventListener("click", async event => {
       const shell = document.getElementById("reviewPlayer");
@@ -10857,6 +10750,10 @@
       if (event.target.matches(".upload-tile input[type=file]")) {
         const file = event.target.files?.[0];
         if (!file) return;
+        if (!requireApiSession("请先登录正式账号后再上传工作流素材。")) {
+          event.target.value = "";
+          return;
+        }
         const media = window.ejiabaoRuntime?.modules?.media;
         if (!media?.upload) {
           showToast("素材上传服务正在启动，请稍后重试。");
@@ -10923,29 +10820,9 @@
 
     document.getElementById("polishCopy")?.addEventListener("click", polishScriptCopy);
 
-    document.getElementById("globalSearch")?.addEventListener("input", event => {
-      const query = event.target.value.trim().toLowerCase();
-      document.querySelectorAll(".project-row, .template-card, .asset-card, .library-card").forEach(item => {
-        item.hidden = Boolean(query) && !item.textContent.toLowerCase().includes(query);
-      });
-      if (document.getElementById("view-library")?.classList.contains("is-active")) updateLibraryEmptyState();
-    });
-
     document.getElementById("scriptCount").textContent = `${document.getElementById("scriptInput")?.value.trim().length || 0} 字`;
     try {
-      void (window.__sanTraceLS = JSON.stringify({
-        n: localStorage.getItem("ejiabao-profile-name"),
-        b: localStorage.getItem("ejiabao-profile-bio")
-      }));
-      const touched = sanitizeProfileStorageIfDirty();
-      console.info("[e剪宝/profile-sanitize] sanitize invoked", {
-        beforeJSON: window.__sanTraceLS,
-        touched,
-        after: {
-          n: localStorage.getItem("ejiabao-profile-name"),
-          b: localStorage.getItem("ejiabao-profile-bio")
-        }
-      });
+      sanitizeProfileStorageIfDirty();
     } catch (err) { console.warn("[e剪宝/profile-sanitize] 自净失败（不阻塞主流程）：", err?.message || err); }
     fillDefaultAuthAccount();
     loadProfile();
@@ -10955,10 +10832,21 @@
     window.setTimeout(applyAppRoute, 0);
     watchSessionExpiry();
     window.addEventListener("ejiabao:runtime-ready", () => {
-      void loadDashboardData();
-      void loadProfile();
-      void loadModelConfigs();
-      void refreshHarnessStatus();
+      hydrateRuntimeSession();
+      restoreSession();
+      // Vue owns the migrated settings routes. Keep the profile hydration for
+      // shared account chrome, but avoid loading hidden legacy view data that
+      // its Vue counterpart will request itself.
+      const route = parseAppRoute();
+      const legacyRoute = !route || !vueOwnedViewNames.has(route.viewName);
+      if (hasApiSession()) {
+        void loadProfile();
+        if (legacyRoute) {
+          void loadDashboardData();
+          void loadModelConfigs();
+          void refreshHarnessStatus();
+        }
+      }
       window.setInterval(() => {
         if (document.getElementById("view-queue")?.classList.contains("is-active")) void loadQueueTasks();
       }, 8000);
@@ -10970,11 +10858,16 @@
     // —— 对外钩子：便于浏览器脚本、自动化测试在 Console 中触发登录/导航流程
     Object.assign(window, {
       completeVirtualFrontendLogin,
+      completeBackendLogin,
       goLanding,
       enterApp,
       showView,
       showAuth,
       showOnboarding,
+      toggleTheme,
+      setType,
+      setAuthMode,
+      fillDefaultAuthAccount,
       expireSession,
       loadProfile,
       clearDirty,
@@ -11014,6 +10907,7 @@
     })();
   </script>
   <script type="module" src="./app/main.js"></script>
+  <script type="module" src="./src/main.ts"></script>
 </body>
 </html>
 

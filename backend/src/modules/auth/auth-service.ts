@@ -54,10 +54,11 @@ export function createAuthBackendService({ app, config }: { app: FastifyInstance
 
   async function login(input: AccountInput, request: FastifyRequest) {
     const account = normalizeAccount(input);
-    const user = await prisma.user.findFirst({ where: account, select: { id: true, email: true, phone: true, nickname: true, role: true, passwordHash: true } });
-    if (!user?.passwordHash || !(await argon2.verify(user.passwordHash, input.password))) {
+    const userRecord = await prisma.user.findFirst({ where: account, select: { id: true, email: true, phone: true, nickname: true, role: true, passwordHash: true } });
+    if (!userRecord?.passwordHash || !(await argon2.verify(userRecord.passwordHash, input.password))) {
       throw new AppError("账号或密码不正确。", "CREDENTIALS_INVALID", 401);
     }
+    const { passwordHash: _passwordHash, ...user } = userRecord;
     return issueSession(user, request);
   }
 
