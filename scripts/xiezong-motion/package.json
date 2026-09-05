@@ -1,0 +1,24 @@
+{
+  "name": "xiezong-natural-motion",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck",
+    "still": "remotion still src/index.tsx NaturalTalk",
+    "render": "remotion render src/index.tsx NaturalTalk --codec=h264 --crf=18 --concurrency=2",
+    "studio": "remotion studio src/index.tsx"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.513",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.513"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "typescript": "5.5.4"
+  }
+}
