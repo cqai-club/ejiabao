@@ -14,6 +14,7 @@ import numpy as np
 FPS = 25
 WIDTH = 720
 HEIGHT = 1280
+MAX_DRIVEN_DURATION_DELTA = 0.2
 FONT_FILE = r"C:\Windows\Fonts\HarmonyOS_Sans_SC_Bold.ttf"
 
 
@@ -225,6 +226,51 @@ def render_base(background_path: Path, cutout_path: Path, audio_duration: float,
         writer.release()
 
 
+def render_driven_base(source: Path, audio_duration: float, output: Path) -> None:
+    if source.resolve() == output.resolve():
+        raise ValueError("中间文件不能覆盖口型驱动素材")
+    capture = cv2.VideoCapture(str(source))
+    writer = None
+    try:
+        if not capture.isOpened():
+            raise RuntimeError(f"无法读取口型驱动视频：{source}")
+        fps = capture.get(cv2.CAP_PROP_FPS)
+        count = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
+        width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
+        height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        if not math.isfinite(fps) or abs(fps - FPS) > 0.01:
+            raise RuntimeError("口型驱动视频必须为 25 FPS，不能通过变速匹配录音")
+        if height <= 0 or abs(width / height - WIDTH / HEIGHT) > 0.005:
+            raise RuntimeError("口型驱动视频必须为 9:16，避免裁切人物")
+        # Audio selection is quantized to tenths; allow at most five frames at the tail.
+        if count <= 0 or abs(count / fps - audio_duration) > MAX_DRIVEN_DURATION_DELTA + 1e-6:
+            raise RuntimeError("口型驱动视频与原录音时长不一致，请使用同一段录音生成口型")
+
+        writer = cv2.VideoWriter(str(output), cv2.VideoWriter_fourcc(*"mp4v"), FPS, (WIDTH, HEIGHT))
+        if not writer.isOpened():
+            raise RuntimeError(f"无法创建视频文件：{output}")
+        cuts = [0.0, 43.68 / 73, 46.80 / 73, 48.68 / 73, 1.0]
+        scales = [(1.00, 1.045), (1.10, 1.12), (1.10, 1.05), (1.04, 1.01)]
+        last_frame = None
+        for frame_index in range(math.ceil(audio_duration * FPS)):
+            # Read every driven frame. Re-overlaying the portrait would erase its lip motion.
+            if frame_index < count:
+                ok, last_frame = capture.read()
+                if not ok:
+                    raise RuntimeError(f"口型驱动视频解码中断：第 {frame_index} 帧")
+            if last_frame is None:
+                raise RuntimeError("口型驱动视频没有可解码画面")
+            progress = frame_index / FPS / audio_duration
+            index = next((i for i in range(4) if progress < cuts[i + 1]), 3)
+            local = (progress - cuts[index]) / (cuts[index + 1] - cuts[index])
+            start, end = scales[index]
+            writer.write(make_background(last_frame, start + (end - start) * local, 0, 0))
+    finally:
+        capture.release()
+        if writer is not None:
+            writer.release()
+
+
 def ass_time(seconds: float) -> str:
     seconds = max(0.0, seconds)
     hours = int(seconds // 3600)
@@ -308,26 +354,48 @@ def add_audio_and_subtitles(base: Path, audio: Path, subtitles: Path, duration: 
     ], cwd=workdir)
 
 
-def main() -> None:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="使用人物绿幕图、展厅背景图、文案和录音生成竖屏知识口播视频。")
-    parser.add_argument("--person", type=Path, required=True)
-    parser.add_argument("--background", type=Path, required=True)
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--driven-video", type=Path, help="使用同一段原录音生成的 9:16、25 FPS 口型驱动视频")
+    mode.add_argument("--static-preview", action="store_true", help="仅导出静态构图预览，不生成口型")
+    parser.add_argument("--person", type=Path)
+    parser.add_argument("--background", type=Path)
     parser.add_argument("--script", type=Path, required=True)
     parser.add_argument("--audio", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    if args.static_preview and (args.person is None or args.background is None):
+        parser.error("--static-preview 需要 --person 和 --background")
+    for name in ("person", "background", "script", "audio", "output", "driven_video"):
+        path = getattr(args, name)
+        if path is not None:
+            setattr(args, name, path.resolve())
+    if args.output in (args.person, args.background, args.script, args.audio, args.driven_video):
+        parser.error("输出文件不能覆盖输入素材")
+    return args
 
-    for path in (args.person, args.background, args.script, args.audio):
+
+def main() -> None:
+    args = parse_args()
+
+    inputs = [args.script, args.audio]
+    inputs += [args.person, args.background] if args.static_preview else [args.driven_video]
+    for path in inputs:
         if not path.is_file():
             raise FileNotFoundError(path)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     workdir = args.output.parent
-    cutout = workdir / "xiezong-cutout.png"
-    base = workdir / "xiezong-base.mp4"
-    subtitles = workdir / "xiezong-subtitles.ass"
+    cutout = workdir / f"{args.output.stem}.cutout.png"
+    base = workdir / f"{args.output.stem}.base.mp4"
+    subtitles = workdir / f"{args.output.stem}.subtitles.ass"
     duration = media_duration(args.audio)
-    make_cutout(args.person, cutout)
-    render_base(args.background, cutout, duration, base)
+    if args.static_preview:
+        print("mode=static-preview; lip_sync=false")
+        make_cutout(args.person, cutout)
+        render_base(args.background, cutout, duration, base)
+    else:
+        render_driven_base(args.driven_video, duration, base)
     write_ass(args.script, duration, subtitles)
     add_audio_and_subtitles(base, args.audio, subtitles, duration, args.output, workdir)
     metadata = validate_rendered_video(args.output, duration)
