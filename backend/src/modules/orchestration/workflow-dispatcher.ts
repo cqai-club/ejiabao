@@ -135,14 +135,14 @@ const TYPE_ALIASES: Record<string, string> = {
 };
 
 export function createWorkflowDispatcher({ productPromo, vlogEdit, dramaShort, podcast, eventPromo, digitalHuman }: { productPromo: ProductPromoWorkflow; vlogEdit: VlogEditWorkflow; dramaShort: DramaShortWorkflow; podcast: PodcastWorkflow; eventPromo: EventPromoWorkflow; digitalHuman: DigitalHumanWorkflow }) {
-  async function catalog(): Promise<WorkflowCatalogItem[]> {
+  async function catalog(userId?: string): Promise<WorkflowCatalogItem[]> {
     const [productRuntime, vlogRuntime, dramaRuntime, podcastRuntime, eventRuntime, digitalHumanRuntime] = await Promise.all([
       productPromo.checkRuntime(),
       vlogEdit.checkRuntime(),
       dramaShort.checkRuntime(),
       podcast.checkRuntime(),
       eventPromo.checkRuntime(),
-      digitalHuman.checkRuntime()
+      digitalHuman.checkRuntime(userId)
     ]);
     return WORKFLOWS.map(workflow => {
       const runtime = workflow.workflowKey === "product-promo"

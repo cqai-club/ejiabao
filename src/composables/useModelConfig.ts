@@ -1,12 +1,13 @@
 import { reactive, ref } from "vue";
 import { currentRuntime, isApiAuthenticated, waitForRuntime } from "@/lib/runtime";
 
-export type Provider = "codex" | "deepseek-harness";
+export type Provider = "codex" | "deepseek-harness" | "inferflow";
 export type AccessMode = "custom" | "platform";
 
 const fallbackProviders = [
   { provider: "codex", label: "Codex", accessMode: "PLATFORM", baseUrl: "", model: "", reasoningEffort: "medium", enabled: true, apiKeyConfigured: false, apiKeyMasked: "平台托管" },
-  { provider: "deepseek-harness", label: "DeepSeek Harness", accessMode: "PLATFORM", baseUrl: "", model: "", reasoningEffort: "", enabled: true, apiKeyConfigured: false, apiKeyMasked: "平台托管" }
+  { provider: "deepseek-harness", label: "DeepSeek Harness", accessMode: "PLATFORM", baseUrl: "", model: "", reasoningEffort: "", enabled: true, apiKeyConfigured: false, apiKeyMasked: "平台托管" },
+  { provider: "inferflow", label: "InferFlow", accessMode: "PLATFORM", baseUrl: "", model: "digital_human_standard", reasoningEffort: "", enabled: true, apiKeyConfigured: false, apiKeyMasked: "平台托管" }
 ];
 
 export function useModelConfig() {
@@ -19,7 +20,8 @@ export function useModelConfig() {
   const error = ref("");
   const providers = reactive<Record<Provider, any>>({
     codex: { ...fallbackProviders[0], apiKey: "" },
-    "deepseek-harness": { ...fallbackProviders[1], apiKey: "" }
+    "deepseek-harness": { ...fallbackProviders[1], apiKey: "" },
+    inferflow: { ...fallbackProviders[2], apiKey: "" }
   });
 
   function syncConfigs(configs: any[] = [], isAvailable = false) {

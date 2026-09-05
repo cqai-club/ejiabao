@@ -14,7 +14,8 @@
     "prisma:deploy": "prisma migrate deploy",
     "admin:bootstrap": "tsx src/scripts/bootstrap-admin.ts",
     "admin:bootstrap:production": "node dist/scripts/bootstrap-admin.js",
-    "lint": "tsc -p tsconfig.json --noEmit"
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "node --import tsx --test src/modules/provider-config/provider-config-service.test.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.879.0",

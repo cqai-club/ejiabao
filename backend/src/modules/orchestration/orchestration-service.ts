@@ -26,14 +26,14 @@ type Dependencies = {
 };
 
 export function createOrchestrationService({ deepseek, providerConfigs, dispatcher, tasks }: Dependencies) {
-  async function listWorkflows() {
-    return dispatcher.catalog();
+  async function listWorkflows(userId: string) {
+    return dispatcher.catalog(userId);
   }
 
   async function plan(userId: string, rawRequest: unknown) {
     const request = orchestrationRequestSchema.parse(rawRequest);
     const [workflowCatalog, runtime] = await Promise.all([
-      dispatcher.catalog(),
+      dispatcher.catalog(userId),
       providerConfigs.getRuntimeForUser(userId, "deepseek-harness")
     ]);
     const modelResult = await deepseek.planWorkflowTask({

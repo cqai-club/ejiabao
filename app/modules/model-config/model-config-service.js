@@ -22,6 +22,18 @@ const PROVIDER_DEFAULTS = Object.freeze([
     apiKeyConfigured: false,
     apiKeyMasked: "平台托管",
     source: "platform"
+  },
+  {
+    provider: "inferflow",
+    label: "InferFlow",
+    accessMode: "PLATFORM",
+    baseUrl: "",
+    model: "digital_human_standard",
+    reasoningEffort: null,
+    enabled: true,
+    apiKeyConfigured: false,
+    apiKeyMasked: "平台托管",
+    source: "platform"
   }
 ]);
 

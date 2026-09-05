@@ -102,7 +102,7 @@ export function buildApp(config: AppConfig = loadConfig()) {
     storage,
     tasks,
     inferflow,
-    getInferFlowRuntime: () => providerConfigs.getRuntime("inferflow")
+    getInferFlowRuntime: userId => userId ? providerConfigs.getRuntimeForUser(userId, "inferflow") : providerConfigs.getRuntime("inferflow")
   });
   const workflowDispatcher = createWorkflowDispatcher({ productPromo, vlogEdit, dramaShort, podcast, eventPromo, digitalHuman });
   const orchestration = createOrchestrationService({ deepseek, providerConfigs, dispatcher: workflowDispatcher, tasks });
@@ -372,10 +372,13 @@ export function buildApp(config: AppConfig = loadConfig()) {
     return { ok: true, config: await providerConfigs.updateForUser(await getWorkbenchActorId(request), provider, body) };
   });
   app.post("/v1/model-configs/:provider/test", { preHandler: requireWorkbenchAccess }, async request => {
-    const provider = String((request.params as any).provider || "");
-    if (provider !== "codex" && provider !== "deepseek-harness") throw new AppError("不支持的模型服务。", "PROVIDER_INVALID", 400);
-    const runtime = await providerConfigs.getRuntimeForUser(await getWorkbenchActorId(request), provider as "codex" | "deepseek-harness");
-    const result = provider === "codex" ? await codex.testConnection(runtime) : await deepseek.testConnection(runtime);
+    const provider = z.enum(["codex", "deepseek-harness", "inferflow"]).parse(String((request.params as any).provider || ""));
+    const runtime = await providerConfigs.getRuntimeForUser(await getWorkbenchActorId(request), provider);
+    const result = provider === "codex"
+      ? await codex.testConnection(runtime)
+      : provider === "deepseek-harness"
+        ? await deepseek.testConnection(runtime)
+        : await inferflow.testConnection(runtime);
     return { ok: true, result };
   });
 
@@ -530,13 +533,13 @@ export function buildApp(config: AppConfig = loadConfig()) {
   app.get("/v1/workflows/event-promo/status", { preHandler: requireWorkbenchAccess }, async () => ({ ok: true, ...(await eventPromo.checkRuntime()) }));
   app.post("/v1/workflows/event-promo/estimate", { preHandler: requireWorkbenchAccess }, async request => ({ ok: true, quote: eventPromo.quote(request.body) }));
   app.post("/v1/workflows/event-promo/tasks", { preHandler: requireWorkbenchAccess }, async request => ({ ok: true, ...(await eventPromo.create(await getWorkbenchActorId(request), request.body)) }));
-  app.get("/v1/workflows/talking-head/status", { preHandler: requireWorkbenchAccess }, async () => ({ ok: true, ...(await digitalHuman.checkRuntime()) }));
+  app.get("/v1/workflows/talking-head/status", { preHandler: requireWorkbenchAccess }, async request => ({ ok: true, ...(await digitalHuman.checkRuntime(await getWorkbenchActorId(request))) }));
   app.post("/v1/workflows/talking-head/estimate", { preHandler: requireWorkbenchAccess }, async request => ({ ok: true, quote: digitalHuman.quote(request.body) }));
   app.post("/v1/workflows/talking-head/tasks", { preHandler: requireWorkbenchAccess }, async request => ({ ok: true, ...(await digitalHuman.create(await getWorkbenchActorId(request), request.body)) }));
 
-  app.get("/v1/orchestration/workflows", { preHandler: requireWorkbenchAccess }, async () => ({
+  app.get("/v1/orchestration/workflows", { preHandler: requireWorkbenchAccess }, async request => ({
     ok: true,
-    workflows: await orchestration.listWorkflows()
+    workflows: await orchestration.listWorkflows(await getWorkbenchActorId(request))
   }));
   app.post("/v1/orchestration/plans", { preHandler: requireWorkbenchAccess }, async request => ({
     ok: true,

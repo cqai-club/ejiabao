@@ -27,7 +27,7 @@ type DigitalHumanDependencies = {
   storage: ReturnType<typeof createObjectStorage>;
   tasks: ReturnType<typeof createTaskService>;
   inferflow: ReturnType<typeof createInferFlowService>;
-  getInferFlowRuntime: () => Promise<RuntimeProviderConfig>;
+  getInferFlowRuntime: (userId?: string) => Promise<RuntimeProviderConfig>;
 };
 
 export function createDigitalHumanWorkflowService({ config, storage, tasks, inferflow, getInferFlowRuntime }: DigitalHumanDependencies) {
@@ -66,8 +66,8 @@ export function createDigitalHumanWorkflowService({ config, storage, tasks, infe
     };
   }
 
-  async function checkRuntime() {
-    const runtime = await getInferFlowRuntime();
+  async function checkRuntime(userId?: string) {
+    const runtime = await getInferFlowRuntime(userId);
     const checks = {
       enabled: runtime.enabled,
       apiKey: Boolean(runtime.apiKey),
@@ -80,7 +80,7 @@ export function createDigitalHumanWorkflowService({ config, storage, tasks, infe
 
   async function create(userId: string, rawInput: unknown) {
     const input = parseInput(rawInput);
-    const runtime = await checkRuntime();
+    const runtime = await checkRuntime(userId);
     if (!runtime.ready) throw new AppError("数字人口播执行器尚未就绪，请检查 InferFlow 启用状态、API Key 和素材存储。", "DIGITAL_HUMAN_RUNTIME_UNAVAILABLE", 503, runtime);
     const avatar = await resolveAsset(userId, input.avatarAssetId || input.presenterAssetId || "", "image", "人像图片");
     const voice = await resolveAsset(userId, input.voiceAssetId || input.voiceReferenceAssetId || "", "audio", "参考音频");
@@ -104,11 +104,15 @@ export function createDigitalHumanWorkflowService({ config, storage, tasks, infe
   }
 
   async function resumeQueued() {
-    const runtime = await checkRuntime();
-    if (!runtime.ready) return 0;
-    const rows = await prisma.generationTask.findMany({ where: { workflowKey: "talking-head", status: "QUEUED" }, select: { id: true }, orderBy: { createdAt: "asc" } });
-    rows.forEach(row => schedule(row.id));
-    return rows.length;
+    const rows = await prisma.generationTask.findMany({ where: { workflowKey: "talking-head", status: "QUEUED" }, select: { id: true, userId: true }, orderBy: { createdAt: "asc" } });
+    let scheduled = 0;
+    for (const row of rows) {
+      const runtime = await checkRuntime(row.userId);
+      if (!runtime.ready) continue;
+      schedule(row.id);
+      scheduled += 1;
+    }
+    return scheduled;
   }
 
   function cancel(taskId: string) {
@@ -132,6 +136,8 @@ export function createDigitalHumanWorkflowService({ config, storage, tasks, infe
     try {
       const task = await prisma.generationTask.findUnique({ where: { id: taskId } });
       if (!task) throw new AppError("找不到待执行的数字人口播任务。", "TASK_NOT_FOUND", 404);
+      const runtimeStatus = await checkRuntime(task.userId);
+      if (!runtimeStatus.ready) throw new AppError("数字人口播执行器尚未就绪，请检查当前账户的 InferFlow API Key 和素材存储。", "DIGITAL_HUMAN_RUNTIME_UNAVAILABLE", 503, runtimeStatus);
       const payload = asRecord(task.payload);
       const input = parseInput(payload.input);
       const assets = asRecord(payload.inputAssets);
@@ -143,7 +149,7 @@ export function createDigitalHumanWorkflowService({ config, storage, tasks, infe
       await storage.downloadToFile(String(asRecord(assets.voice).key), voicePath);
       await tasks.updateProgress(task.id, 12);
 
-      const runtime = await getInferFlowRuntime();
+      const runtime = await getInferFlowRuntime(task.userId);
       const avatarData = await readFile(avatarPath);
       const voiceData = await readFile(voicePath);
       const avatarRemote = await inferflow.uploadMaterial(runtime, "avatar", { data: avatarData, filename: "avatar" + extname(avatarPath), mimeType: String(asRecord(assets.avatar).mimeType || "image/png") });
@@ -217,7 +223,7 @@ export function createDigitalHumanWorkflowService({ config, storage, tasks, infe
     if (asRecord(current.video).key) return task;
 
     try {
-      const runtime = await getInferFlowRuntime();
+      const runtime = await getInferFlowRuntime(task.userId);
       const status = await inferflow.getRun(runtime, task.remoteTaskId);
       const outputs = await collectOutputs(runtime, task.remoteTaskId, status, task.userId, task.id);
       if (!outputs.video) return task;
@@ -241,8 +247,8 @@ export function createDigitalHumanWorkflowService({ config, storage, tasks, infe
 
   async function cancelRemote(taskId: string) {
     try {
-      const task = await prisma.generationTask.findUnique({ where: { id: taskId }, select: { remoteTaskId: true } });
-      if (task?.remoteTaskId) await inferflow.cancelRun(await getInferFlowRuntime(), task.remoteTaskId);
+      const task = await prisma.generationTask.findUnique({ where: { id: taskId }, select: { remoteTaskId: true, userId: true } });
+      if (task?.remoteTaskId) await inferflow.cancelRun(await getInferFlowRuntime(task.userId), task.remoteTaskId);
     } catch { /* best effort */ }
   }
 

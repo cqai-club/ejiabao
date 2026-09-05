@@ -26,14 +26,32 @@ const billingEnabled = ref(false);
 const billingPackages = ref<BillingPackage[]>([]);
 const billingStatus = ref<"loading" | "unauthenticated" | "disabled" | "empty" | "ready" | "error">("loading");
 const billingStatusMessage = ref("");
-const providerList = computed(() => [providers.codex, providers["deepseek-harness"]]);
+const providerList = computed(() => [providers.codex, providers["deepseek-harness"], providers.inferflow]);
 const selectedPackage = computed(() => billingPackages.value.find(item => item.key === selectedPlan.value) || null);
 const quotaProgress = computed(() => quota.remote
   ? (quota.balance > 0 ? Math.round((availableQuota.value / quota.balance) * 100) : 0)
   : 54);
 
-function providerTitle(provider: Provider) {
-  return provider === "codex" ? "Codex" : "DeepSeek Harness";
+function providerDescription(provider: Provider) {
+  if (provider === "codex") return "负责中控对话中的规划、执行与校验。";
+  if (provider === "deepseek-harness") return "负责脚本拆解、分镜编排与工作流调度。";
+  return "负责知识口播的数字人生成，由 digital-human-workflow.ts 调用。";
+}
+
+function providerUsage(provider: Provider) {
+  if (provider === "codex") return "中控对话 · 创作规划";
+  if (provider === "deepseek-harness") return "中控调度 · 六类工作流";
+  return "知识口播 · 数字人口播生成";
+}
+
+function modelLabel(provider: Provider) {
+  return provider === "inferflow" ? "Skill 名称" : "模型名称";
+}
+
+function modelPlaceholder(provider: Provider) {
+  if (provider === "codex") return "例如：gpt-5.2";
+  if (provider === "deepseek-harness") return "例如：deepseek-chat";
+  return "例如：digital_human_standard";
 }
 
 type BillingPackage = {
@@ -142,7 +160,7 @@ onMounted(async () => {
       <button class="ejiabao-access-card ejiabao-card-button" :class="{ 'is-active': mode === 'custom' }" type="button" @click="mode = 'custom'">
         <div class="access-top"><span class="access-icon"><KeyRound :size="17" /></span><Badge variant="outline">自定义调用</Badge></div>
         <h2>使用自己的 API</h2>
-        <p class="ejiabao-card-copy">为 Codex 与 DeepSeek Harness 分别设置接口地址、模型和 API Key；密钥只会加密保存在云端。</p>
+        <p class="ejiabao-card-copy">为 Codex、DeepSeek Harness 与 InferFlow 分别设置接口地址、模型或 Skill 和 API Key；密钥只会加密保存在云端。</p>
       </button>
       <button class="ejiabao-access-card ejiabao-card-button" :class="{ 'is-active': mode === 'platform' }" type="button" @click="mode = 'platform'">
         <div class="access-top"><span class="access-icon"><WalletCards :size="17" /></span><Badge variant="success">省心调用</Badge></div>
@@ -156,23 +174,23 @@ onMounted(async () => {
       <div class="ejiabao-provider-grid">
         <SectionCard v-for="provider in providerList" :key="provider.provider" class="provider-card">
           <div class="ejiabao-provider-head">
-            <div><h2>{{ provider.label }}</h2><p class="ejiabao-card-copy">{{ provider.provider === 'codex' ? '负责中控对话中的规划、执行与校验。' : '负责脚本拆解、分镜编排与工作流调度。' }}</p></div>
+            <div><h2>{{ provider.label }}</h2><p class="ejiabao-card-copy">{{ providerDescription(provider.provider as Provider) }}</p></div>
             <Badge :variant="provider.apiKeyConfigured ? 'success' : 'outline'">{{ provider.apiKeyConfigured ? '自定义 API 已保存' : '等待配置' }}</Badge>
           </div>
           <div class="ejiabao-form-grid provider-fields">
             <div class="ejiabao-field wide"><label :for="`model-${provider.provider}-base`">接口地址</label><Input :id="`model-${provider.provider}-base`" v-model="provider.baseUrl" autocomplete="off" placeholder="https://…/v1" /></div>
-            <div class="ejiabao-field" :class="{ wide: provider.provider !== 'codex' }"><label :for="`model-${provider.provider}-name`">模型名称</label><Input :id="`model-${provider.provider}-name`" v-model="provider.model" autocomplete="off" :placeholder="provider.provider === 'codex' ? '例如：gpt-5.2' : '例如：deepseek-chat'" /></div>
+            <div class="ejiabao-field" :class="{ wide: provider.provider !== 'codex' }"><label :for="`model-${provider.provider}-name`">{{ modelLabel(provider.provider as Provider) }}</label><Input :id="`model-${provider.provider}-name`" v-model="provider.model" autocomplete="off" :placeholder="modelPlaceholder(provider.provider as Provider)" /></div>
             <div v-if="provider.provider === 'codex'" class="ejiabao-field"><label :for="`model-${provider.provider}-reasoning`">推理强度</label><Select :id="`model-${provider.provider}-reasoning`" v-model="provider.reasoningEffort"><option value="low">低</option><option value="medium">中</option><option value="high">高</option><option value="xhigh">极高</option></Select></div>
             <div class="ejiabao-field wide"><label :for="`model-${provider.provider}-key`">API Key</label><Input :id="`model-${provider.provider}-key`" v-model="provider.apiKey" type="password" autocomplete="new-password" placeholder="首次配置时填写；后续留空即可保留" /></div>
           </div>
           <p class="key-note">{{ provider.apiKeyConfigured ? `密钥状态：${provider.apiKeyMasked || '已加密保存'}。留空输入框即可继续保留。` : '该密钥不会写入本机浏览器或优盘，仅通过加密连接提交至服务端。' }}</p>
-          <div class="ejiabao-actions"><span class="ejiabao-muted">用于：{{ provider.provider === 'codex' ? '中控对话 · 创作规划' : '中控调度 · 六类工作流' }}</span><div><Button variant="outline" size="sm" :disabled="testingProvider === provider.provider" @click="test(provider.provider as Provider)"><Zap :size="14" />{{ testingProvider === provider.provider ? '测试中…' : '测试连接' }}</Button><Button size="sm" :disabled="savingProvider === provider.provider" @click="save(provider.provider as Provider)"><Save :size="14" />{{ savingProvider === provider.provider ? '保存中…' : '保存' }}</Button></div></div>
+          <div class="ejiabao-actions"><span class="ejiabao-muted">用于：{{ providerUsage(provider.provider as Provider) }}</span><div><Button variant="outline" size="sm" :disabled="testingProvider === provider.provider" @click="test(provider.provider as Provider)"><Zap :size="14" />{{ testingProvider === provider.provider ? '测试中…' : '测试连接' }}</Button><Button size="sm" :disabled="savingProvider === provider.provider" @click="save(provider.provider as Provider)"><Save :size="14" />{{ savingProvider === provider.provider ? '保存中…' : '保存' }}</Button></div></div>
         </SectionCard>
       </div>
       <div class="scope-grid">
         <div><strong>中控创作台</strong><span>Codex 和 DeepSeek Harness 根据你的选择切换调用。</span></div>
-        <div><strong>六类创作</strong><span>商品推广、知识口播、剧情短片、Vlog、文生播客与活动预告。</span></div>
-        <div><strong>已接入工作流</strong><span>商品推广会优先使用当前账户的 DeepSeek 配置；未配置时回退平台算力。</span></div>
+        <div><strong>六类创作</strong><span>商品推广、剧情短片、Vlog、文生播客与活动预告使用 DeepSeek；知识口播使用 InferFlow。</span></div>
+        <div><strong>已接入工作流</strong><span>知识口播会优先使用当前账户的 InferFlow 配置；未配置时回退平台配置。</span></div>
       </div>
     </SectionCard>
 

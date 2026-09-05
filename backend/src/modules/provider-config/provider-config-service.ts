@@ -5,6 +5,7 @@ import { decryptSecret, encryptSecret } from "../../lib/secret-crypto.js";
 
 export type ProviderName = "codex" | "deepseek-harness" | "inferflow";
 export type ModelProviderName = Exclude<ProviderName, "inferflow">;
+export type UserProviderName = ProviderName;
 export type RuntimeProviderConfig = {
   provider: ProviderName;
   baseUrl: string;
@@ -16,6 +17,7 @@ export type RuntimeProviderConfig = {
 
 const ADMIN_PROVIDERS: ProviderName[] = ["codex", "deepseek-harness", "inferflow"];
 const MODEL_PROVIDERS: ModelProviderName[] = ["codex", "deepseek-harness"];
+const USER_PROVIDERS: UserProviderName[] = ["codex", "deepseek-harness", "inferflow"];
 type AccessMode = "PLATFORM" | "CUSTOM";
 type UserProviderInput = {
   accessMode: AccessMode;
@@ -28,7 +30,7 @@ type UserProviderInput = {
 };
 
 /** 管理模型服务配置，数据库优先，环境变量作为首次启动兜底。 */
-export function createProviderConfigService({ config }: { config: AppConfig }) {
+export function createProviderConfigService({ config, db = prisma }: { config: AppConfig; db?: typeof prisma }) {
   function defaults(provider: ProviderName): RuntimeProviderConfig {
     if (provider === "codex") {
       return {
@@ -66,9 +68,13 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
     if (!MODEL_PROVIDERS.includes(value as ModelProviderName)) throw new AppError("不支持的模型服务。", "PROVIDER_INVALID", 400);
   }
 
+  function assertUserProvider(value: string): asserts value is UserProviderName {
+    if (!USER_PROVIDERS.includes(value as UserProviderName)) throw new AppError("不支持的模型服务。", "PROVIDER_INVALID", 400);
+  }
+
   async function getRuntime(provider: ProviderName): Promise<RuntimeProviderConfig> {
     const fallback = defaults(provider);
-    const row = await prisma.providerConfig.findUnique({ where: { provider } });
+    const row = await db.providerConfig.findUnique({ where: { provider } });
     if (!row) return fallback;
     return {
       provider,
@@ -84,9 +90,9 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
    * 解析真正执行时应使用的模型配置。
    * 用户没有选择自定义 API 时，统一回退到平台配置，避免把平台密钥暴露到桌面端。
    */
-  async function getRuntimeForUser(userId: string, provider: ModelProviderName): Promise<RuntimeProviderConfig> {
+  async function getRuntimeForUser(userId: string, provider: UserProviderName): Promise<RuntimeProviderConfig> {
     const platformRuntime = await getRuntime(provider);
-    const row = await prisma.userProviderConfig.findUnique({ where: { userId_provider: { userId, provider } } });
+    const row = await db.userProviderConfig.findUnique({ where: { userId_provider: { userId, provider } } });
     if (!row || row.accessMode !== "CUSTOM") return platformRuntime;
     const apiKey = row.apiKeyCiphertext ? decryptSecret(row.apiKeyCiphertext, config.tokenEncryptionKey) : "";
     if (!row.baseUrl || !row.model || !apiKey) {
@@ -103,7 +109,7 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
   }
 
   async function list() {
-    const rows = await prisma.providerConfig.findMany({ orderBy: { provider: "asc" } });
+    const rows = await db.providerConfig.findMany({ orderBy: { provider: "asc" } });
     return ADMIN_PROVIDERS.map(provider => {
       const fallback = defaults(provider);
       const row = rows.find(item => item.provider === provider);
@@ -124,7 +130,7 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
   async function update(providerValue: string, input: { baseUrl: string; model: string; reasoningEffort?: string; enabled: boolean; apiKey?: string; clearApiKey?: boolean }, updatedBy: string) {
     assertProvider(providerValue);
     const provider = providerValue as ProviderName;
-    const current = await prisma.providerConfig.findUnique({ where: { provider } });
+    const current = await db.providerConfig.findUnique({ where: { provider } });
     const fallback = defaults(provider);
     const baseUrl = normalizeBaseUrl(input.baseUrl);
     const model = input.model.trim();
@@ -136,7 +142,7 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
     if (!apiKeyCiphertext && !fallback.apiKey && !input.clearApiKey) {
       throw new AppError("请填写 API Key，或保留已有密钥。", "PROVIDER_API_KEY_MISSING", 400);
     }
-    const row = await prisma.providerConfig.upsert({
+    const row = await db.providerConfig.upsert({
       where: { provider },
       create: { provider, baseUrl, model, reasoningEffort, apiKeyCiphertext, enabled: input.enabled, updatedBy },
       update: { baseUrl, model, reasoningEffort, apiKeyCiphertext, enabled: input.enabled, updatedBy }
@@ -153,8 +159,8 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
   }
 
   async function listForUser(userId: string) {
-    const rows = await prisma.userProviderConfig.findMany({ where: { userId }, orderBy: { provider: "asc" } });
-    return Promise.all(MODEL_PROVIDERS.map(async provider => {
+    const rows = await db.userProviderConfig.findMany({ where: { userId }, orderBy: { provider: "asc" } });
+    return Promise.all(USER_PROVIDERS.map(async provider => {
       const platform = await getRuntime(provider);
       const row = rows.find(item => item.provider === provider);
       const custom = row?.accessMode === "CUSTOM";
@@ -174,14 +180,14 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
   }
 
   async function updateForUser(userId: string, providerValue: string, input: UserProviderInput) {
-    assertModelProvider(providerValue);
-    const provider = providerValue as ModelProviderName;
+    assertUserProvider(providerValue);
+    const provider = providerValue as UserProviderName;
     if (input.accessMode === "PLATFORM") {
-      await prisma.userProviderConfig.deleteMany({ where: { userId, provider } });
+      await db.userProviderConfig.deleteMany({ where: { userId, provider } });
       return (await listForUser(userId)).find(item => item.provider === provider)!;
     }
 
-    const current = await prisma.userProviderConfig.findUnique({ where: { userId_provider: { userId, provider } } });
+    const current = await db.userProviderConfig.findUnique({ where: { userId_provider: { userId, provider } } });
     const baseUrl = normalizeBaseUrl(input.baseUrl || "");
     const model = String(input.model || "").trim();
     if (!baseUrl || !model) throw new AppError("接口地址和模型名称不能为空。", "USER_PROVIDER_CONFIG_INVALID", 400);
@@ -191,7 +197,7 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
     if (input.apiKey?.trim()) apiKeyCiphertext = encryptSecret(input.apiKey.trim(), config.tokenEncryptionKey);
     if (!apiKeyCiphertext) throw new AppError("请填写 API Key，或保留已保存的密钥。", "USER_PROVIDER_API_KEY_MISSING", 400);
 
-    const row = await prisma.userProviderConfig.upsert({
+    const row = await db.userProviderConfig.upsert({
       where: { userId_provider: { userId, provider } },
       create: { userId, provider, accessMode: "CUSTOM", baseUrl, model, reasoningEffort, apiKeyCiphertext, enabled: input.enabled ?? true },
       update: { accessMode: "CUSTOM", baseUrl, model, reasoningEffort, apiKeyCiphertext, enabled: input.enabled ?? true }
@@ -210,7 +216,7 @@ export function createProviderConfigService({ config }: { config: AppConfig }) {
     };
   }
 
-  return { list, getRuntime, getRuntimeForUser, update, listForUser, updateForUser, assertProvider, assertModelProvider };
+  return { list, getRuntime, getRuntimeForUser, update, listForUser, updateForUser, assertProvider, assertModelProvider, assertUserProvider };
 }
 
 function normalizeBaseUrl(value: string) {
